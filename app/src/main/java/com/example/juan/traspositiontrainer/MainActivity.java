@@ -1,9 +1,14 @@
 package com.example.juan.traspositiontrainer;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,6 +17,18 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*llamo a la base de datos*/
+       DBManager db=new DBManager(this);
+
+       Cursor c=db.getKeys();
+
+
+
+        Toast.makeText(this, c.getCount()+ " registros devueltos" , Toast.LENGTH_LONG).show();
+
+
+
     }
 
     @Override
