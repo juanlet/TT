@@ -12,7 +12,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 
 public class MainActivity extends ActionBarActivity {
-//comment2
+//comment3
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
