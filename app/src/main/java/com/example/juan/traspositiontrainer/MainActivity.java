@@ -12,7 +12,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 
 public class MainActivity extends ActionBarActivity {
-
+//comment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
 
         Toast.makeText(this, c.getCount()+ " registros devueltos" , Toast.LENGTH_LONG).show();
 
-
+//
 
     }
 
