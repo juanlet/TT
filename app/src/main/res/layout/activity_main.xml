@@ -65,4 +65,49 @@
         android:layout_alignRight="@+id/statistics"
         android:layout_alignEnd="@+id/statistics" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Key"
+        android:id="@+id/key_text"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="34dp"
+        android:layout_above="@+id/mode_spinner"
+        android:layout_toLeftOf="@+id/notes_quiz"
+        android:layout_toStartOf="@+id/notes_quiz" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/key_spinner"
+        android:spinnerMode="dropdown"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_above="@+id/mode_spinner"
+        android:layout_toRightOf="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Mode"
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_above="@+id/notes_quiz"
+        android:layout_alignLeft="@+id/key_text"
+        android:layout_alignStart="@+id/key_text"
+        android:layout_marginBottom="25dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mode_spinner"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignLeft="@+id/key_spinner"
+        android:layout_alignStart="@+id/key_spinner"
+        android:spinnerMode="dropdown" />
+
 </RelativeLayout>
