@@ -15,7 +15,41 @@ import android.widget.Toast;
    //  c)Nivel de dificultad(Facil:solo escala mayor, Normal: Escala Mayor y menor natural,
    //  Dificil: Escala Mayor, Escala Menor natural, Escala Menor Armónica, Escala Menor Melódica)
 public class MyDialogFragment extends DialogFragment{
+/*
+poner spinner con las opciones, rescatar sus valores y guardarlos en el shared preferences para recuperarlos desde otros lados de la aplicación, es como las variables de sesión en PHP
 
+Para guardar los valores
+
+RadioGroup g = (RadioGroup) findViewById(R.id.prefgroup);
+
+int selected = g.getCheckedRadioButtonId();
+
+RadioButton b = (RadioButton) findViewById(selected);
+
+String selectedValue = (String) b.getText();
+
+SharedPreferences myPrefs = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
+
+SharedPreferences.Editor prefsEditor = myPrefs.edit();
+
+prefsEditor.putString("bgcolor", selectedValue);
+
+prefsEditor.commit();
+
+
+--------------
+
+SharedPreferences myPrefs2 = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
+
+String prefName = myPrefs2.getString("bgcolor", "Blue");
+
+
+Para recuperarlo desde otro lado
+
+
+
+
+ */
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
