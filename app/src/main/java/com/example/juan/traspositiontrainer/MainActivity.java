@@ -1,5 +1,6 @@
 package com.example.juan.traspositiontrainer;
 
+import android.app.DialogFragment;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -13,10 +14,15 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class MainActivity extends ActionBarActivity {
 //comment3
+
+    TinyDB tinydb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         /*llamo a la base de datos*/
        DBManager db=new DBManager(this);
@@ -47,6 +53,11 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            DialogFragment myFragment = new MyDialogFragment();
+
+                myFragment.show(getFragmentManager(), "theDialog");
+
             return true;
         }else if (id== R.id.exit_app){
             finish();
