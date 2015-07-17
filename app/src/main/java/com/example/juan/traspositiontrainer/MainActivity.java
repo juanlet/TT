@@ -15,7 +15,6 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 public class MainActivity extends ActionBarActivity {
 //comment3
 
-    TinyDB tinydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

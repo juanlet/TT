@@ -12,7 +12,7 @@ import android.widget.Toast;
 //Este es el popup que va a saltar cuando la persona toque en el icono Settings de la barra superior
     // se va a elegir a)El timer de 5 o 10 segundos
    //  b)La tonalidad a elegir(una de las opciones va a ser modo random, que va a ser el modo por default)
-   //  c)Nivel de dificultad(Fácil:solo escala mayor, Normal: Escala Mayor y menor natural,
+   //  c)Nivel de dificultad(Facil:solo escala mayor, Normal: Escala Mayor y menor natural,
    //  Dificil: Escala Mayor, Escala Menor natural, Escala Menor Armónica, Escala Menor Melódica)
 public class MyDialogFragment extends DialogFragment{
 
@@ -28,7 +28,7 @@ public class MyDialogFragment extends DialogFragment{
         theDialog.setTitle("Game Settings");
 
         // Contenido del popup
-        theDialog.setMessage("Acá van los spinners con las preferencias de usuario");
+        theDialog.setMessage("en este lugar van los spinners con las preferencias de usuario");
 
         // Botón ok
         theDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
