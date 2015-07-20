@@ -2,14 +2,11 @@ package com.example.juan.traspositiontrainer;
 
 import android.app.DialogFragment;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -24,7 +21,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         /*llamo a la base de datos*/
-       DBManager db=new DBManager(this);
+       KeyManager db=new KeyManager(this);
 
        Cursor c=db.getKeys();
 
