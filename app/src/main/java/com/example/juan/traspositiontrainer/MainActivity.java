@@ -20,14 +20,14 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-        /*llamo a la base de datos*/
+        /*llamo a la base de datos
        KeyManager db=new KeyManager(this);
 
        Cursor c=db.getKeys();
 
 
 
-        Toast.makeText(this, c.getCount()+ " registros devueltos" , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, c.getCount()+ " registros devueltos" , Toast.LENGTH_LONG).show();*/
 
 //
 

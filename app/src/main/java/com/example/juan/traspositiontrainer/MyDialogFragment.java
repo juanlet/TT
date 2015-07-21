@@ -13,10 +13,10 @@ import android.widget.Toast;
     // se va a elegir a)El timer de 5 o 10 segundos
    //  b)La tonalidad a elegir(una de las opciones va a ser modo random, que va a ser el modo por default)
    //  c)Nivel de dificultad(Facil:solo escala mayor, Normal: Escala Mayor y menor natural,
-   //  Dificil: Escala Mayor, Escala Menor natural, Escala Menor Armónica, Escala Menor Melódica)
+   //  Dificil: Escala Mayor, Escala Menor natural, Escala Menor Armï¿½nica, Escala Menor Melï¿½dica)
 public class MyDialogFragment extends DialogFragment{
 /*
-poner spinner con las opciones, rescatar sus valores y guardarlos en el shared preferences para recuperarlos desde otros lados de la aplicación, es como las variables de sesión en PHP
+poner spinner con las opciones, rescatar sus valores y guardarlos en el shared preferences para recuperarlos desde otros lados de la aplicaciï¿½n, es como las variables de sesiï¿½n en PHP
 
 Para guardar los valores
 
@@ -55,16 +55,16 @@ Para recuperarlo desde otro lado
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // Se crea el popUp
-        // getActivity() returna a que pantalla esta asociada este popup(también llamado fragment)
+        // getActivity() returna a que pantalla esta asociada este popup(tambiï¿½n llamado fragment)
         AlertDialog.Builder theDialog = new AlertDialog.Builder(getActivity());
 
-        // Título del popup
+        // Tï¿½tulo del popup
         theDialog.setTitle("Game Settings");
 
         // Contenido del popup
-        theDialog.setMessage("en este lugar van los spinners con las preferencias de usuario");
+        theDialog.setMessage("en este lugar van los spinners con las preferencias de");
 
-        // Botón ok
+        // Botï¿½n ok
         theDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -74,7 +74,7 @@ Para recuperarlo desde otro lado
             }
         });
 
-        // Texto para el botón de cancelar
+        // Texto para el botï¿½n de cancelar
         theDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

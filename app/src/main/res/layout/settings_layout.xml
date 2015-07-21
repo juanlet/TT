@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_time_spinner"
+        android:spinnerMode="dropdown"
+        android:entries="@array/game_time"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_difficulty_spinner"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dropdown"
+        android:entries="@array/game_difficulty"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/answer_time_spinner"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dropdown"
+        android:entries="@array/answer_time"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/key_spinner"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dropdown"
+        android:entries="@array/key_spinner"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scale_spinner"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dropdown"
+        android:entries="@array/scale_spinner"/>
+</LinearLayout>

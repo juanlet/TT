@@ -6,31 +6,31 @@
     <string name="action_exit">Exit</string>
     
     
-    <string-array name="question-time">
+    <string-array name="answer_time">
         <item>5 seconds</item>
         <item>10 seconds</item>
     </string-array>
 
-    <string-array name="game-time">
+    <string-array name="game_time">
         <item>2 minutes</item>
         <item>5 minutes</item>
         <item>10 minutes</item>
     </string-array>
 
-    <string-array name="game-difficulty">
+    <string-array name="game_difficulty">
         <item>Easy</item>
         <item>Normal</item>
         <item>Hard</item>
     </string-array>
 
-    <string-array name="scale-spinner">
+    <string-array name="scale_spinner">
         <item>Major</item>
         <item>Natural Minor</item>
         <item>Harmonic Minor</item>
         <item>Melodic Minor</item>
     </string-array>
 
-    <string-array name="key-spinner">
+    <string-array name="key_spinner">
         <item>Random</item>
         <item>C</item>
         <item>G</item>
