@@ -3,12 +3,38 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Game Settings"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/settings_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Game Time:"
+        android:id="@+id/game_time_text"
+        android:layout_gravity="center_horizontal"/>
+
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/game_time_spinner"
         android:spinnerMode="dropdown"
-        android:entries="@array/game_time"/>
+        android:entries="@array/game_time"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Difficulty"
+        android:id="@+id/game_difficulty_text"
+        android:layout_gravity="center_horizontal"/>
 
     <Spinner
         android:layout_width="match_parent"
@@ -16,7 +42,16 @@
         android:id="@+id/game_difficulty_spinner"
         android:layout_gravity="center_horizontal"
         android:spinnerMode="dropdown"
-        android:entries="@array/game_difficulty"/>
+        android:entries="@array/game_difficulty"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Answer Time"
+        android:id="@+id/answer_time_text"
+        android:layout_gravity="center_horizontal"/>
 
     <Spinner
         android:layout_width="match_parent"
@@ -26,13 +61,30 @@
         android:spinnerMode="dropdown"
         android:entries="@array/answer_time"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Key"
+        android:id="@+id/key_text"
+        android:layout_gravity="center_horizontal"/>
+
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/key_spinner"
         android:layout_gravity="center_horizontal"
         android:spinnerMode="dropdown"
-        android:entries="@array/key_spinner"/>
+        android:entries="@array/key_spinner"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Scale"
+        android:id="@+id/scale_text"
+        android:layout_gravity="center_horizontal"/>
 
     <Spinner
         android:layout_width="match_parent"

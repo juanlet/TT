@@ -33,7 +33,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Notes Quiz"
+            android:text="@string/notes_quiz_button"
             android:id="@+id/notes_quiz"
             android:layout_gravity="bottom"
             android:layout_above="@+id/chords_quiz"
@@ -45,7 +45,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="CHORDS QUIZ"
+            android:text="@string/chords_quiz_button"
             android:id="@+id/chords_quiz"
             android:layout_gravity="bottom"
             android:layout_above="@+id/button3"
@@ -57,7 +57,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="CHORD PROGRESSIONS QUIZ"
+            android:text="@string/chord_progression_button"
             android:id="@+id/button3"
             android:layout_gravity="bottom"
             android:layout_above="@+id/statistics"
@@ -66,7 +66,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Player Stats"
+            android:text="@string/player_stats_button"
             android:id="@+id/statistics"
             android:layout_gravity="bottom"
             android:layout_above="@+id/faq"
@@ -78,7 +78,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="FAQ"
+            android:text="@string/faq_button"
             android:id="@+id/faq"
             android:layout_gravity="bottom"
             android:layout_marginBottom="22dp"

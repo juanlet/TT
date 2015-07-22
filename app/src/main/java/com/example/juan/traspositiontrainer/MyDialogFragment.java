@@ -3,6 +3,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.LayoutInflater;
@@ -10,37 +11,49 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * Created by Juan on 16/07/2015.
  */
 //Este es el popup que va a saltar cuando la persona toque en el icono Settings de la barra superior
-    // se va a elegir a)El timer de 5 o 10 segundos
-   //  b)La tonalidad a elegir(una de las opciones va a ser modo random, que va a ser el modo por default)
-   //  c)Nivel de dificultad(Facil:solo escala mayor, Normal: Escala Mayor y menor natural,
-   //  Dificil: Escala Mayor, Escala Menor natural, Escala Menor Arm�nica, Escala Menor Mel�dica)
+
 public class MyDialogFragment  extends DialogFragment {
+
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.settings_layout, null);
+        final LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.settings_layout, null);
+        final SharedPreferences pref = getActivity().getSharedPreferences("Mypref",0);
 
-        Spinner game_time_spinner=(Spinner)layout.findViewById(R.id.game_time_spinner);
-        Spinner game_difficulty_spinner=(Spinner)layout.findViewById(R.id.game_difficulty_spinner);
-        Spinner answer_time_spinner=(Spinner)layout.findViewById(R.id.answer_time_spinner);
-        Spinner key_spinner=(Spinner)layout.findViewById(R.id.key_spinner);
+        //creo las variables de los spinners
+        final Spinner game_time_spinner=(Spinner)layout.findViewById(R.id.game_time_spinner);
+        final Spinner game_difficulty_spinner=(Spinner)layout.findViewById(R.id.game_difficulty_spinner);
+        final Spinner answer_time_spinner=(Spinner)layout.findViewById(R.id.answer_time_spinner);
+        final Spinner key_spinner=(Spinner)layout.findViewById(R.id.key_spinner);
         final Spinner scale_spinner=(Spinner)layout.findViewById(R.id.scale_spinner);
+
+        final TextView scaleText= (TextView) layout.findViewById(R.id.scale_text);
+
+        //setear los spinners al valor que tenga SharedPreferences
+
+        game_time_spinner.setSelection(pref.getInt("gameTimePosition",0));
+        game_difficulty_spinner.setSelection(pref.getInt("gameDifficultyPosition",0));
+        answer_time_spinner.setSelection(pref.getInt("answerTimePosition",0));
+        key_spinner.setSelection(pref.getInt("keyPosition",0));
+        scale_spinner.setSelection(pref.getInt("scalePosition",0));
+
 
         // Se crea el popUp
         // getActivity() returna a que pantalla esta asociada este popup(tambi�n llamado fragment)
         AlertDialog.Builder theDialog = new AlertDialog.Builder(getActivity());
 
         // T�tulo del popup
-        theDialog.setTitle("Game Settings");
+        //theDialog.setTitle("Game Settings");
 
         // Contenido del popup
         //theDialog.setMessage("en este lugar van los spinners con las preferencias de");
@@ -53,17 +66,20 @@ public class MyDialogFragment  extends DialogFragment {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+  //Si el spinner de Key esta seteado en Random esconde el titulo del spinner de Scale y el spinner de Scale
                     if (position == 0){
                         scale_spinner.setVisibility(View.GONE);
+                        scaleText.setVisibility(View.GONE);
                     } else {
                         scale_spinner.setVisibility(View.VISIBLE);
+                        scaleText.setVisibility(View.VISIBLE);
                     }
 
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    
+
 
                 }
         });
@@ -73,8 +89,40 @@ public class MyDialogFragment  extends DialogFragment {
         theDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //que hacer si el usuario toca OK, guardo en TinyDB las preferencias de usuario
-                Toast.makeText(getActivity(), "Clicked OK", Toast.LENGTH_SHORT).show();
+                //que hacer si el usuario toca OK
+
+                String gameTime = (String) game_time_spinner.getSelectedItem().toString();
+                String gameDifficulty = (String) game_difficulty_spinner.getSelectedItem().toString();
+                String answerTime = (String) answer_time_spinner.getSelectedItem().toString();
+                String key = (String) key_spinner.getSelectedItem().toString();
+                String scale = (String) scale_spinner.getSelectedItem().toString();
+
+                int gameTimePosition= game_time_spinner.getSelectedItemPosition();
+                int gameDifficultyPosition= game_difficulty_spinner.getSelectedItemPosition();
+                int answerTimePosition= answer_time_spinner.getSelectedItemPosition();
+                int keyPosition= key_spinner.getSelectedItemPosition();
+                int scalePosition= scale_spinner.getSelectedItemPosition();
+
+                //guardo en sharedPreferences los valores que quedaron seteados en los spinners cuando el usuario tocó OK
+                SharedPreferences.Editor editor = pref.edit();
+
+                editor.putString("gameTime", gameTime);
+                editor.putString("gameDifficulty", gameDifficulty);
+                editor.putString("answerTime", answerTime);
+                editor.putString("key", key);
+                editor.putString("scale", scale);
+
+               editor.putInt("gameTimePosition", gameTimePosition);
+               editor.putInt("gameDifficultyPosition",gameDifficultyPosition);
+               editor.putInt("answerTimePosition",answerTimePosition);
+               editor.putInt("keyPosition",keyPosition);
+               editor.putInt("scalePosition",scalePosition);
+
+                editor.commit();
+
+
+
+                Toast.makeText(getActivity(), "Settings Saved ", Toast.LENGTH_SHORT).show();
 
             }
         });
