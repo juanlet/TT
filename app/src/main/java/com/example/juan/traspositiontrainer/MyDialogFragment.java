@@ -4,6 +4,12 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.internal.widget.AdapterViewCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
@@ -14,45 +20,20 @@ import android.widget.Toast;
    //  b)La tonalidad a elegir(una de las opciones va a ser modo random, que va a ser el modo por default)
    //  c)Nivel de dificultad(Facil:solo escala mayor, Normal: Escala Mayor y menor natural,
    //  Dificil: Escala Mayor, Escala Menor natural, Escala Menor Arm�nica, Escala Menor Mel�dica)
-public class MyDialogFragment extends DialogFragment{
-/*
-poner spinner con las opciones, rescatar sus valores y guardarlos en el shared preferences para recuperarlos desde otros lados de la aplicaci�n, es como las variables de sesi�n en PHP
+public class MyDialogFragment  extends DialogFragment {
 
-Para guardar los valores
-
-RadioGroup g = (RadioGroup) findViewById(R.id.prefgroup);
-
-int selected = g.getCheckedRadioButtonId();
-
-RadioButton b = (RadioButton) findViewById(selected);
-
-String selectedValue = (String) b.getText();
-
-SharedPreferences myPrefs = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
-
-SharedPreferences.Editor prefsEditor = myPrefs.edit();
-
-prefsEditor.putString("bgcolor", selectedValue);
-
-prefsEditor.commit();
-
-
---------------
-
-SharedPreferences myPrefs2 = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
-
-String prefName = myPrefs2.getString("bgcolor", "Blue");
-
-
-Para recuperarlo desde otro lado
-
-
-
-
- */
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.settings_layout, null);
+
+        Spinner game_time_spinner=(Spinner)layout.findViewById(R.id.game_time_spinner);
+        Spinner game_difficulty_spinner=(Spinner)layout.findViewById(R.id.game_difficulty_spinner);
+        Spinner answer_time_spinner=(Spinner)layout.findViewById(R.id.answer_time_spinner);
+        Spinner key_spinner=(Spinner)layout.findViewById(R.id.key_spinner);
+        final Spinner scale_spinner=(Spinner)layout.findViewById(R.id.scale_spinner);
 
         // Se crea el popUp
         // getActivity() returna a que pantalla esta asociada este popup(tambi�n llamado fragment)
@@ -62,7 +43,31 @@ Para recuperarlo desde otro lado
         theDialog.setTitle("Game Settings");
 
         // Contenido del popup
-        theDialog.setMessage("en este lugar van los spinners con las preferencias de");
+        //theDialog.setMessage("en este lugar van los spinners con las preferencias de");
+
+        theDialog.setView(layout);
+
+        key_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (position == 0){
+                        scale_spinner.setVisibility(View.GONE);
+                    } else {
+                        scale_spinner.setVisibility(View.VISIBLE);
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    
+
+                }
+        });
+
 
         // Bot�n ok
         theDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -78,7 +83,7 @@ Para recuperarlo desde otro lado
         theDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-             //que hacer si el usuario toca cancel, no guardo nada, las preferencias quedan como estaban
+                //que hacer si el usuario toca cancel, no guardo nada, las preferencias quedan como estaban
                 Toast.makeText(getActivity(), "Clicked Cancel", Toast.LENGTH_SHORT).show();
 
             }
@@ -88,4 +93,5 @@ Para recuperarlo desde otro lado
         return theDialog.create();
 
     }
-}
+
+ }
