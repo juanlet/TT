@@ -8,6 +8,7 @@
     <string name="chord_progression_button">CHORD PROGRESSIONS QUIZ</string>
     <string name="player_stats_button">Player Stats</string>
     <string name="faq_button">FAQ</string>
+    <string name="w7_text">With 7ths(Only for Chord Mode)</string>
 
 
     <string-array name="answer_time">
@@ -26,6 +27,11 @@
         <item>Easy</item>
         <item>Normal</item>
         <item>Hard</item>
+    </string-array>
+
+    <string-array name="w_7th">
+        <item>Without 7ths</item>
+        <item>With 7ths</item>
     </string-array>
 
     <string-array name="scale_spinner">

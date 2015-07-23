@@ -65,6 +65,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/w7_text"
+        android:id="@+id/w_7_text"
+        android:layout_gravity="center_horizontal"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/w_7th_spinner"
+        android:entries="@array/w_7th"
+        android:spinnerMode="dialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Key"
         android:id="@+id/key_text"
         android:layout_gravity="center_horizontal"/>
@@ -74,9 +90,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/key_spinner"
         android:layout_gravity="center_horizontal"
-        android:spinnerMode="dropdown"
-        android:entries="@array/key_spinner"
-        android:gravity="center"/>
+        android:spinnerMode="dialog"
+        android:entries="@array/key_spinner" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,6 +106,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/scale_spinner"
         android:layout_gravity="center_horizontal"
-        android:spinnerMode="dropdown"
+        android:spinnerMode="dialog"
         android:entries="@array/scale_spinner"/>
 </LinearLayout>

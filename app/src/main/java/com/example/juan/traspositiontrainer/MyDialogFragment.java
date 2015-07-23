@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class MyDialogFragment  extends DialogFragment {
         final Spinner game_time_spinner=(Spinner)layout.findViewById(R.id.game_time_spinner);
         final Spinner game_difficulty_spinner=(Spinner)layout.findViewById(R.id.game_difficulty_spinner);
         final Spinner answer_time_spinner=(Spinner)layout.findViewById(R.id.answer_time_spinner);
+        final Spinner with_7ths_spinner=(Spinner)layout.findViewById(R.id.w_7th_spinner);
         final Spinner key_spinner=(Spinner)layout.findViewById(R.id.key_spinner);
         final Spinner scale_spinner=(Spinner)layout.findViewById(R.id.scale_spinner);
 
@@ -44,6 +46,7 @@ public class MyDialogFragment  extends DialogFragment {
         game_time_spinner.setSelection(pref.getInt("gameTimePosition",0));
         game_difficulty_spinner.setSelection(pref.getInt("gameDifficultyPosition",0));
         answer_time_spinner.setSelection(pref.getInt("answerTimePosition",0));
+        with_7ths_spinner.setSelection(pref.getInt("with7thsPosition",0));
         key_spinner.setSelection(pref.getInt("keyPosition",0));
         scale_spinner.setSelection(pref.getInt("scalePosition",0));
 
@@ -94,12 +97,15 @@ public class MyDialogFragment  extends DialogFragment {
                 String gameTime = (String) game_time_spinner.getSelectedItem().toString();
                 String gameDifficulty = (String) game_difficulty_spinner.getSelectedItem().toString();
                 String answerTime = (String) answer_time_spinner.getSelectedItem().toString();
+                String with7ths=(String)with_7ths_spinner.getSelectedItem().toString();
                 String key = (String) key_spinner.getSelectedItem().toString();
                 String scale = (String) scale_spinner.getSelectedItem().toString();
+
 
                 int gameTimePosition= game_time_spinner.getSelectedItemPosition();
                 int gameDifficultyPosition= game_difficulty_spinner.getSelectedItemPosition();
                 int answerTimePosition= answer_time_spinner.getSelectedItemPosition();
+                int with7thsPosition=with_7ths_spinner.getSelectedItemPosition();
                 int keyPosition= key_spinner.getSelectedItemPosition();
                 int scalePosition= scale_spinner.getSelectedItemPosition();
 
@@ -110,15 +116,28 @@ public class MyDialogFragment  extends DialogFragment {
                 editor.putString("gameDifficulty", gameDifficulty);
                 editor.putString("answerTime", answerTime);
                 editor.putString("key", key);
+                editor.putString("with7ths",with7ths);
+                editor.putString("scale", scale);
                 editor.putString("scale", scale);
 
-               editor.putInt("gameTimePosition", gameTimePosition);
+
+                editor.putInt("gameTimePosition", gameTimePosition);
                editor.putInt("gameDifficultyPosition",gameDifficultyPosition);
                editor.putInt("answerTimePosition",answerTimePosition);
+                editor.putInt("with7thsPosition",with7thsPosition);
                editor.putInt("keyPosition",keyPosition);
                editor.putInt("scalePosition",scalePosition);
 
                 editor.commit();
+
+//prueba consultas base
+                KeyManager db=new KeyManager(getActivity().getApplicationContext());
+
+                Cursor c=db.getNotes();
+
+
+
+                Toast.makeText(getActivity().getApplicationContext(), c.getCount()+ " registros devueltos" , Toast.LENGTH_LONG).show();
 
 
 
