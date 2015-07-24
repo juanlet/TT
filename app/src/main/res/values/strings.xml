@@ -59,6 +59,11 @@
         <item>Gb</item>
         <item>Cb</item>
      </string-array>
+    <string name="title_activity_game">Transposition Trainer</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_stats">User Stats</string>
+    <string name="title_activity_faq">Faq</string>
 
 
 </resources>

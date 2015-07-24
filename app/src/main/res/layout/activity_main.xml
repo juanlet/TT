@@ -40,7 +40,8 @@
             android:layout_alignLeft="@+id/chords_quiz"
             android:layout_alignStart="@+id/chords_quiz"
             android:layout_alignRight="@+id/button3"
-            android:layout_alignEnd="@+id/button3" />
+            android:layout_alignEnd="@+id/button3"
+            android:onClick="goToGame"/>
 
         <Button
             android:layout_width="fill_parent"
@@ -52,16 +53,18 @@
             android:layout_alignLeft="@+id/button3"
             android:layout_alignStart="@+id/button3"
             android:layout_alignRight="@+id/button3"
-            android:layout_alignEnd="@+id/button3" />
+            android:layout_alignEnd="@+id/button3"
+            android:onClick="goToGame"/>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/chord_progression_button"
-            android:id="@+id/button3"
+            android:id="@+id/chord_progressions_quiz"
             android:layout_gravity="bottom"
             android:layout_above="@+id/statistics"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:onClick="goToGame"/>
 
         <Button
             android:layout_width="fill_parent"
@@ -73,7 +76,8 @@
             android:layout_alignLeft="@+id/button3"
             android:layout_alignStart="@+id/button3"
             android:layout_alignRight="@+id/button3"
-            android:layout_alignEnd="@+id/button3" />
+            android:layout_alignEnd="@+id/button3"
+            android:onClick="goToStats"/>
 
         <Button
             android:layout_width="fill_parent"
@@ -86,7 +90,8 @@
             android:layout_alignLeft="@+id/statistics"
             android:layout_alignStart="@+id/statistics"
             android:layout_alignRight="@+id/statistics"
-            android:layout_alignEnd="@+id/statistics" />
+            android:layout_alignEnd="@+id/statistics"
+            android:onClick="goToFaq"/>
 
 
     </LinearLayout>
