@@ -20,19 +20,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        //llamo a la base de datos
-     /*  KeyManager db=new KeyManager(this);
-
-       Cursor c=db.getNotes();
-
-
-
-        Toast.makeText(this, c.getCount()+ " registros devueltos" , Toast.LENGTH_LONG).show();*/
-
-
-
     }
 
     @Override

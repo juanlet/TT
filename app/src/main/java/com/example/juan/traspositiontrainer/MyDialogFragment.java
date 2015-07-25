@@ -115,9 +115,8 @@ public class MyDialogFragment  extends DialogFragment {
                 editor.putString("gameTime", gameTime);
                 editor.putString("gameDifficulty", gameDifficulty);
                 editor.putString("answerTime", answerTime);
+               editor.putString("with7ths",with7ths);
                 editor.putString("key", key);
-                editor.putString("with7ths",with7ths);
-                editor.putString("scale", scale);
                 editor.putString("scale", scale);
 
 
@@ -131,14 +130,6 @@ public class MyDialogFragment  extends DialogFragment {
                 editor.commit();
 
 //prueba consultas base
-                KeyManager db=new KeyManager(getActivity().getApplicationContext());
-
-                Cursor c=db.getNotes();
-
-
-
-                Toast.makeText(getActivity().getApplicationContext(), c.getCount()+ " registros devueltos" , Toast.LENGTH_LONG).show();
-
 
 
                 Toast.makeText(getActivity(), "Settings Saved ", Toast.LENGTH_SHORT).show();

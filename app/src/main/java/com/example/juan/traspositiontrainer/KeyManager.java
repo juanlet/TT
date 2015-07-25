@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
+import android.util.Log;
 
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by Juan on 11/07/2015.
@@ -51,34 +53,66 @@ public class KeyManager extends SQLiteAssetHelper {
     }
 
 
-
-    public Cursor getNotes(){
+//returns notes
+    public ArrayList<MusicSQLRow> getNotes(){
 
         Cursor notes=null;
+        ArrayList<MusicSQLRow> result;
 
         if(key.equals("Random")){
 
-            notes = db.rawQuery("Select sd.description,k.degree,kd.description,nd.description " +
+            notes = db.rawQuery("Select sd.description scale_description,k.degree degree,kd.description key_description,nd.description note_description " +
                     "from keys k, keys_description kd, note_description nd, scales_description sd " +
-                    "where k.id_key=kd.id_key and k.id_note=nd.id_note and id_scale="+this.scaleSelectionDifficulty(gameDifficulty), null);
+                    "where k.id_key=kd.id_key and k.id_note=nd.id_note and k.id_scale=sd.id_scale and k.id_scale in ("+this.scaleSelectionDifficulty(gameDifficulty)+")", null);
+
+            result=this.buildArrayListQuiz(notes);
 
         }
 
         else{//el usuario seleccionó para practicar una escala en particular
 
-            notes = db.rawQuery("Select sd.description,k.degree,kd.description,nd.description" +
+            notes = db.rawQuery("Select sd.description scale_description,k.degree degree,kd.description key_description,nd.description note_description" +
                     " from keys k, keys_description kd, note_description nd, scales_description sd" +
                     " where k.id_key=kd.id_key and k.id_note=nd.id_note and k.id_scale=sd.id_scale and sd.description='"+scale+"'" +
                     " and kd.description='"+key+"'", null);
 
+             result=this.buildArrayListQuiz(notes);
         }
 
 
-        return notes;
+        return result;
     }
 
-    public Cursor getChords(){
-        Cursor chords=null;
+    //build the ArrayList to return to the client Class Game
+    private ArrayList<MusicSQLRow> buildArrayListQuiz(Cursor notes) {
+
+        ArrayList<MusicSQLRow> packedArrayList = new ArrayList<MusicSQLRow>();
+
+        while (notes.moveToNext())
+        {
+            String scale = notes.getString(notes.getColumnIndex("scale_description"));
+            String degree = notes.getString(notes.getColumnIndex("degree"));
+            String key = notes.getString(notes.getColumnIndex("key_description"));
+            String note = notes.getString(notes.getColumnIndex("note_description"));
+
+
+            try
+            {
+                MusicSQLRow musicRow = new MusicSQLRow(scale,degree,key,note);
+                packedArrayList.add(musicRow);
+            }
+            catch (Exception e) {
+                Log.e("Error", "Error " + e.toString());
+            }
+
+        }
+        packedArrayList.size();
+        return packedArrayList;
+
+    }
+
+    public ArrayList<MusicSQLRow> getChords(){
+        ArrayList<MusicSQLRow>  chords=null;
 
 
         return chords;

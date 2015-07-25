@@ -2,33 +2,170 @@ package com.example.juan.traspositiontrainer;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 
 public class Game extends ActionBarActivity {
 
-String message;
+private String intentExtras;
+private ArrayList<MusicSQLRow> quizList;
+    private TextView gameCountDown,answerCountDown;
+    SharedPreferences pref;
+    String gameDifficulty, key, scale,with7ths;
+    long gameTime,answerTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        Intent intent = getIntent();
-        Bundle var = getIntent().getExtras();
-        if(var != null){
-            message = var.getString("ButtonPressed");
-        }
-        //String message = intent.getStringExtra("ButtonPressed");
-        TextView textView =(TextView) findViewById(R.id.intent);
-        textView.setTextSize(40);
-        textView.setText(message);
+        pref= this.getSharedPreferences("Mypref", 0);
+
+        gameDifficulty=pref.getString("gameDifficulty", "");
+        key=pref.getString("key","");
+        scale=pref.getString("scale","");
+        with7ths=pref.getString("with7ths", "");
+        gameTime=this.getMinutesInMilliseconds(pref.getString("gameTime", ""));
+        answerTime=this.getSecondsInMilliseconds(pref.getString("answerTime", ""));
+
+        gameCountDown=(TextView) findViewById(R.id.gameCountDown);
+        answerCountDown= (TextView) findViewById(R.id.answerCountdown);
+
+        //Me dice que botón presionó el usuario para poder definir que modo de juego corresponde
+        intentExtras=this.getIntentExtras();
+        //creo la base de datos
+        KeyManager db=new KeyManager(this);
+
+        //según el botón que haya sido presionado en el menú voy a traer determinados datos
+           quizList=this.getResourcesForGame(intentExtras, db);
+
+            //Toast.makeText(this, quizList.size() + " registros devueltos", Toast.LENGTH_LONG).show();
+
+         this.startGameTimer(gameCountDown, quizList);
 
 
     }
+
+    private void startGameTimer(final TextView gameCountDown, final ArrayList<MusicSQLRow> arrayQuiz) {
+// le agrego 2 segundos de delay para que le de tiempo al usuario de reaccionar
+
+
+        new CountDownTimer(gameTime,1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            gameCountDown.setText("Time Remaining: "+String.format("%d min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+
+                 // the questions begin adjusted by the SharedPreferences answer time, se abre otro thread para manejar la pregunta
+                this.askQuestion(arrayQuiz);
+
+            }
+
+            // handles just one question
+            private void askQuestion(ArrayList<MusicSQLRow> arrayQuiz) {
+
+                new CountDownTimer(answerTime,1000){
+
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                        answerCountDown.setText("Next Question in: "+ TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
+
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                }.start();
+
+
+            }
+
+            @Override
+            public void onFinish() {
+               //unhide buttons to go back to main menu or to play again(reset the activity, check if there's no problem with shared preferences when the activitie reloads)
+            }
+
+        }.start();
+
+    }
+
+
+    private long getMinutesInMilliseconds(String time) {
+        //the time is inicially in minutes
+        String firstWord = null;
+        long timeInMilliseconds;
+
+
+        if(time.contains(" ")){
+            firstWord= time.substring(0, time.indexOf(" "));
+        }
+
+        timeInMilliseconds= TimeUnit.MINUTES.toMillis(Integer.parseInt(firstWord));
+
+
+        return timeInMilliseconds;
+    }
+
+    private long getSecondsInMilliseconds(String time) {
+        //the time is inicially in minutes
+        String firstWord = null;
+        long timeInMilliseconds;
+
+
+        if(time.contains(" ")){
+            firstWord= time.substring(0, time.indexOf(" "));
+        }
+
+        timeInMilliseconds= TimeUnit.SECONDS.toMillis(Integer.parseInt(firstWord));
+
+
+        return timeInMilliseconds;
+    }
+
+    private ArrayList<MusicSQLRow> getResourcesForGame(String intentExtras,KeyManager db) {
+
+        ArrayList<MusicSQLRow> arrayListRowsFromDb=null;
+
+        if(intentExtras.equals("notes_quiz"))
+            arrayListRowsFromDb=db.getNotes();
+        else if(intentExtras.equals("chord_quiz"))
+            arrayListRowsFromDb=db.getChords();
+        else if (intentExtras.equals("chord_progressions_quiz"))
+            arrayListRowsFromDb=db.getChords();
+
+        return arrayListRowsFromDb;
+    }
+
+
+    private String getIntentExtras() {
+
+        Intent intent = getIntent();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            intentExtras = extras.getString("ButtonPressed");
+        }
+        return intentExtras;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +196,7 @@ String message;
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 
