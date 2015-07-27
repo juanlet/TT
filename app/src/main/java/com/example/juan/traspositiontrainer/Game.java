@@ -24,7 +24,8 @@ private ArrayList<MusicSQLRow> quizList;
     SharedPreferences pref;
     String gameDifficulty, key, scale,with7ths;
     long gameTime,answerTime;
-
+    CountDownTimer gameTimer, answerTimer;
+    boolean gameTimerIsRunning, answerTimerIsRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ private ArrayList<MusicSQLRow> quizList;
         gameTime=this.getMinutesInMilliseconds(pref.getString("gameTime", ""));
         answerTime=this.getSecondsInMilliseconds(pref.getString("answerTime", ""));
 
+
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
 
@@ -52,61 +54,64 @@ private ArrayList<MusicSQLRow> quizList;
 
             //Toast.makeText(this, quizList.size() + " registros devueltos", Toast.LENGTH_LONG).show();
 
-         this.startGameTimer(gameCountDown, quizList);
+        startGameTimer();
+        startAnswerTimer();
 
 
     }
 
-    private void startGameTimer(final TextView gameCountDown, final ArrayList<MusicSQLRow> arrayQuiz) {
-// le agrego 2 segundos de delay para que le de tiempo al usuario de reaccionar
 
+    public void startGameTimer(){
+        gameTimer = new CountDownTimer(gameTime, 1000){
 
-        new CountDownTimer(gameTime,1000){
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            gameCountDown.setText("Time Remaining: "+String.format("%d min, %d sec",
-                    TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-
-                 // the questions begin adjusted by the SharedPreferences answer time, se abre otro thread para manejar la pregunta
-                this.askQuestion(arrayQuiz);
-
+            @Override public void onTick(long millisUntilFinished) {
+                gameCountDown.setText("Time Remaining: " + String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
             }
 
-            // handles just one question
-            private void askQuestion(ArrayList<MusicSQLRow> arrayQuiz) {
-
-                new CountDownTimer(answerTime,1000){
-
-
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-
-                        answerCountDown.setText("Next Question in: "+ TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
-
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-                    }
-                }.start();
-
-
+            @Override public void onFinish() {
+                gameTimerIsRunning = false;
+              //  if(answerTimerIsRunning) answerTimer.cancel();
+               // handleEndOfTheGame();
             }
 
-            @Override
-            public void onFinish() {
-               //unhide buttons to go back to main menu or to play again(reset the activity, check if there's no problem with shared preferences when the activitie reloads)
-            }
-
-        }.start();
-
+        };
+        gameTimerIsRunning = true;
+        gameTimer.start();
     }
+
+    public void startAnswerTimer() {
+        if (answerTimer == null) {
+            answerTimer = new CountDownTimer(answerTime, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                    answerCountDown.setText("Next Question in: "+ TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
+                }
+
+                @Override
+                public void onFinish() {
+                    answerTimerIsRunning = false;
+
+                    if (gameTimerIsRunning) {
+                        //         loadNewQuestion();
+                               startAnswerTimer();
+                    }
+                }
+
+                ;
+            };
+            answerTimerIsRunning = true;
+            answerTimer.start();
+        }
+    }
+
+
+
+
 
 
     private long getMinutesInMilliseconds(String time) {
