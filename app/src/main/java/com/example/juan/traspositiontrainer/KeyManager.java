@@ -106,7 +106,7 @@ public class KeyManager extends SQLiteAssetHelper {
             }
 
         }
-        packedArrayList.size();
+       //packedArrayList.size();
         return packedArrayList;
 
     }

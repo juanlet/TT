@@ -13,25 +13,37 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
 
 
 public class Game extends ActionBarActivity {
 
 private String intentExtras;
 private ArrayList<MusicSQLRow> quizList;
-    private TextView gameCountDown,answerCountDown;
+    private TextView gameCountDown,answerCountDown,questionTextView;
     SharedPreferences pref;
-    String gameDifficulty, key, scale,with7ths;
+    String gameDifficulty, key, scale,with7ths, answer;
     long gameTime,answerTime;
     CountDownTimer gameTimer, answerTimer;
     boolean gameTimerIsRunning, answerTimerIsRunning;
+    private int[] lastQuestionsSelected;
+    int lastQuestionsIndex;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         pref= this.getSharedPreferences("Mypref", 0);
+       //if the random repeats the number of the 3 last questions it will generate another one until the number is not in the array
+        lastQuestionsSelected=new int[3];
+        //tracks the last element inserted
+        int lastQuestionsIndex=0;
+
+
 
         gameDifficulty=pref.getString("gameDifficulty", "");
         key=pref.getString("key","");
@@ -43,7 +55,7 @@ private ArrayList<MusicSQLRow> quizList;
 
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
-
+        questionTextView= (TextView) findViewById(R.id.question_TextView);
         //Me dice que botón presionó el usuario para poder definir que modo de juego corresponde
         intentExtras=this.getIntentExtras();
         //creo la base de datos
@@ -69,17 +81,22 @@ private ArrayList<MusicSQLRow> quizList;
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+
             }
 
             @Override public void onFinish() {
                 gameTimerIsRunning = false;
-              //  if(answerTimerIsRunning) answerTimer.cancel();
-               // handleEndOfTheGame();
+                if(answerTimerIsRunning) answerTimer.cancel();
+                handleEndOfTheGame();
             }
 
         };
         gameTimerIsRunning = true;
         gameTimer.start();
+    }
+
+    private void handleEndOfTheGame() {
+
     }
 
     public void startAnswerTimer() {
@@ -97,21 +114,88 @@ private ArrayList<MusicSQLRow> quizList;
                     answerTimerIsRunning = false;
 
                     if (gameTimerIsRunning) {
-                        //         loadNewQuestion();
-                               startAnswerTimer();
+                             loadNewQuestion();
+                             answerTimer.start();
                     }
                 }
 
-                ;
+
             };
             answerTimerIsRunning = true;
             answerTimer.start();
         }
     }
 
+    private void loadNewQuestion() {
+
+        String text=this.pickQuestion();
+
+        questionTextView.setText(text);
 
 
+    }
 
+    private String pickQuestion() {
+
+        //generate random number
+
+
+        int generatedQuestionNumber = this.generateRandomNumber();
+
+        //create MusicSQLRow object
+
+        MusicSQLRow question=null;
+
+        //fill the last 5 picked numbers android, if it's already in the array pick another one
+
+        while(Arrays.asList(lastQuestionsSelected).contains(generatedQuestionNumber)) {
+
+            generatedQuestionNumber = this.generateRandomNumber();
+
+
+        }
+
+
+         //generate question
+            question = quizList.get(generatedQuestionNumber);
+         //check if the array is full, it it's not I use the last index, otherwise I use the first first position which is the oldest
+            if(lastQuestionsIndex<=2){
+
+                lastQuestionsSelected[lastQuestionsIndex]=generatedQuestionNumber;
+                lastQuestionsIndex++;
+                if(lastQuestionsIndex==3)
+                    lastQuestionsIndex=0;
+
+            }
+
+        //generate question text
+
+        String questionResponse= this.generateQuestionText(question);
+        //return the question
+
+        return questionResponse;
+
+
+    }
+
+    private int generateRandomNumber(){
+
+        int min = 0;
+        int max = quizList.size();
+
+        Random random = new Random();
+
+        return random.nextInt(max - min) + min;
+
+    }
+
+    private String generateQuestionText(MusicSQLRow question){
+
+        return "Scale: "+ question.getScaleName()+" \n " +
+                "Key: "+question.getKeyName()+" \n " +
+                "Degree: "+question.getDegreeNumber();
+
+    }
 
 
     private long getMinutesInMilliseconds(String time) {
