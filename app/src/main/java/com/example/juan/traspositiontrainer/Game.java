@@ -228,19 +228,19 @@ private ArrayList<MusicSQLRow> quizList;
         String degreeNumber;
 
         switch (question.getDegreeNumber()) {
-            case "1":  degreeNumber = "1"+"st";
+            case "1":  degreeNumber = "1st";
                 break;
-            case "2":  degreeNumber = "2"+"nd";
+            case "2":  degreeNumber = "2nd";
                 break;
-            case "3":  degreeNumber = "3"+"rd";
+            case "3":  degreeNumber = "3rd";
                 break;
-            case "4":  degreeNumber = "4"+"th";
+            case "4":  degreeNumber = "4th";
                 break;
-            case "5":  degreeNumber = "5th"+"th";
+            case "5":  degreeNumber = "5th";
                 break;
-            case "6":  degreeNumber = "6"+"th";
+            case "6":  degreeNumber = "6th";
                 break;
-            case "7":  degreeNumber = 7+"th";
+            case "7":  degreeNumber = "7th";
                 break;
             default: degreeNumber = "Invalid degree";
                 break;
