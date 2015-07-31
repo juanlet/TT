@@ -1,6 +1,5 @@
 package com.example.juan.traspositiontrainer;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
@@ -8,9 +7,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,14 +23,17 @@ public class Game extends ActionBarActivity {
 
 private String intentExtras;
 private ArrayList<MusicSQLRow> quizList;
-    private TextView gameCountDown,answerCountDown,questionTextView;
+    private TextView gameCountDown,answerCountDown,questionTextView, pauseTextView;
     SharedPreferences pref;
     String gameDifficulty, key, scale,with7ths, answer;
-    long gameTime,answerTime;
+    long gameTime,answerTime, millisLeftGameBeforePause;
     CountDownTimer gameTimer, answerTimer;
     boolean gameTimerIsRunning, answerTimerIsRunning;
     private int[] lastQuestionsSelected;
     int lastQuestionsIndex;
+    Button startGameButton, restartGameButton, backToMenuButton;
+    WebView webViewFancySpinner;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -42,6 +45,7 @@ private ArrayList<MusicSQLRow> quizList;
         lastQuestionsSelected=new int[3];
         //tracks the last element inserted
         int lastQuestionsIndex=0;
+        editor = pref.edit();
 
 
 
@@ -56,6 +60,13 @@ private ArrayList<MusicSQLRow> quizList;
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
         questionTextView= (TextView) findViewById(R.id.question_TextView);
+        pauseTextView=(TextView) findViewById(R.id.game_paused_textview);
+        startGameButton= (Button) findViewById(R.id.start_game_button);
+        restartGameButton=(Button) findViewById(R.id.restart_game_button);
+        backToMenuButton= (Button) findViewById(R.id.back_to_menu_button);
+        webViewFancySpinner= (WebView) findViewById(R.id.fancySpinner);
+
+
         //Me dice que botón presionó el usuario para poder definir que modo de juego corresponde
         intentExtras=this.getIntentExtras();
         //creo la base de datos
@@ -66,17 +77,26 @@ private ArrayList<MusicSQLRow> quizList;
 
             //Toast.makeText(this, quizList.size() + " registros devueltos", Toast.LENGTH_LONG).show();
 
-        startGameTimer();
-        startAnswerTimer();
-
+       this.hideEverythingBeggining();
 
     }
 
 
-    public void startGameTimer(){
-        gameTimer = new CountDownTimer(gameTime, 1000){
+//this is the method that triggers when the user pushes the Start Game Button
+    public void startGame(View view){
+        showEverythingBeginning();
+        startGameTimer(gameTime);
+        startAnswerTimer(answerTime);
+    }
+
+
+
+    public void startGameTimer(long time){
+        gameTimer = new CountDownTimer(time, 500){
 
             @Override public void onTick(long millisUntilFinished) {
+                //editor.putLong("milisRemainingGame", millisUntilFinished);
+                millisLeftGameBeforePause=millisUntilFinished;
                 gameCountDown.setText("Time Remaining: " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
@@ -86,8 +106,8 @@ private ArrayList<MusicSQLRow> quizList;
 
             @Override public void onFinish() {
                 gameTimerIsRunning = false;
-                if(answerTimerIsRunning) answerTimer.cancel();
-                handleEndOfTheGame();
+            //    if(answerTimerIsRunning && !isPaused) answerTimer.cancel();
+             //   endOfTheGame();
             }
 
         };
@@ -95,17 +115,32 @@ private ArrayList<MusicSQLRow> quizList;
         gameTimer.start();
     }
 
-    private void handleEndOfTheGame() {
+    private void endOfTheGame() {
+
+        showButtonsEndOfGame();
 
     }
 
-    public void startAnswerTimer() {
+    public void restartGame(View view){
+        this.startGame(view);
+    }
+
+    public void backtoMenu(View view){
+        finish();
+     }
+
+
+
+    public void startAnswerTimer(long time) {
+        //load the first question
+        loadNewQuestion();
+
         if (answerTimer == null) {
-            answerTimer = new CountDownTimer(answerTime, 1000) {
+            answerTimer = new CountDownTimer(time, 100) {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-
+                 //   editor.putLong("milisRemainingAnswer", millisUntilFinished);
                     answerCountDown.setText("Next Question in: "+ TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
                 }
 
@@ -114,6 +149,7 @@ private ArrayList<MusicSQLRow> quizList;
                     answerTimerIsRunning = false;
 
                     if (gameTimerIsRunning) {
+                             //load the next question
                              loadNewQuestion();
                              answerTimer.start();
                     }
@@ -256,10 +292,11 @@ private ArrayList<MusicSQLRow> quizList;
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_game, menu);
         return true;
     }
 
@@ -271,11 +308,22 @@ private ArrayList<MusicSQLRow> quizList;
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.pause_game) {
+           if(gameTimerIsRunning)
+           {//cancel timers
 
-            DialogFragment myFragment = new MyDialogFragment();
+            this.onPause();
 
-            myFragment.show(getFragmentManager(), "theDialog");
+           //hide everything and show pause message and change icon to play icon
+            this.hidePause();
+
+           } else
+           {
+                this.onResumeGame();
+
+
+           }
+
 
             return true;
         }else if (id== R.id.exit_app){
@@ -286,9 +334,93 @@ private ArrayList<MusicSQLRow> quizList;
         return super.onOptionsItemSelected(item);
     }
 
+    private void onResumeGame() {
+
+
+        //recreate Timers and assing miliseconds remaning stored in SharedPreferences
+        this.startGameTimer(millisLeftGameBeforePause);
+       this.startAnswerTimer(answerTime);
+        //show everything when resume game
+        this.showEverythingDepaused();
+
+    }
+
+
+    public void onPause(){
+        gameTimerIsRunning = false;
+        answerTimerIsRunning=false;
+        gameTimer.cancel();
+        answerTimer.cancel();
+        gameTimer=null;
+        answerTimer=null;
+    }
 
 
 
+//funciones para ocultar o mostrar cosas
+
+    public void showEverythingDepaused(){
+
+        gameCountDown.setVisibility(View.VISIBLE);
+        answerCountDown.setVisibility(View.VISIBLE);
+        questionTextView.setVisibility(View.VISIBLE);
+        webViewFancySpinner.setVisibility(View.VISIBLE);
+        pauseTextView.setVisibility(View.GONE);
+
+
+    }
+
+    public void hideEverythingBeggining(){
+        gameCountDown.setVisibility(View.GONE);
+        answerCountDown.setVisibility(View.GONE);
+        questionTextView.setVisibility(View.GONE);
+        pauseTextView.setVisibility(View.GONE);
+        webViewFancySpinner.setVisibility(View.GONE);
+        restartGameButton.setVisibility(View.GONE);
+        backToMenuButton.setVisibility(View.GONE);
+
+        //the button stays visible
+        startGameButton.setVisibility(View.VISIBLE);
+
+    }
+
+    public void showEverythingBeginning(){
+
+        gameCountDown.setVisibility(View.VISIBLE);
+        answerCountDown.setVisibility(View.VISIBLE);
+        questionTextView.setVisibility(View.VISIBLE);
+        webViewFancySpinner.setVisibility(View.VISIBLE);
+        pauseTextView.setVisibility(View.GONE);
+        restartGameButton.setVisibility(View.GONE);
+        backToMenuButton.setVisibility(View.GONE);
+        //the button stays visible
+        startGameButton.setVisibility(View.GONE);
+
+    }
+
+    private void showButtonsEndOfGame() {
+
+        gameCountDown.setVisibility(View.GONE);
+        answerCountDown.setVisibility(View.GONE);
+        questionTextView.setVisibility(View.GONE);
+        pauseTextView.setVisibility(View.GONE);
+        webViewFancySpinner.setVisibility(View.GONE);
+        restartGameButton.setVisibility(View.VISIBLE);
+        backToMenuButton.setVisibility(View.VISIBLE);
+        startGameButton.setVisibility(View.GONE);
+
+    }
+
+    private void hidePause(){
+        gameCountDown.setVisibility(View.GONE);
+        answerCountDown.setVisibility(View.GONE);
+        questionTextView.setVisibility(View.GONE);
+        webViewFancySpinner.setVisibility(View.GONE);
+        restartGameButton.setVisibility(View.GONE);
+        backToMenuButton.setVisibility(View.GONE);
+        startGameButton.setVisibility(View.GONE);
+        pauseTextView.setVisibility(View.VISIBLE);
+    }
 
 
 

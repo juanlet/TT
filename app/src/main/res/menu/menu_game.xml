@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".Game">
+    <item android:id="@+id/pause_game"
+        android:title="@string/pause_game_text"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/pause_icon"/>
+    <item android:id="@+id/exit_app"
+        android:title="@string/action_exit"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/exit_icon"/>
+</menu>
