@@ -95,7 +95,6 @@ private ArrayList<MusicSQLRow> quizList;
         gameTimer = new CountDownTimer(time, 500){
 
             @Override public void onTick(long millisUntilFinished) {
-                //editor.putLong("milisRemainingGame", millisUntilFinished);
                 millisLeftGameBeforePause=millisUntilFinished;
                 gameCountDown.setText("Time Remaining: " + String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
@@ -106,8 +105,8 @@ private ArrayList<MusicSQLRow> quizList;
 
             @Override public void onFinish() {
                 gameTimerIsRunning = false;
-            //    if(answerTimerIsRunning && !isPaused) answerTimer.cancel();
-             //   endOfTheGame();
+              if(answerTimerIsRunning) answerTimer.cancel();
+               endOfTheGame();
             }
 
         };
@@ -140,7 +139,6 @@ private ArrayList<MusicSQLRow> quizList;
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                 //   editor.putLong("milisRemainingAnswer", millisUntilFinished);
                     answerCountDown.setText("Next Question in: "+ TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
                 }
 
@@ -226,10 +224,32 @@ private ArrayList<MusicSQLRow> quizList;
     }
 
     private String generateQuestionText(MusicSQLRow question){
+//this is just for notes, change word note for chord in chord game
+        String degreeNumber;
 
-        return "Scale: "+ question.getScaleName()+" \n " +
-                "Key: "+question.getKeyName()+" \n " +
-                "Degree: "+question.getDegreeNumber();
+        switch (question.getDegreeNumber()) {
+            case "1":  degreeNumber = "1"+"st";
+                break;
+            case "2":  degreeNumber = "2"+"nd";
+                break;
+            case "3":  degreeNumber = "3"+"rd";
+                break;
+            case "4":  degreeNumber = "4"+"th";
+                break;
+            case "5":  degreeNumber = "5th"+"th";
+                break;
+            case "6":  degreeNumber = "6"+"th";
+                break;
+            case "7":  degreeNumber = 7+"th";
+                break;
+            default: degreeNumber = "Invalid degree";
+                break;
+        }
+
+
+
+
+        return  degreeNumber+" note of "+ question.getKeyName() + " "+ question.getScaleName();
 
     }
 
