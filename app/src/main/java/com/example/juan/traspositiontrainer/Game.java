@@ -49,13 +49,13 @@ private ArrayList<MusicSQLRow> quizList;
         editor = pref.edit();
 
         rootPicker = (NumberPicker) findViewById(R.id.rootPicker);
-        String[] roots = {"A","B","C","D","E","F","G"}; //etc
+        String[] roots = {" ","A","B","C","D","E","F","G"}; //etc
         rootPicker.setMaxValue(0);
-        rootPicker.setMaxValue(6);
+        rootPicker.setMaxValue(7);
         rootPicker.setDisplayedValues(roots);
 
         alterationPicker = (NumberPicker) findViewById(R.id.alterationPicker);
-        String[] alterations = {" ","#","b","##","bb"}; //etc
+        String[] alterations = {" ","#","♭","##","♭♭"}; //etc
         alterationPicker.setMaxValue(0);
         alterationPicker.setMaxValue(4);
         alterationPicker.setDisplayedValues(alterations);
@@ -67,7 +67,6 @@ private ArrayList<MusicSQLRow> quizList;
         with7ths=pref.getString("with7ths", "");
         gameTime=this.getMinutesInMilliseconds(pref.getString("gameTime", ""));
         answerTime=this.getSecondsInMilliseconds(pref.getString("answerTime", ""));
-
 
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
@@ -89,7 +88,26 @@ private ArrayList<MusicSQLRow> quizList;
 
        this.hideEverythingBeggining();
 
+        rootPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                // do something here
+
+
+
+            }
+        });
+
+        alterationPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                // do something here
+            }
+        });
+
+
     }
+
 
 
 //this is the method that triggers when the user pushes the Start Game Button
@@ -102,6 +120,7 @@ private ArrayList<MusicSQLRow> quizList;
 
 
     public void startGameTimer(long time){
+     
         gameTimer = new CountDownTimer(time, 500){
 
             @Override public void onTick(long millisUntilFinished) {
@@ -116,7 +135,7 @@ private ArrayList<MusicSQLRow> quizList;
             @Override public void onFinish() {
                 gameTimerIsRunning = false;
               if(answerTimerIsRunning) answerTimer.cancel();
-               endOfTheGame();
+                endOfTheGame();
             }
 
         };
@@ -131,6 +150,7 @@ private ArrayList<MusicSQLRow> quizList;
     }
 
     public void restartGame(View view){
+
         this.startGame(view);
     }
 
@@ -144,7 +164,7 @@ private ArrayList<MusicSQLRow> quizList;
         //load the first question
         loadNewQuestion();
 
-        if (answerTimer == null) {
+
             answerTimer = new CountDownTimer(time, 100) {
 
                 @Override
@@ -167,7 +187,7 @@ private ArrayList<MusicSQLRow> quizList;
             };
             answerTimerIsRunning = true;
             answerTimer.start();
-        }
+
     }
 
     private void loadNewQuestion() {
@@ -454,6 +474,7 @@ private ArrayList<MusicSQLRow> quizList;
         startGameButton.setVisibility(View.GONE);
         pauseTextView.setVisibility(View.VISIBLE);
     }
+
 
 
 
