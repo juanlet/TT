@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class Game extends ActionBarActivity {
 
 private String intentExtras;
 private ArrayList<MusicSQLRow> quizList;
-    private TextView gameCountDown,answerCountDown,questionTextView, pauseTextView;
-    SharedPreferences pref;
+    private TextView gameCountDown,answerCountDown,questionTextView, pauseTextView ;
+   SharedPreferences pref;
     String gameDifficulty, key, scale,with7ths, answer;
     long gameTime,answerTime, millisLeftGameBeforePause;
     CountDownTimer gameTimer, answerTimer;
@@ -32,8 +33,8 @@ private ArrayList<MusicSQLRow> quizList;
     private int[] lastQuestionsSelected;
     int lastQuestionsIndex;
     Button startGameButton, restartGameButton, backToMenuButton;
-    WebView webViewFancySpinner;
     SharedPreferences.Editor editor;
+    NumberPicker rootPicker,alterationPicker;
 
 
     @Override
@@ -47,11 +48,22 @@ private ArrayList<MusicSQLRow> quizList;
         int lastQuestionsIndex=0;
         editor = pref.edit();
 
+        rootPicker = (NumberPicker) findViewById(R.id.rootPicker);
+        String[] roots = {"A","B","C","D","E","F","G"}; //etc
+        rootPicker.setMaxValue(0);
+        rootPicker.setMaxValue(6);
+        rootPicker.setDisplayedValues(roots);
+
+        alterationPicker = (NumberPicker) findViewById(R.id.alterationPicker);
+        String[] alterations = {" ","#","b","##","bb"}; //etc
+        alterationPicker.setMaxValue(0);
+        alterationPicker.setMaxValue(4);
+        alterationPicker.setDisplayedValues(alterations);
 
 
         gameDifficulty=pref.getString("gameDifficulty", "");
         key=pref.getString("key","");
-        scale=pref.getString("scale","");
+        scale=pref.getString("scale", "");
         with7ths=pref.getString("with7ths", "");
         gameTime=this.getMinutesInMilliseconds(pref.getString("gameTime", ""));
         answerTime=this.getSecondsInMilliseconds(pref.getString("answerTime", ""));
@@ -64,8 +76,6 @@ private ArrayList<MusicSQLRow> quizList;
         startGameButton= (Button) findViewById(R.id.start_game_button);
         restartGameButton=(Button) findViewById(R.id.restart_game_button);
         backToMenuButton= (Button) findViewById(R.id.back_to_menu_button);
-        webViewFancySpinner= (WebView) findViewById(R.id.fancySpinner);
-
 
         //Me dice que botón presionó el usuario para poder definir que modo de juego corresponde
         intentExtras=this.getIntentExtras();
@@ -384,7 +394,6 @@ private ArrayList<MusicSQLRow> quizList;
         gameCountDown.setVisibility(View.VISIBLE);
         answerCountDown.setVisibility(View.VISIBLE);
         questionTextView.setVisibility(View.VISIBLE);
-        webViewFancySpinner.setVisibility(View.VISIBLE);
         pauseTextView.setVisibility(View.GONE);
 
 
@@ -395,7 +404,6 @@ private ArrayList<MusicSQLRow> quizList;
         answerCountDown.setVisibility(View.GONE);
         questionTextView.setVisibility(View.GONE);
         pauseTextView.setVisibility(View.GONE);
-        webViewFancySpinner.setVisibility(View.GONE);
         restartGameButton.setVisibility(View.GONE);
         backToMenuButton.setVisibility(View.GONE);
 
@@ -409,7 +417,6 @@ private ArrayList<MusicSQLRow> quizList;
         gameCountDown.setVisibility(View.VISIBLE);
         answerCountDown.setVisibility(View.VISIBLE);
         questionTextView.setVisibility(View.VISIBLE);
-        webViewFancySpinner.setVisibility(View.VISIBLE);
         pauseTextView.setVisibility(View.GONE);
         restartGameButton.setVisibility(View.GONE);
         backToMenuButton.setVisibility(View.GONE);
@@ -424,7 +431,6 @@ private ArrayList<MusicSQLRow> quizList;
         answerCountDown.setVisibility(View.GONE);
         questionTextView.setVisibility(View.GONE);
         pauseTextView.setVisibility(View.GONE);
-        webViewFancySpinner.setVisibility(View.GONE);
         restartGameButton.setVisibility(View.VISIBLE);
         backToMenuButton.setVisibility(View.VISIBLE);
         startGameButton.setVisibility(View.GONE);
@@ -435,7 +441,6 @@ private ArrayList<MusicSQLRow> quizList;
         gameCountDown.setVisibility(View.GONE);
         answerCountDown.setVisibility(View.GONE);
         questionTextView.setVisibility(View.GONE);
-        webViewFancySpinner.setVisibility(View.GONE);
         restartGameButton.setVisibility(View.GONE);
         backToMenuButton.setVisibility(View.GONE);
         startGameButton.setVisibility(View.GONE);

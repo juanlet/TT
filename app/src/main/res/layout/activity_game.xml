@@ -41,13 +41,6 @@
         android:layout_gravity="center_horizontal"
         />
 
-    <WebView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fancySpinner"
-        android:layout_marginBottom="103dp"
-        android:layout_gravity="center_horizontal" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,5 +65,25 @@
         android:id="@+id/back_to_menu_button"
         android:layout_gravity="center_horizontal"
         android:onClick="backtoMenu" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingTop="40px">
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rootPicker"
+            android:layout_gravity="center_horizontal" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/alterationPicker"
+            android:layout_gravity="center_horizontal|right" />
+    </LinearLayout>
 
 </LinearLayout>
