@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,10 +32,12 @@ private ArrayList<MusicSQLRow> quizList;
     CountDownTimer gameTimer, answerTimer;
     boolean gameTimerIsRunning, answerTimerIsRunning;
     private int[] lastQuestionsSelected;
-    int lastQuestionsIndex;
+    int lastQuestionsIndex, correctAnswers, incorrectAnswers;
     Button startGameButton, restartGameButton, backToMenuButton;
     SharedPreferences.Editor editor;
     NumberPicker rootPicker,alterationPicker;
+    String currentAnswer;
+    String[] roots = {" ","A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"};
 
 
     @Override
@@ -46,16 +49,18 @@ private ArrayList<MusicSQLRow> quizList;
         lastQuestionsSelected=new int[3];
         //tracks the last element inserted
         int lastQuestionsIndex=0;
+        currentAnswer=null;
         editor = pref.edit();
+        correctAnswers=0;
+        incorrectAnswers=0;
 
         rootPicker = (NumberPicker) findViewById(R.id.rootPicker);
-        String[] roots = {" ","A","B","C","D","E","F","G"}; //etc
+
         rootPicker.setMaxValue(0);
         rootPicker.setMaxValue(7);
         rootPicker.setDisplayedValues(roots);
 
         alterationPicker = (NumberPicker) findViewById(R.id.alterationPicker);
-        String[] alterations = {" ","#","♭","##","♭♭"}; //etc
         alterationPicker.setMaxValue(0);
         alterationPicker.setMaxValue(4);
         alterationPicker.setDisplayedValues(alterations);
@@ -88,26 +93,85 @@ private ArrayList<MusicSQLRow> quizList;
 
        this.hideEverythingBeggining();
 
-        rootPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+      /*  rootPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 // do something here
 
+                String selectedAnswer = roots[picker.getValue()]+""+replaceBemolwithB(alterations[alterationPicker.getValue()]);
+               /* selectedAnswer=replaceBemolwithB(selectedAnswer);*/
 
+               // Toast.makeText(Game.this, selectedAnswer+ " "+ currentAnswer, Toast.LENGTH_SHORT).show();
 
+        /*      if(selectedAnswer.equals(currentAnswer)){
+                  //sumar +1 a las respuestas correctas
+                  //cancelo el timer y después lo reseteo
+                  correctAnswers+=1;
+              //    Toast.makeText(getApplicationContext(),"Correcta",Toast.LENGTH_SHORT).show();
+                  answerTimer.cancel();
+                  startAnswerTimer(answerTime);
+              }
             }
-        });
+        });*/
 
-        alterationPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+     /*   alterationPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 // do something here
+
+                String selectedAnswer = roots[rootPicker.getValue()]+""+replaceBemolwithB(alterations[picker.getValue()]);
+
+                if(selectedAnswer.equals(currentAnswer)){
+                    //sumar +1 a las respuestas correctas
+                    //cancelo el timer y después lo reseteo
+                    correctAnswers+=1;
+                //    Toast.makeText(getApplicationContext(),"Correcta",Toast.LENGTH_SHORT).show();
+                    answerTimer.cancel();
+                    startAnswerTimer(answerTime);
+
+                }
             }
-        });
+        });*/
+
+
 
 
     }
 
+    public void checkAnswer(View view) {
+
+        String selectedAnswer = roots[rootPicker.getValue()]+replaceBemolwithB(alterations[alterationPicker.getValue()]);
+       //le saco los espacios en blanco para que compare bien las cadenas
+
+        selectedAnswer= selectedAnswer.replaceAll("\\s+","");
+
+
+        if(selectedAnswer.equals(currentAnswer)){
+            //sumar +1 a las respuestas correctas
+            //cancelo el timer y después lo reseteo
+            correctAnswers+=1;
+                Toast.makeText(getApplicationContext(),"Correcta",Toast.LENGTH_SHORT).show();
+            answerTimer.cancel();
+            startAnswerTimer(answerTime);
+
+        }
+        else
+        {
+            incorrectAnswers+=1;
+            Toast.makeText(getApplicationContext(),"Incorrecta",Toast.LENGTH_SHORT).show();
+            answerTimer.cancel();
+            startAnswerTimer(answerTime);
+
+        }
+
+    }
+
+    public String replaceBemolwithB(String answer){
+
+        answer = answer.replace('♭','b');
+
+        return answer;
+    }
 
 
 //this is the method that triggers when the user pushes the Start Game Button
@@ -120,7 +184,7 @@ private ArrayList<MusicSQLRow> quizList;
 
 
     public void startGameTimer(long time){
-     
+
         gameTimer = new CountDownTimer(time, 500){
 
             @Override public void onTick(long millisUntilFinished) {
@@ -231,6 +295,8 @@ private ArrayList<MusicSQLRow> quizList;
                     lastQuestionsIndex=0;
 
             }
+
+        currentAnswer=question.getNoteName();
 
         //generate question text
 
@@ -399,6 +465,8 @@ private ArrayList<MusicSQLRow> quizList;
     public void gamePaused(){
         gameTimerIsRunning = false;
         answerTimerIsRunning=false;
+        //lo seteo en null porque cuando vuelve de la pausa cambia de pregunta, luego tengo que setear la answer a la nueva pregunta;
+        currentAnswer=null;
         gameTimer.cancel();
         answerTimer.cancel();
         gameTimer=null;
@@ -474,7 +542,6 @@ private ArrayList<MusicSQLRow> quizList;
         startGameButton.setVisibility(View.GONE);
         pauseTextView.setVisibility(View.VISIBLE);
     }
-
 
 
 
