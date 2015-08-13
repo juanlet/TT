@@ -342,7 +342,7 @@ private ArrayList<MusicSQLRow> quizList;
            if(gameTimerIsRunning)
            {//cancel timers
 
-            this.onPause();
+            this.gamePaused();
 
            //hide everything and show pause message and change icon to play icon
             this.hidePause();
@@ -376,7 +376,7 @@ private ArrayList<MusicSQLRow> quizList;
     }
 
 
-    public void onPause(){
+    public void gamePaused(){
         gameTimerIsRunning = false;
         answerTimerIsRunning=false;
         gameTimer.cancel();
@@ -395,8 +395,8 @@ private ArrayList<MusicSQLRow> quizList;
         answerCountDown.setVisibility(View.VISIBLE);
         questionTextView.setVisibility(View.VISIBLE);
         pauseTextView.setVisibility(View.GONE);
-
-
+        rootPicker.setVisibility(View.VISIBLE);
+        alterationPicker.setVisibility(View.VISIBLE);
     }
 
     public void hideEverythingBeggining(){
@@ -409,7 +409,8 @@ private ArrayList<MusicSQLRow> quizList;
 
         //the button stays visible
         startGameButton.setVisibility(View.VISIBLE);
-
+        rootPicker.setVisibility(View.GONE);
+        alterationPicker.setVisibility(View.GONE);
     }
 
     public void showEverythingBeginning(){
@@ -422,11 +423,15 @@ private ArrayList<MusicSQLRow> quizList;
         backToMenuButton.setVisibility(View.GONE);
         //the button stays visible
         startGameButton.setVisibility(View.GONE);
+        rootPicker.setVisibility(View.VISIBLE);
+        alterationPicker.setVisibility(View.VISIBLE);
 
     }
 
     private void showButtonsEndOfGame() {
 
+        rootPicker.setVisibility(View.GONE);
+        alterationPicker.setVisibility(View.GONE);
         gameCountDown.setVisibility(View.GONE);
         answerCountDown.setVisibility(View.GONE);
         questionTextView.setVisibility(View.GONE);
@@ -435,12 +440,15 @@ private ArrayList<MusicSQLRow> quizList;
         backToMenuButton.setVisibility(View.VISIBLE);
         startGameButton.setVisibility(View.GONE);
 
+
     }
 
     private void hidePause(){
         gameCountDown.setVisibility(View.GONE);
         answerCountDown.setVisibility(View.GONE);
         questionTextView.setVisibility(View.GONE);
+        rootPicker.setVisibility(View.GONE);
+        alterationPicker.setVisibility(View.GONE);
         restartGameButton.setVisibility(View.GONE);
         backToMenuButton.setVisibility(View.GONE);
         startGameButton.setVisibility(View.GONE);
