@@ -185,17 +185,5 @@ public ArrayList<MusicSQLRow> getNotes(){
 
     }
 
-    public void updateStats(int right_ammount, int wrong_ammount, String game_type){
-/*
-        ContentValues args = new ContentValues();
-
-        args.put("right_answers",right_ammount);
-        args.put("wrong_answers",wrong_ammount);
-
-        db.update("user_stats",args,"game_type='Chord_Quiz'" , null);
-*/
-    }
-
-
 
 }

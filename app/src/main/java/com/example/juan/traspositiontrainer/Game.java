@@ -275,11 +275,9 @@ private ArrayList<MusicSQLRow> quizList;
 
             @Override public void onFinish() {
                 gameTimerIsRunning = false;
-                //actualizar stats
-                //cierro el cursor de selects para poder actualizar
+                //mostrarle al usuario cuantas respuestas contestó bien y cuantas mal
 
 
-                db.updateStats(correctAnswers,incorrectAnswers,intentExtras);
 
               if(answerTimerIsRunning) answerTimer.cancel();
                 endOfTheGame();
