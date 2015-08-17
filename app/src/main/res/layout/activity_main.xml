@@ -59,19 +59,6 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/player_stats_button"
-            android:id="@+id/statistics"
-            android:layout_gravity="bottom"
-            android:layout_above="@+id/faq"
-            android:layout_alignLeft="@+id/button3"
-            android:layout_alignStart="@+id/button3"
-            android:layout_alignRight="@+id/button3"
-            android:layout_alignEnd="@+id/button3"
-            android:onClick="goToStats"/>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:text="@string/faq_button"
             android:id="@+id/faq"
             android:layout_gravity="bottom"
