@@ -266,7 +266,7 @@ private ArrayList<MusicSQLRow> quizList;
 
     public void startGameTimer(long time){
 
-        gameTimer = new CountDownTimer(10000, 500){
+        gameTimer = new CountDownTimer(time, 500){
 
             @Override public void onTick(long millisUntilFinished) {
                 millisLeftGameBeforePause=millisUntilFinished;
