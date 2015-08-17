@@ -33,11 +33,27 @@ private ArrayList<MusicSQLRow> quizList;
     boolean gameTimerIsRunning, answerTimerIsRunning;
     private int[] lastQuestionsSelected;
     int lastQuestionsIndex, correctAnswers, incorrectAnswers;
-    Button startGameButton, restartGameButton, backToMenuButton;
+    Button startGameButton, restartGameButton, backToMenuButton, answerButton;
     SharedPreferences.Editor editor;
-    NumberPicker rootPicker,alterationPicker;
-    String currentAnswer;
-    String[] roots = {" ","A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"};
+    KeyManager db;
+    NumberPicker rootPicker,alterationPicker, chordTypePicker;
+    String currentAnswer, chordType, currentNote;
+    String[] roots = {" ","A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"}, chordTypesWith7ths={"maj7", "m7", "7", "m7b5", "-maj7", "maj7+", "dim7"}, chordTypesWithout7ths={"Major", "Minor", "Diminished"};
+    static String[][]  enharmonicEquals={ {"B#","C","Dbb"},
+                                        {"B##","C#","Db"},
+                                        {"C##","D","Ebb"},
+                                        {"D#","Eb","Fbb"},
+                                        {"D##","E","Fb"},
+                                        {"E#","F","Gbb"},
+                                        {"E##","F#","Gb"},
+                                        {"F##","G","Abb"},
+                                        {"G#","Ab","0"},
+                                        {"G##","A","Bbb"},
+                                        {"A#","Bb","Cbb"},
+                                        {"A##","B","Cb"}
+        };
+
+
 
 
     @Override
@@ -54,17 +70,6 @@ private ArrayList<MusicSQLRow> quizList;
         correctAnswers=0;
         incorrectAnswers=0;
 
-        rootPicker = (NumberPicker) findViewById(R.id.rootPicker);
-
-        rootPicker.setMaxValue(0);
-        rootPicker.setMaxValue(7);
-        rootPicker.setDisplayedValues(roots);
-
-        alterationPicker = (NumberPicker) findViewById(R.id.alterationPicker);
-        alterationPicker.setMaxValue(0);
-        alterationPicker.setMaxValue(4);
-        alterationPicker.setDisplayedValues(alterations);
-
 
         gameDifficulty=pref.getString("gameDifficulty", "");
         key=pref.getString("key","");
@@ -80,11 +85,39 @@ private ArrayList<MusicSQLRow> quizList;
         startGameButton= (Button) findViewById(R.id.start_game_button);
         restartGameButton=(Button) findViewById(R.id.restart_game_button);
         backToMenuButton= (Button) findViewById(R.id.back_to_menu_button);
+        answerButton= (Button) findViewById(R.id.answerButton);
+
+
+        rootPicker = (NumberPicker) findViewById(R.id.rootPicker);
+        rootPicker.setMaxValue(0);
+        rootPicker.setMaxValue(7);
+        rootPicker.setDisplayedValues(roots);
+
+        alterationPicker = (NumberPicker) findViewById(R.id.alterationPicker);
+        alterationPicker.setMaxValue(0);
+        alterationPicker.setMaxValue(4);
+        alterationPicker.setDisplayedValues(alterations);
+
+        chordTypePicker= (NumberPicker) findViewById(R.id.chordTypePicker);
+        if(with7ths.equals("With 7ths"))
+        {
+            chordTypePicker.setMaxValue(0);
+            chordTypePicker.setMaxValue(6);
+            chordTypePicker.setDisplayedValues(chordTypesWith7ths);
+        }
+        else
+        {
+            chordTypePicker.setMaxValue(0);
+            chordTypePicker.setMaxValue(2);
+            chordTypePicker.setDisplayedValues(chordTypesWithout7ths);
+        }
+
+
 
         //Me dice que botón presionó el usuario para poder definir que modo de juego corresponde
         intentExtras=this.getIntentExtras();
         //creo la base de datos
-        KeyManager db=new KeyManager(this);
+        db=new KeyManager(this);
 
         //según el botón que haya sido presionado en el menú voy a traer determinados datos
            quizList=this.getResourcesForGame(intentExtras, db);
@@ -93,64 +126,48 @@ private ArrayList<MusicSQLRow> quizList;
 
        this.hideEverythingBeggining();
 
-      /*  rootPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                // do something here
-
-                String selectedAnswer = roots[picker.getValue()]+""+replaceBemolwithB(alterations[alterationPicker.getValue()]);
-               /* selectedAnswer=replaceBemolwithB(selectedAnswer);*/
-
-               // Toast.makeText(Game.this, selectedAnswer+ " "+ currentAnswer, Toast.LENGTH_SHORT).show();
-
-        /*      if(selectedAnswer.equals(currentAnswer)){
-                  //sumar +1 a las respuestas correctas
-                  //cancelo el timer y después lo reseteo
-                  correctAnswers+=1;
-              //    Toast.makeText(getApplicationContext(),"Correcta",Toast.LENGTH_SHORT).show();
-                  answerTimer.cancel();
-                  startAnswerTimer(answerTime);
-              }
-            }
-        });*/
-
-     /*   alterationPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                // do something here
-
-                String selectedAnswer = roots[rootPicker.getValue()]+""+replaceBemolwithB(alterations[picker.getValue()]);
-
-                if(selectedAnswer.equals(currentAnswer)){
-                    //sumar +1 a las respuestas correctas
-                    //cancelo el timer y después lo reseteo
-                    correctAnswers+=1;
-                //    Toast.makeText(getApplicationContext(),"Correcta",Toast.LENGTH_SHORT).show();
-                    answerTimer.cancel();
-                    startAnswerTimer(answerTime);
-
-                }
-            }
-        });*/
-
-
-
-
-    }
+   }
 
     public void checkAnswer(View view) {
+        Boolean isEnharmonic=false;
+        String selectedAnswer="";
+        String enharmonicSubstring="";
 
-        String selectedAnswer = roots[rootPicker.getValue()]+replaceBemolwithB(alterations[alterationPicker.getValue()]);
+        if(intentExtras.equals("notes_quiz")) {
+            selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]);
+            isEnharmonic=this.isEnharmonicNoteEquivalent(selectedAnswer, currentAnswer);
+        }
+        else
+        {
+            if(with7ths.equals("With 7ths")) {
+                selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]) + chordTypesWith7ths[chordTypePicker.getValue()];
+                enharmonicSubstring=roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]);
+                isEnharmonic = this.isEnharmonicChordEquivalent(enharmonicSubstring, currentNote, chordTypesWith7ths[chordTypePicker.getValue()]);
+            }
+            else
+            {
+             selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()])+chordTypesWithout7ths[chordTypePicker.getValue()];
+                enharmonicSubstring=roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]);
+             isEnharmonic=this.isEnharmonicChordEquivalent(enharmonicSubstring, currentNote,chordTypesWithout7ths[chordTypePicker.getValue()]);
+            }
+
+        }
+
        //le saco los espacios en blanco para que compare bien las cadenas
 
         selectedAnswer= selectedAnswer.replaceAll("\\s+","");
 
 
-        if(selectedAnswer.equals(currentAnswer)){
+
+
+        if(selectedAnswer.equals(currentAnswer) || isEnharmonic ){
             //sumar +1 a las respuestas correctas
             //cancelo el timer y después lo reseteo
             correctAnswers+=1;
-                Toast.makeText(getApplicationContext(),"Correcta",Toast.LENGTH_SHORT).show();
+               if(!isEnharmonic)
+                Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT).show();
+               else
+                   Toast.makeText(getApplicationContext(),"Enharmonically Correct",Toast.LENGTH_SHORT).show();
             answerTimer.cancel();
             startAnswerTimer(answerTime);
 
@@ -158,13 +175,73 @@ private ArrayList<MusicSQLRow> quizList;
         else
         {
             incorrectAnswers+=1;
-            Toast.makeText(getApplicationContext(),"Incorrecta",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Incorrect",Toast.LENGTH_SHORT).show();
             answerTimer.cancel();
             startAnswerTimer(answerTime);
 
         }
 
     }
+
+    private boolean isEnharmonicNoteEquivalent(String userAnswer, String quizAnswer) {
+
+        int foundRow=-1, foundCol=-1;
+
+        mainloop:for ( int i = 0; i < 12; ++i ) {
+            for ( int j = 0; j < 3; ++j ) {
+                if ( enharmonicEquals[i][j].equals(userAnswer) ) {
+                    // Find the correct i
+                    foundRow=i;
+                    foundCol=j;
+                    break mainloop;
+                }
+            }
+        }
+
+        if(foundRow==-1 || foundCol==-1){
+            return false;
+        }
+
+        for(int x=0;x<3;++x){
+
+        if(x!=foundCol && enharmonicEquals[foundRow][x].equals(quizAnswer))
+          return true;
+         }
+
+        return false;
+    }
+
+    private boolean isEnharmonicChordEquivalent(String userAnswer, String noteName, String selectedChordType) {
+
+        int foundRow=-1, foundCol=-1;
+
+        mainloop:for ( int i = 0; i < 12; ++i ) {
+            for ( int j = 0; j < 3; ++j ) {
+                if ( enharmonicEquals[i][j].equals(userAnswer) ) {
+                    // Find the correct i
+                    foundRow=i;
+                    foundCol=j;
+                    break mainloop;
+                }
+            }
+        }
+
+        if(foundRow==-1 || foundCol==-1){
+            return false;
+        }
+
+        for(int x=0;x<3;++x){
+
+            if(x!=foundCol && enharmonicEquals[foundRow][x].equals(noteName))
+                if(chordType.equals(selectedChordType))
+                    return true;
+
+        }
+
+        return false;
+    }
+
+
 
     public String replaceBemolwithB(String answer){
 
@@ -198,6 +275,12 @@ private ArrayList<MusicSQLRow> quizList;
 
             @Override public void onFinish() {
                 gameTimerIsRunning = false;
+                //actualizar stats
+                //cierro el cursor de selects para poder actualizar
+
+
+                db.updateStats(correctAnswers,incorrectAnswers,intentExtras);
+
               if(answerTimerIsRunning) answerTimer.cancel();
                 endOfTheGame();
             }
@@ -296,7 +379,22 @@ private ArrayList<MusicSQLRow> quizList;
 
             }
 
+        //set answer depending on game mode
+        if(intentExtras.equals("notes_quiz"))
         currentAnswer=question.getNoteName();
+        else
+        {    if(with7ths.equals("With 7ths")) {
+            currentAnswer = question.getChordWith7();
+            chordType = question.getChordTypeWith7();
+           //I need the note dissociated from the chord tipe  to check for enharmonic chords
+            currentNote=question.getNoteName();
+        }
+            else {
+            currentAnswer = question.getChordWithout7();
+            chordType= question.getChordTypeWithout7();
+            currentNote=question.getNoteName();
+        }
+        }
 
         //generate question text
 
@@ -344,8 +442,10 @@ private ArrayList<MusicSQLRow> quizList;
 
 
 
-
+        if(intentExtras.equals("notes_quiz"))
         return  degreeNumber+" note of "+ question.getKeyName() + " "+ question.getScaleName();
+        else
+            return degreeNumber+" chord of "+ question.getKeyName() + " "+ question.getScaleName();
 
     }
 
@@ -390,9 +490,6 @@ private ArrayList<MusicSQLRow> quizList;
             arrayListRowsFromDb=db.getNotes();
         else if(intentExtras.equals("chord_quiz"))
             arrayListRowsFromDb=db.getChords();
-        else if (intentExtras.equals("chord_progressions_quiz"))
-            arrayListRowsFromDb=db.getChords();
-
         return arrayListRowsFromDb;
     }
 
@@ -477,16 +574,8 @@ private ArrayList<MusicSQLRow> quizList;
 
 //funciones para ocultar o mostrar cosas
 
-    public void showEverythingDepaused(){
 
-        gameCountDown.setVisibility(View.VISIBLE);
-        answerCountDown.setVisibility(View.VISIBLE);
-        questionTextView.setVisibility(View.VISIBLE);
-        pauseTextView.setVisibility(View.GONE);
-        rootPicker.setVisibility(View.VISIBLE);
-        alterationPicker.setVisibility(View.VISIBLE);
-    }
-
+//pantalla de inicio cuando se viene del intent del menú principal
     public void hideEverythingBeggining(){
         gameCountDown.setVisibility(View.GONE);
         answerCountDown.setVisibility(View.GONE);
@@ -494,13 +583,16 @@ private ArrayList<MusicSQLRow> quizList;
         pauseTextView.setVisibility(View.GONE);
         restartGameButton.setVisibility(View.GONE);
         backToMenuButton.setVisibility(View.GONE);
-
+        answerButton.setVisibility(View.GONE);
         //the button stays visible
         startGameButton.setVisibility(View.VISIBLE);
         rootPicker.setVisibility(View.GONE);
         alterationPicker.setVisibility(View.GONE);
+        chordTypePicker.setVisibility(View.GONE);
     }
 
+
+// pantalla que aparece después de tocar "start game"
     public void showEverythingBeginning(){
 
         gameCountDown.setVisibility(View.VISIBLE);
@@ -514,12 +606,57 @@ private ArrayList<MusicSQLRow> quizList;
         rootPicker.setVisibility(View.VISIBLE);
         alterationPicker.setVisibility(View.VISIBLE);
 
+        if(intentExtras.equals("chord_quiz"))
+            chordTypePicker.setVisibility(View.VISIBLE);
+
+        answerButton.setVisibility(View.VISIBLE);
+
     }
 
+//pantalla que aparece cuando se toca el botón de pausa
+    private void hidePause(){
+        gameCountDown.setVisibility(View.GONE);
+        answerCountDown.setVisibility(View.GONE);
+        questionTextView.setVisibility(View.GONE);
+        rootPicker.setVisibility(View.GONE);
+        alterationPicker.setVisibility(View.GONE);
+
+        if(intentExtras.equals("chord_quiz"))
+            chordTypePicker.setVisibility(View.GONE);
+
+        restartGameButton.setVisibility(View.GONE);
+        backToMenuButton.setVisibility(View.GONE);
+        startGameButton.setVisibility(View.GONE);
+        pauseTextView.setVisibility(View.VISIBLE);
+        answerButton.setVisibility(View.GONE);
+    }
+
+
+//pantalla que aparece cuando se vuelve al juego después de la pausa
+    public void showEverythingDepaused(){
+
+        gameCountDown.setVisibility(View.VISIBLE);
+        answerCountDown.setVisibility(View.VISIBLE);
+        questionTextView.setVisibility(View.VISIBLE);
+        pauseTextView.setVisibility(View.GONE);
+        rootPicker.setVisibility(View.VISIBLE);
+        alterationPicker.setVisibility(View.VISIBLE);
+
+        if(intentExtras.equals("chord_quiz"))
+            chordTypePicker.setVisibility(View.VISIBLE);
+
+        answerButton.setVisibility(View.VISIBLE);
+    }
+
+
+
+//pantalla que aparece cuando se acaba el timer principal
     private void showButtonsEndOfGame() {
 
         rootPicker.setVisibility(View.GONE);
         alterationPicker.setVisibility(View.GONE);
+        if(intentExtras.equals("chord_quiz"))
+            chordTypePicker.setVisibility(View.GONE);
         gameCountDown.setVisibility(View.GONE);
         answerCountDown.setVisibility(View.GONE);
         questionTextView.setVisibility(View.GONE);
@@ -527,22 +664,8 @@ private ArrayList<MusicSQLRow> quizList;
         restartGameButton.setVisibility(View.VISIBLE);
         backToMenuButton.setVisibility(View.VISIBLE);
         startGameButton.setVisibility(View.GONE);
-
-
+        answerButton.setVisibility(View.GONE);
     }
-
-    private void hidePause(){
-        gameCountDown.setVisibility(View.GONE);
-        answerCountDown.setVisibility(View.GONE);
-        questionTextView.setVisibility(View.GONE);
-        rootPicker.setVisibility(View.GONE);
-        alterationPicker.setVisibility(View.GONE);
-        restartGameButton.setVisibility(View.GONE);
-        backToMenuButton.setVisibility(View.GONE);
-        startGameButton.setVisibility(View.GONE);
-        pauseTextView.setVisibility(View.VISIBLE);
-    }
-
 
 
 }

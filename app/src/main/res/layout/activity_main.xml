@@ -59,16 +59,6 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/chord_progression_button"
-            android:id="@+id/chord_progressions_quiz"
-            android:layout_gravity="bottom"
-            android:layout_above="@+id/statistics"
-            android:layout_centerHorizontal="true"
-            android:onClick="goToGame"/>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:text="@string/player_stats_button"
             android:id="@+id/statistics"
             android:layout_gravity="bottom"

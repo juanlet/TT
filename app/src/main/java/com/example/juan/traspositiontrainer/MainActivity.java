@@ -64,9 +64,6 @@ public class MainActivity extends ActionBarActivity {
                 intent.putExtra("ButtonPressed", "chord_quiz");
 
                 break;
-            case R.id.chord_progressions_quiz:
-                intent.putExtra("ButtonPressed", "chord_progressions_quiz");
-                break;
         }
 
           return intent;

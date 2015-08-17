@@ -66,6 +66,14 @@
         android:layout_gravity="center_horizontal"
         android:onClick="backtoMenu" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer!"
+        android:id="@+id/answerButton"
+        android:onClick="checkAnswer"
+        android:layout_gravity="center_horizontal" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -84,6 +92,22 @@
             android:layout_height="wrap_content"
             android:id="@+id/alterationPicker"
             android:layout_gravity="center_horizontal|right" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chordTypePicker" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingTop="40px"><![CDATA[">
+
+
+        ]]></LinearLayout>
 
 </LinearLayout>
