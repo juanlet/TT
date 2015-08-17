@@ -99,7 +99,7 @@ private ArrayList<MusicSQLRow> quizList;
         alterationPicker.setDisplayedValues(alterations);
 
         chordTypePicker= (NumberPicker) findViewById(R.id.chordTypePicker);
-        if(with7ths.equals("With 7ths"))
+        if(with7ths.equals("With 7ths") || gameDifficulty.equals("Hard"))
         {
             chordTypePicker.setMaxValue(0);
             chordTypePicker.setMaxValue(6);
@@ -139,7 +139,7 @@ private ArrayList<MusicSQLRow> quizList;
         }
         else
         {
-            if(with7ths.equals("With 7ths")) {
+            if(with7ths.equals("With 7ths") || gameDifficulty.equals("Hard")) {
                 selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]) + chordTypesWith7ths[chordTypePicker.getValue()];
                 enharmonicSubstring=roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]);
                 isEnharmonic = this.isEnharmonicChordEquivalent(enharmonicSubstring, currentNote, chordTypesWith7ths[chordTypePicker.getValue()]);
@@ -383,13 +383,14 @@ private ArrayList<MusicSQLRow> quizList;
         if(intentExtras.equals("notes_quiz"))
         currentAnswer=question.getNoteName();
         else
-        {    if(with7ths.equals("With 7ths")) {
+        {    if(with7ths.equals("With 7ths") || gameDifficulty.equals("Hard")) {
             currentAnswer = question.getChordWith7();
             chordType = question.getChordTypeWith7();
            //I need the note dissociated from the chord tipe  to check for enharmonic chords
             currentNote=question.getNoteName();
         }
             else {
+
             currentAnswer = question.getChordWithout7();
             chordType= question.getChordTypeWithout7();
             currentNote=question.getNoteName();
