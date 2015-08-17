@@ -79,14 +79,7 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public void goToStats(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(this, Stats.class);
 
-
-        startActivity(intent);
-
-    }
 
     public void goToFaq(View view) {
         // Do something in response to button

@@ -25,10 +25,6 @@
             android:label="@string/title_activity_game" >
         </activity>
         <activity
-            android:name=".Stats"
-            android:label="@string/title_activity_stats" >
-        </activity>
-        <activity
             android:name=".Faq"
             android:label="@string/title_activity_faq" >
         </activity>

@@ -40,7 +40,7 @@ public class MyDialogFragment  extends DialogFragment {
         final Spinner scale_spinner=(Spinner)layout.findViewById(R.id.scale_spinner);
 
         final TextView scaleText= (TextView) layout.findViewById(R.id.scale_text);
-
+        final TextView w_7_text=(TextView) layout.findViewById(R.id.w_7_text);
         //setear los spinners al valor que tenga SharedPreferences
 
         game_time_spinner.setSelection(pref.getInt("gameTimePosition",0));
@@ -63,30 +63,58 @@ public class MyDialogFragment  extends DialogFragment {
 
         theDialog.setView(layout);
 
-        key_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        key_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-  //Si el spinner de Key esta seteado en Random esconde el titulo del spinner de Scale y el spinner de Scale
-                    if (position == 0){
-                        scale_spinner.setVisibility(View.GONE);
-                        scaleText.setVisibility(View.GONE);
-                    } else {
-                        scale_spinner.setVisibility(View.VISIBLE);
-                        scaleText.setVisibility(View.VISIBLE);
-                    }
-
+                //Si el spinner de Key esta seteado en Random esconde el titulo del spinner de Scale y el spinner de Scale
+                if (position == 0) {
+                    scale_spinner.setVisibility(View.GONE);
+                    scaleText.setVisibility(View.GONE);
+                } else {
+                    scale_spinner.setVisibility(View.VISIBLE);
+                    scaleText.setVisibility(View.VISIBLE);
                 }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
 
-                }
+            }
+
+
         });
 
+        game_difficulty_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                //Si el spinner de Key esta seteado en Hard esconde el Spinner de con 7mas o sin séptimas
+                if (position == 2) {
+                    with_7ths_spinner.setVisibility(View.GONE);
+                    w_7_text.setVisibility(View.GONE);
+                } else {
+                    with_7ths_spinner.setVisibility(View.VISIBLE);
+                    w_7_text.setVisibility(View.VISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+            }
+
+
+        });
 
         // Bot�n ok
         theDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

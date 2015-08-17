@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class KeyManager extends SQLiteAssetHelper {
 
-    private static final String DATABASE_NAME = "Transpo";
+    private static final String DATABASE_NAME = "Transp";
     private static final int DATABASE_VERSION = 1;
     SQLiteDatabase db = getWritableDatabase();
     SharedPreferences pref;
