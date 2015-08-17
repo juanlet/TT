@@ -25,7 +25,7 @@ public class Game extends ActionBarActivity {
 
 private String intentExtras;
 private ArrayList<MusicSQLRow> quizList;
-    private TextView gameCountDown,answerCountDown,questionTextView, pauseTextView ;
+    private TextView gameCountDown,answerCountDown,questionTextView, pauseTextView, right_answers_text,right_answers_number, wrong_answer_text,wrong_answer_number ;
    SharedPreferences pref;
     String gameDifficulty, key, scale,with7ths, answer;
     long gameTime,answerTime, millisLeftGameBeforePause;
@@ -82,6 +82,10 @@ private ArrayList<MusicSQLRow> quizList;
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
         questionTextView= (TextView) findViewById(R.id.question_TextView);
         pauseTextView=(TextView) findViewById(R.id.game_paused_textview);
+        right_answers_text=(TextView) findViewById(R.id.right_answers_text);
+        right_answers_number=(TextView) findViewById(R.id.right_answers_number);
+        wrong_answer_text=(TextView) findViewById(R.id.wrong_answers_text);
+        wrong_answer_number=(TextView) findViewById(R.id.wrong_answers_number);
         startGameButton= (Button) findViewById(R.id.start_game_button);
         restartGameButton=(Button) findViewById(R.id.restart_game_button);
         backToMenuButton= (Button) findViewById(R.id.back_to_menu_button);
@@ -262,7 +266,7 @@ private ArrayList<MusicSQLRow> quizList;
 
     public void startGameTimer(long time){
 
-        gameTimer = new CountDownTimer(time, 500){
+        gameTimer = new CountDownTimer(10000, 500){
 
             @Override public void onTick(long millisUntilFinished) {
                 millisLeftGameBeforePause=millisUntilFinished;
@@ -276,8 +280,8 @@ private ArrayList<MusicSQLRow> quizList;
             @Override public void onFinish() {
                 gameTimerIsRunning = false;
                 //mostrarle al usuario cuantas respuestas contestó bien y cuantas mal
-
-
+               right_answers_number.setText(String.valueOf(correctAnswers));
+               wrong_answer_number.setText(String.valueOf(incorrectAnswers));
 
               if(answerTimerIsRunning) answerTimer.cancel();
                 endOfTheGame();
@@ -588,12 +592,17 @@ private ArrayList<MusicSQLRow> quizList;
         rootPicker.setVisibility(View.GONE);
         alterationPicker.setVisibility(View.GONE);
         chordTypePicker.setVisibility(View.GONE);
+        right_answers_text.setVisibility(View.GONE);
+        right_answers_number.setVisibility(View.GONE);
+        wrong_answer_text.setVisibility(View.GONE);
+        wrong_answer_number.setVisibility(View.GONE);
     }
 
 
 // pantalla que aparece después de tocar "start game"
     public void showEverythingBeginning(){
-
+        correctAnswers=0;
+        incorrectAnswers=0;
         gameCountDown.setVisibility(View.VISIBLE);
         answerCountDown.setVisibility(View.VISIBLE);
         questionTextView.setVisibility(View.VISIBLE);
@@ -609,6 +618,10 @@ private ArrayList<MusicSQLRow> quizList;
             chordTypePicker.setVisibility(View.VISIBLE);
 
         answerButton.setVisibility(View.VISIBLE);
+        right_answers_text.setVisibility(View.GONE);
+        right_answers_number.setVisibility(View.GONE);
+        wrong_answer_text.setVisibility(View.GONE);
+        wrong_answer_number.setVisibility(View.GONE);
 
     }
 
@@ -645,6 +658,7 @@ private ArrayList<MusicSQLRow> quizList;
             chordTypePicker.setVisibility(View.VISIBLE);
 
         answerButton.setVisibility(View.VISIBLE);
+
     }
 
 
@@ -664,6 +678,11 @@ private ArrayList<MusicSQLRow> quizList;
         backToMenuButton.setVisibility(View.VISIBLE);
         startGameButton.setVisibility(View.GONE);
         answerButton.setVisibility(View.GONE);
+
+        right_answers_text.setVisibility(View.VISIBLE);
+        right_answers_number.setVisibility(View.VISIBLE);
+        wrong_answer_text.setVisibility(View.VISIBLE);
+        wrong_answer_number.setVisibility(View.VISIBLE);
     }
 
 
