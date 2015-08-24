@@ -2,13 +2,18 @@ package com.example.juan.traspositiontrainer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.CountDownTimer;
-import android.support.v7.app.ActionBarActivity;
+import android.provider.MediaStore;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -21,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 
 
-public class Game extends ActionBarActivity {
+public class Game extends AppCompatActivity {
 
 private String intentExtras;
 private ArrayList<MusicSQLRow> quizList;
@@ -53,6 +58,12 @@ private ArrayList<MusicSQLRow> quizList;
                                         {"A##","B","Cb"}
         };
 
+     private static SoundPool mySounds;
+    private static MediaStore.Audio.Media player;
+
+    //sound ids
+
+    int correctAnswerID,incorrectAnswerID;
 
 
 
@@ -61,6 +72,9 @@ private ArrayList<MusicSQLRow> quizList;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         pref= this.getSharedPreferences("Mypref", 0);
+
+
+
        //if the random repeats the number of the 3 last questions it will generate another one until the number is not in the array
         lastQuestionsSelected=new int[3];
         //tracks the last element inserted
@@ -71,12 +85,37 @@ private ArrayList<MusicSQLRow> quizList;
         incorrectAnswers=0;
 
 
-        gameDifficulty=pref.getString("gameDifficulty", "");
-        key=pref.getString("key","");
-        scale=pref.getString("scale", "");
-        with7ths=pref.getString("with7ths", "");
-        gameTime=this.getMinutesInMilliseconds(pref.getString("gameTime", ""));
-        answerTime=this.getSecondsInMilliseconds(pref.getString("answerTime", ""));
+       loadSounds();
+
+        gameDifficulty=pref.getString("gameDifficulty", null);
+        key=pref.getString("key", null);
+        scale=pref.getString("scale", null);
+        with7ths=pref.getString("with7ths", null);
+        String gameTimePref=pref.getString("gameTime",null);
+        String answerTimePref=pref.getString("answerTime",null);
+
+
+
+        if(gameDifficulty == null)
+        {
+            editor.putString("gameTime", "5 minutes");
+            editor.putString("gameDifficulty", "Easy");
+            editor.putString("answerTime", "30 seconds");
+            editor.putString("with7ths","Without 7ths");
+            editor.putString("key", "Random");
+            editor.putString("scale", "C");
+            editor.commit();
+
+            gameDifficulty="Easy";
+            key="Random";
+            with7ths="Without 7ths";
+            gameTimePref="5 minutes";
+            answerTimePref="30 seconds";
+        }
+
+        gameTime=this.getMinutesInMilliseconds(gameTimePref);
+        answerTime=this.getSecondsInMilliseconds(answerTimePref);
+
 
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
@@ -132,6 +171,7 @@ private ArrayList<MusicSQLRow> quizList;
 
    }
 
+
     public void checkAnswer(View view) {
         Boolean isEnharmonic=false;
         String selectedAnswer="";
@@ -162,12 +202,11 @@ private ArrayList<MusicSQLRow> quizList;
         selectedAnswer= selectedAnswer.replaceAll("\\s+","");
 
 
-
-
         if(selectedAnswer.equals(currentAnswer) || isEnharmonic ){
             //sumar +1 a las respuestas correctas
             //cancelo el timer y después lo reseteo
             correctAnswers+=1;
+               reproduceAnswerSound("Correct");
                if(!isEnharmonic)
                 Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT).show();
                else
@@ -179,9 +218,27 @@ private ArrayList<MusicSQLRow> quizList;
         else
         {
             incorrectAnswers+=1;
-            Toast.makeText(getApplicationContext(),"Incorrect",Toast.LENGTH_SHORT).show();
+            reproduceAnswerSound("Incorrect");
+            Toast.makeText(getApplicationContext(),"Incorrect...Right Answer: "+currentAnswer,Toast.LENGTH_SHORT).show();
             answerTimer.cancel();
             startAnswerTimer(answerTime);
+
+        }
+
+    }
+
+    private void reproduceAnswerSound(String type){
+
+
+
+        if(type.equals("Correct")){
+
+           mySounds.play(correctAnswerID,1,1,1,0,1);
+
+
+        }else if(type.equals("Incorrect"))
+        {
+            mySounds.play(incorrectAnswerID,1,1,1,0,1);
 
         }
 
@@ -684,6 +741,32 @@ private ArrayList<MusicSQLRow> quizList;
         wrong_answer_text.setVisibility(View.VISIBLE);
         wrong_answer_number.setVisibility(View.VISIBLE);
     }
+
+// manages all the sounds of the app
+    private void loadSounds(){
+
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN).setUsage(AudioAttributes.USAGE_GAME).build();
+
+            mySounds = new SoundPool.Builder().
+                    setMaxStreams(10).
+                    setAudioAttributes(audioAttributes).
+                    build();
+
+            correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
+            incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
+        }
+        else
+        {
+            mySounds= new SoundPool(10, AudioManager.USE_DEFAULT_STREAM_TYPE,1);
+            correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
+            incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
+
+        }
+
+    }
+
 
 
 }
