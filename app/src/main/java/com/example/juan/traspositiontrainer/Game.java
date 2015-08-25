@@ -64,6 +64,7 @@ private ArrayList<MusicSQLRow> quizList;
     //sound ids
 
     int correctAnswerID,incorrectAnswerID;
+    MediaPlayer gameSong;
 
 
 
@@ -72,6 +73,7 @@ private ArrayList<MusicSQLRow> quizList;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         pref= this.getSharedPreferences("Mypref", 0);
+
 
 
 
@@ -169,7 +171,15 @@ private ArrayList<MusicSQLRow> quizList;
 
        this.hideEverythingBeggining();
 
+
    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+       if(gameSong!=null)
+        gameSong.release();
+    }
 
 
     public void checkAnswer(View view) {
@@ -206,7 +216,7 @@ private ArrayList<MusicSQLRow> quizList;
             //sumar +1 a las respuestas correctas
             //cancelo el timer y después lo reseteo
             correctAnswers+=1;
-               reproduceAnswerSound("Correct");
+               reproduceSound("Correct");
                if(!isEnharmonic)
                 Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT).show();
                else
@@ -218,7 +228,7 @@ private ArrayList<MusicSQLRow> quizList;
         else
         {
             incorrectAnswers+=1;
-            reproduceAnswerSound("Incorrect");
+            reproduceSound("Incorrect");
             Toast.makeText(getApplicationContext(),"Incorrect...Right Answer: "+currentAnswer,Toast.LENGTH_SHORT).show();
             answerTimer.cancel();
             startAnswerTimer(answerTime);
@@ -227,7 +237,7 @@ private ArrayList<MusicSQLRow> quizList;
 
     }
 
-    private void reproduceAnswerSound(String type){
+    private void reproduceSound(String type){
 
 
 
@@ -241,7 +251,6 @@ private ArrayList<MusicSQLRow> quizList;
             mySounds.play(incorrectAnswerID,1,1,1,0,1);
 
         }
-
     }
 
     private boolean isEnharmonicNoteEquivalent(String userAnswer, String quizAnswer) {
@@ -317,6 +326,8 @@ private ArrayList<MusicSQLRow> quizList;
         showEverythingBeginning();
         startGameTimer(gameTime);
         startAnswerTimer(answerTime);
+        gameSong=MediaPlayer.create(Game.this,R.raw.gamemusic);
+        gameSong.start();
     }
 
 
@@ -653,6 +664,7 @@ private ArrayList<MusicSQLRow> quizList;
         right_answers_number.setVisibility(View.GONE);
         wrong_answer_text.setVisibility(View.GONE);
         wrong_answer_number.setVisibility(View.GONE);
+
     }
 
 
@@ -756,6 +768,7 @@ private ArrayList<MusicSQLRow> quizList;
 
             correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
             incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
+
         }
         else
         {
@@ -765,8 +778,11 @@ private ArrayList<MusicSQLRow> quizList;
 
         }
 
+
+    }
+
     }
 
 
 
-}
+
