@@ -759,7 +759,7 @@ private ArrayList<MusicSQLRow> quizList;
         }
         else
         {
-            mySounds= new SoundPool(10, AudioManager.USE_DEFAULT_STREAM_TYPE,1);
+            mySounds= new SoundPool(1, AudioManager.STREAM_MUSIC,0);
             correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
             incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
 
