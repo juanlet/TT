@@ -72,6 +72,7 @@ private ArrayList<MusicSQLRow> quizList;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         pref= this.getSharedPreferences("Mypref", 0);
 
 

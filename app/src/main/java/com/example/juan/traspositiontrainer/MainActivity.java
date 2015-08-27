@@ -2,6 +2,7 @@ package com.example.juan.traspositiontrainer;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         introSong=MediaPlayer.create(MainActivity.this,R.raw.intromusic);
         introSong.start();
     }
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        //add this to be sure that resources of previous mediaplayers are released
+        if (introSong != null) {
+            introSong.release();
+        }
         introSong=MediaPlayer.create(MainActivity.this,R.raw.intromusic);
         introSong.start();
     }
