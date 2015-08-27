@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //to make sure if the user turn downs volume is only multimedia volume and not call volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         introSong=MediaPlayer.create(MainActivity.this,R.raw.intromusic);
+        introSong.setLooping(true);
         introSong.start();
     }
 

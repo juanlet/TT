@@ -72,6 +72,7 @@ private ArrayList<MusicSQLRow> quizList;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        //to make sure if the user turn downs volume is only multimedia volume and not call volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         pref= this.getSharedPreferences("Mypref", 0);
 
@@ -176,10 +177,11 @@ private ArrayList<MusicSQLRow> quizList;
    }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-       if(gameSong!=null)
-        gameSong.release();
+    protected void onDestroy() {
+        super.onDestroy();
+        if(gameSong!=null)
+            gameSong.release();
+
     }
 
 
@@ -327,7 +329,9 @@ private ArrayList<MusicSQLRow> quizList;
         showEverythingBeginning();
         startGameTimer(gameTime);
         startAnswerTimer(answerTime);
+
         gameSong=MediaPlayer.create(Game.this,R.raw.gamemusic);
+        gameSong.setLooping(true);
         gameSong.start();
     }
 
