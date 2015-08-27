@@ -3,16 +3,24 @@ package com.example.juan.traspositiontrainer;
 import android.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class Faq extends ActionBarActivity {
+
+    TextView textFaq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
+        textFaq=(TextView) findViewById(R.id.faqtextTextView);
+
+        textFaq.setText(Html.fromHtml(getString(R.string.faqText)));
+
     }
 
     @Override

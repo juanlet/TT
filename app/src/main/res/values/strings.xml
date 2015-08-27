@@ -10,7 +10,6 @@
     <string name="faq_button">FAQ</string>
     <string name="w7_text">With 7ths(Only for Chord Mode)</string>
 
-
     <string-array name="answer_time">
         <item>10 seconds</item>
         <item>20 seconds</item>
@@ -66,6 +65,73 @@
     <string name="title_activity_faq">Faq</string>
     <string name="start_button_text">Start Game</string>
     <string name="pause_game_text">Pause Game</string>
+
+    <string name="faqText">
+ <![CDATA[
+<h1>Frequently Asked Questions(FAQ)</h1>
+<p> <h2><b>1-¿What\'s the main goal of Trasposition Trainer?</b></h2>
+ <p>Most music students and performers struggle with trasposing in real time and calculating a specific degree of any scale and root.
+ This app was design to accelerate your dexterity on calcultating degrees and notes from the different tonalities and scales.</p>
+ <p> After doing it for a while you\'ll start to feel much more comfortable playing due to your capability of understanding progressions in terms of degrees.
+  That is the fastest and most efficient way of trasposing.</p></p>
+
+<p><h2><b>2- ¿What can I practice with this app?</b></h2>
+ You can practice either notes or chords of a particular or random key. To practice notes just enter \'Notes quiz\' on the main menu.
+ If you want to practice chords pick \'Chord quiz\'.</p>
+
+<p><h2><b>3-¿How do I start using the app according to my level?</b></h2>
+
+The idea is to practice by stages:<br>
+
+<h6>a)First stage:</h6> If you are totally new to trasposition you could start with the following set up:<br>
+
+
+-Easy mode(the app will quiz you just about major scale)<br>
+-Pick a specific key in the key dropdown list, like C, G or D for example<br>
+-Set the answer time to 1 minute <br>
+-If you are on chord mode pick the option with no 7ths. <br>
+
+
+<h6>b)Second stage:</h6> Once you feel comfortable on the first stage, use the following set up:<br>
+
+
+-Easy mode(the app will quiz you just about major scale) <br>
+-Use the random option in the key dropdown list(the app will quiz you about any root) <br>
+-Set the answer time to 1 minute <br>
+-If you are on chord mode pick the option with no 7ths. <br>
+
+
+<h6>c)Third stage:</h6> After spending some time with stage two is recommended to try to reduce the answer time. A set up according to this stage could be like this:<br>
+
+
+-Easy mode(the app will quiz you just about major scale)<br>
+-Use the random option in the key dropdown list(the app will quiz you about any root)<br>
+-Set the answer time to 20 or 30 seconds.<br>
+-If you are on chord mode pick the option with 7ths(if you use this option consider increasing answering time to 1 minute to get used to 7ths).<br>
+
+
+<h6>d)Fourth stage:</h6> You are ready to practice with Natural Minor scale. Just follow the same steps of difficulty that you did with major scale.
+Start with a specific key. Then pick random mode and set the difficulty level to medium to be quizzed  about major AND natural minor scale chords and notes.
+Play with different answer times to improve more and more your dexterity on trasposition.<br>
+
+<h6>e)Fifth stage:</h6> Finally, practice with the Harmonic Minor and Melodic Minor scale. Do the same as in stage four.
+Practice each scale individually and then use Random mode and Hard mode to be quizzed about notes/chords on random roots on either Major Scale, Natural Minor Scale,
+Harmonic Minor Scale and Melodic Minor Scale.</p>
+
+<p> <h2><b>4-¿How long will it take me to get better at thinking in degrees instead of chords and use that ability to traspose in real time using just my brain?</b></h2>
+
+ If you follow the suggested practice programm you will notice great improvement in the first month. After months of doing it you will be really good
+ in a real situation at knowing what\'s going on with the chords in real time.</p>
+
+
+ <p><h2><b> 5-¿Need further assistance?</b></h2>
+
+  Let us know about any additional question or suggestion to <b>webcodingx@gmail.com</b>.</p>
+
+<p><small> **Special thanks for the game soundtrack to Ben Sound</small></p>
+
+]]>
+</string>
 
 
 </resources>
