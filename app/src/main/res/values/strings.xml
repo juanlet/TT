@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TranspositionTrainer</string>
+    <string name="app_name">TraspositionTrainer</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_exit">Exit</string>

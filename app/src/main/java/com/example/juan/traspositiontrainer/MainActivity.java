@@ -10,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.io.IOException;
-
 
 public class MainActivity extends AppCompatActivity {
 //comment3
