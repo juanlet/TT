@@ -4,10 +4,11 @@
     <!-- Base application theme inherits the theme based on the Android API. -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-
+        <item name="android:windowNoTitle">true</item>
         <!-- Customizations that won't be specific to any API go here -->
 
     </style>

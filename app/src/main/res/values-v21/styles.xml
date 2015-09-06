@@ -2,16 +2,23 @@
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme using Material Design here. -->
-        <item name="colorPrimary">#000000</item>
 
-        <item name="android:colorPrimaryDark">@color/white</item>
-        <item name="android:colorButtonNormal">@color/green_700</item>
-        <item name="android:colorPrimary">@color/white</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:colorAccent">@color/white</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/black</item>
-        <item name="android:colorBackground">@color/white</item>
+
+
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+
+        <!-- Configuración de las transiciones de pantallas sólo para lollipop. -->
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/slide_left</item>
+        <item name="android:windowExitTransition">@android:transition/slide_right</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <!--item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementExitTransition">@android:transition/move</item-->
 
     </style>
 

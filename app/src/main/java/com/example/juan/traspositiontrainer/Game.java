@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +72,7 @@ private ArrayList<MusicSQLRow> quizList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.activity_game);
         //to make sure if the user turn downs volume is only multimedia volume and not call volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -221,9 +223,9 @@ private ArrayList<MusicSQLRow> quizList;
             correctAnswers+=1;
                reproduceSound("Correct");
                if(!isEnharmonic)
-                Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT).show();
+                showToast("Correct");
                else
-                   Toast.makeText(getApplicationContext(),"Enharmonically Correct",Toast.LENGTH_SHORT).show();
+                  showToast("Enharmonically Correct");
             answerTimer.cancel();
             startAnswerTimer(answerTime);
 
@@ -232,11 +234,19 @@ private ArrayList<MusicSQLRow> quizList;
         {
             incorrectAnswers+=1;
             reproduceSound("Incorrect");
-            Toast.makeText(getApplicationContext(),"Incorrect...Right Answer: "+currentAnswer,Toast.LENGTH_SHORT).show();
+            showToast("Incorrect...Right Answer: "+currentAnswer);
             answerTimer.cancel();
             startAnswerTimer(answerTime);
 
         }
+
+    }
+
+    private void showToast(String message){
+
+        Toast toast= Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
 
     }
 

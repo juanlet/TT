@@ -50,10 +50,10 @@ public class MusicSQLRow {
     }
 
     public String getChordWithout7() {
-        return noteName+chordTypeWithout7;
+        return noteName+" "+chordTypeWithout7;
     }
 
-    public String getChordWith7() {return noteName+chordSymbol;}
+    public String getChordWith7() {return noteName+" "+chordSymbol;}
 
     public String getChordTypeWithout7(){
     return chordTypeWithout7;

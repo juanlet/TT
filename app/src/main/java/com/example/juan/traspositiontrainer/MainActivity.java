@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.activity_main);
         //to make sure if the user turn downs volume is only multimedia volume and not call volume
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -97,7 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
        this.setIntentExtra(view.getId(),intent);
 
-        startActivity(intent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                // the context of the activity
+                MainActivity.this,null);
+        ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
+
+      //  startActivity(intent);
 
     }
 
@@ -107,7 +115,12 @@ public class MainActivity extends AppCompatActivity {
         // Do something in response to button
         Intent intent = new Intent(this, Faq.class);
 
-        startActivity(intent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                // the context of the activity
+                MainActivity.this,null);
+        ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
+
+       // startActivity(intent);
 
     }
 
