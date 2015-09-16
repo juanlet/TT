@@ -609,7 +609,7 @@ private ArrayList<MusicSQLRow> quizList;
         getMenuInflater().inflate(R.menu.menu_game, menu);
         activityMenu=menu;
        //escondo la opción de pausa cuando se ve la pantalla con el botón de "start game", luego cuando arranca el juego mas adelante lo muestro de nuevo
-        hideItemMenu("pause");
+        hideItemMenu();
         return true;
     }
 
@@ -707,7 +707,7 @@ private ArrayList<MusicSQLRow> quizList;
     public void showEverythingBeginning(){
         correctAnswers=0;
         incorrectAnswers=0;
-        showItemMenu("pause");
+        showItemMenu();
         gameCountDown.setVisibility(View.VISIBLE);
         answerCountDown.setVisibility(View.VISIBLE);
         questionTextView.setVisibility(View.VISIBLE);
@@ -792,28 +792,23 @@ private ArrayList<MusicSQLRow> quizList;
 
 //shows item on ActionBar
 
-    private void showItemMenu(String item){
+    private void showItemMenu(){
 
-        if(item.equals("pause")){
+
             MenuItem pauseMenuItem = activityMenu.findItem(R.id.pause_game);
             pauseMenuItem.setVisible(true);
-        }else if(item.equals("play")){
 
-        }
 
     }
 
     //hides item on ActionBar
 
-    private void hideItemMenu(String item){
+    private void hideItemMenu(){
 
-        if(item.equals("pause")){
+
            //escondo botón de pausa
             MenuItem pauseMenuItem = activityMenu.findItem(R.id.pause_game);
             pauseMenuItem.setVisible(false);
-        }else if(item.equals("play")){
-
-        }
 
     }
 

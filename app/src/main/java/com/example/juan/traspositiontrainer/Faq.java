@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class Faq extends ActionBarActivity {
 
     TextView textFaq;
+    Menu activityMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,8 @@ public class Faq extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        activityMenu=menu;
+        hideItemMenu();
         return true;
     }
 
@@ -51,5 +54,14 @@ public class Faq extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void hideItemMenu(){
+
+
+        //escondo botón de pausa
+        MenuItem pauseMenuItem = activityMenu.findItem(R.id.action_settings);
+        pauseMenuItem.setVisible(false);
+
     }
 }
