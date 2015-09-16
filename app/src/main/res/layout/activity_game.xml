@@ -84,34 +84,34 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start_button_text"
         android:id="@+id/start_game_button"
         android:onClick="startGame"
         android:layout_centerVertical="true"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/startgamebuttonselector"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Restart Game"
         android:id="@+id/restart_game_button"
         android:layout_gravity="center_horizontal"
-        android:onClick="restartGame" />
+        android:onClick="restartGame"
+        android:background="@drawable/restartgamebuttonselector"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go back to menu"
         android:id="@+id/back_to_menu_button"
         android:layout_gravity="center_horizontal"
-        android:onClick="backtoMenu" />
+        android:onClick="backtoMenu"
+        android:background="@drawable/backtomenuselector"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Answer!"
         android:id="@+id/answerButton"
         android:onClick="checkAnswer"
+        android:background="@drawable/answerbuttonselector"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout

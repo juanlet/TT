@@ -10,6 +10,7 @@ import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 
 public class MyDialogFragment  extends DialogFragment {
 
-
+ String music;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class MyDialogFragment  extends DialogFragment {
         final SharedPreferences pref = getActivity().getSharedPreferences("Mypref",0);
 
         //creo las variables de los spinners
+        final Spinner music_spinner=(Spinner) layout.findViewById(R.id.music_spinner);
+        final Spinner sound_spinner=(Spinner) layout.findViewById(R.id.sounds_spinner);
         final Spinner game_time_spinner=(Spinner)layout.findViewById(R.id.game_time_spinner);
         final Spinner game_difficulty_spinner=(Spinner)layout.findViewById(R.id.game_difficulty_spinner);
         final Spinner answer_time_spinner=(Spinner)layout.findViewById(R.id.answer_time_spinner);
@@ -43,12 +46,15 @@ public class MyDialogFragment  extends DialogFragment {
         final TextView w_7_text=(TextView) layout.findViewById(R.id.w_7_text);
         //setear los spinners al valor que tenga SharedPreferences
 
+        music_spinner.setSelection(pref.getInt("musicPosition",0));
+        sound_spinner.setSelection(pref.getInt("soundPosition",0));
         game_time_spinner.setSelection(pref.getInt("gameTimePosition",0));
         game_difficulty_spinner.setSelection(pref.getInt("gameDifficultyPosition",0));
         answer_time_spinner.setSelection(pref.getInt("answerTimePosition",0));
         with_7ths_spinner.setSelection(pref.getInt("with7thsPosition",0));
         key_spinner.setSelection(pref.getInt("keyPosition",0));
         scale_spinner.setSelection(pref.getInt("scalePosition",0));
+
 
 
         // Se crea el popUp
@@ -76,6 +82,29 @@ public class MyDialogFragment  extends DialogFragment {
                 } else {
                     scale_spinner.setVisibility(View.VISIBLE);
                     scaleText.setVisibility(View.VISIBLE);
+
+                    //le limito las opciones que va a ver en el spinner de escalas según lo que seleccionó:
+                    //si gameDifficulty  easy+ Key!=random--->Scale solo mayor
+                    //si gameDifficulty  medium+ Key!=random--->Scale solo mayor y menor
+                    //si gameDifficulty  hard+ Key!=random--->Scale Las 4 opciones, quedan las opciones que se setean en el layout desde el archivo string, aparecen todas las opciones, no es necesario especificarlo acá
+
+                    String difficulty = game_difficulty_spinner.getSelectedItem().toString();
+
+                    if(difficulty.equals("Easy"))
+                    {
+                        ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner_easy));
+                        scale_spinner.setAdapter(scaleSpinnerAdapter);
+
+                    }else if(difficulty.equals("Normal")){
+                        ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner_medium));
+                        scale_spinner.setAdapter(scaleSpinnerAdapter);
+                    } else if(difficulty.equals("Hard")){
+                        ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner));
+                        scale_spinner.setAdapter(scaleSpinnerAdapter);
+
+                    }
+
+
                 }
 
             }
@@ -105,6 +134,22 @@ public class MyDialogFragment  extends DialogFragment {
 
                 }
 
+                String difficulty = game_difficulty_spinner.getSelectedItem().toString();
+
+                if(difficulty.equals("Easy"))
+                {
+                    ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner_easy));
+                    scale_spinner.setAdapter(scaleSpinnerAdapter);
+
+                }else if(difficulty.equals("Normal")){
+                    ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner_medium));
+                    scale_spinner.setAdapter(scaleSpinnerAdapter);
+                } else if(difficulty.equals("Hard")){
+                    ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner));
+                    scale_spinner.setAdapter(scaleSpinnerAdapter);
+
+                }
+
             }
 
             @Override
@@ -122,6 +167,8 @@ public class MyDialogFragment  extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 //que hacer si el usuario toca OK
 
+                music=(String) music_spinner.getSelectedItem().toString();
+                String sounds=(String) sound_spinner.getSelectedItem().toString();
                 String gameTime = (String) game_time_spinner.getSelectedItem().toString();
                 String gameDifficulty = (String) game_difficulty_spinner.getSelectedItem().toString();
                 String answerTime = (String) answer_time_spinner.getSelectedItem().toString();
@@ -129,7 +176,8 @@ public class MyDialogFragment  extends DialogFragment {
                 String key = (String) key_spinner.getSelectedItem().toString();
                 String scale = (String) scale_spinner.getSelectedItem().toString();
 
-
+                int musicPosition= music_spinner.getSelectedItemPosition();
+                int soundPosition= sound_spinner.getSelectedItemPosition();
                 int gameTimePosition= game_time_spinner.getSelectedItemPosition();
                 int gameDifficultyPosition= game_difficulty_spinner.getSelectedItemPosition();
                 int answerTimePosition= answer_time_spinner.getSelectedItemPosition();
@@ -140,6 +188,8 @@ public class MyDialogFragment  extends DialogFragment {
                 //guardo en sharedPreferences los valores que quedaron seteados en los spinners cuando el usuario tocó OK
                 SharedPreferences.Editor editor = pref.edit();
 
+                editor.putString("music", music);
+                editor.putString("sound", sounds);
                 editor.putString("gameTime", gameTime);
                 editor.putString("gameDifficulty", gameDifficulty);
                 editor.putString("answerTime", answerTime);
@@ -147,7 +197,8 @@ public class MyDialogFragment  extends DialogFragment {
                 editor.putString("key", key);
                 editor.putString("scale", scale);
 
-
+                editor.putInt("musicPosition",musicPosition);
+                editor.putInt("soundPosition",soundPosition);
                 editor.putInt("gameTimePosition", gameTimePosition);
                editor.putInt("gameDifficultyPosition",gameDifficultyPosition);
                editor.putInt("answerTimePosition",answerTimePosition);
@@ -180,4 +231,5 @@ public class MyDialogFragment  extends DialogFragment {
 
     }
 
- }
+
+}

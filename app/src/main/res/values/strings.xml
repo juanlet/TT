@@ -10,6 +10,17 @@
     <string name="faq_button">FAQ</string>
     <string name="w7_text">With 7ths(Only for Chord Mode)</string>
 
+
+    <string-array name="music">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="sounds">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
     <string-array name="answer_time">
         <item>10 seconds</item>
         <item>20 seconds</item>
@@ -38,6 +49,16 @@
         <item>Natural Minor</item>
         <item>Harmonic Minor</item>
         <item>Melodic Minor</item>
+    </string-array>
+
+
+    <string-array name="scale_spinner_easy">
+       <item>Major</item>
+    </string-array>
+
+    <string-array name="scale_spinner_medium">
+       <item>Major</item>
+       <item>Natural Minor</item>
     </string-array>
 
     <string-array name="key_spinner">

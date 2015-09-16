@@ -15,6 +15,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Music:"
+        android:id="@+id/music"
+        android:layout_gravity="center_horizontal"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/music_spinner"
+        android:spinnerMode="dropdown"
+        android:entries="@array/music"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sounds:"
+        android:id="@+id/sounds"
+        android:layout_gravity="center_horizontal"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sounds_spinner"
+        android:spinnerMode="dropdown"
+        android:entries="@array/sounds"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Game Time:"
         android:id="@+id/game_time_text"
         android:layout_gravity="center_horizontal"/>

@@ -31,9 +31,10 @@ public class Game extends AppCompatActivity {
 
 private String intentExtras;
 private ArrayList<MusicSQLRow> quizList;
+    Menu activityMenu;
     private TextView gameCountDown,answerCountDown,questionTextView, pauseTextView, right_answers_text,right_answers_number, wrong_answer_text,wrong_answer_number ;
    SharedPreferences pref;
-    String gameDifficulty, key, scale,with7ths, answer;
+    String gameDifficulty, key, scale,with7ths, answer, sound, music;
     long gameTime,answerTime, millisLeftGameBeforePause;
     CountDownTimer gameTimer, answerTimer;
     boolean gameTimerIsRunning, answerTimerIsRunning;
@@ -75,9 +76,7 @@ private ArrayList<MusicSQLRow> quizList;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.activity_game);
         //to make sure if the user turn downs volume is only multimedia volume and not call volume
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         pref= this.getSharedPreferences("Mypref", 0);
-
 
 
 
@@ -93,6 +92,8 @@ private ArrayList<MusicSQLRow> quizList;
 
        loadSounds();
 
+        music=pref.getString("music", null);
+        sound=pref.getString("sound", null);
         gameDifficulty=pref.getString("gameDifficulty", null);
         key=pref.getString("key", null);
         scale=pref.getString("scale", null);
@@ -104,6 +105,8 @@ private ArrayList<MusicSQLRow> quizList;
 
         if(gameDifficulty == null)
         {
+            editor.putString("music", "Yes");
+            editor.putString("sound", "Yes");
             editor.putString("gameTime", "5 minutes");
             editor.putString("gameDifficulty", "Easy");
             editor.putString("answerTime", "30 seconds");
@@ -112,6 +115,8 @@ private ArrayList<MusicSQLRow> quizList;
             editor.putString("scale", "C");
             editor.commit();
 
+            music="Yes";
+            sound="Yes";
             gameDifficulty="Easy";
             key="Random";
             with7ths="Without 7ths";
@@ -181,8 +186,7 @@ private ArrayList<MusicSQLRow> quizList;
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(gameSong!=null)
-            gameSong.release();
+        killMusic();
 
     }
 
@@ -221,7 +225,9 @@ private ArrayList<MusicSQLRow> quizList;
             //sumar +1 a las respuestas correctas
             //cancelo el timer y después lo reseteo
             correctAnswers+=1;
-               reproduceSound("Correct");
+            if(sound.equals("Yes")) {
+                reproduceSound("Correct");
+            }
                if(!isEnharmonic)
                 showToast("Correct");
                else
@@ -233,7 +239,9 @@ private ArrayList<MusicSQLRow> quizList;
         else
         {
             incorrectAnswers+=1;
-            reproduceSound("Incorrect");
+            if(sound.equals("Yes")) {
+                reproduceSound("Incorrect");
+            }
             showToast("Incorrect...Right Answer: "+currentAnswer);
             answerTimer.cancel();
             startAnswerTimer(answerTime);
@@ -340,9 +348,12 @@ private ArrayList<MusicSQLRow> quizList;
         startGameTimer(gameTime);
         startAnswerTimer(answerTime);
 
-        gameSong=MediaPlayer.create(Game.this,R.raw.gamemusic);
-        gameSong.setLooping(true);
-        gameSong.start();
+        if(music.equals("Yes")) {
+            setVolumeControlStream(AudioManager.STREAM_MUSIC);
+            gameSong = MediaPlayer.create(Game.this, R.raw.gamemusic);
+            gameSong.setLooping(true);
+            gameSong.start();
+        }
     }
 
 
@@ -596,8 +607,12 @@ private ArrayList<MusicSQLRow> quizList;
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_game, menu);
+        activityMenu=menu;
+       //escondo la opción de pausa cuando se ve la pantalla con el botón de "start game", luego cuando arranca el juego mas adelante lo muestro de nuevo
+        hideItemMenu("pause");
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -626,6 +641,8 @@ private ArrayList<MusicSQLRow> quizList;
 
             return true;
         }else if (id== R.id.exit_app){
+            killMusic();
+
             finish();
             return true;
         }
@@ -641,7 +658,8 @@ private ArrayList<MusicSQLRow> quizList;
        this.startAnswerTimer(answerTime);
         //show everything when resume game
         this.showEverythingDepaused();
-
+      //changes the icon in actionBar from play to pause icon
+        togglePauseIcon();
     }
 
 
@@ -654,6 +672,8 @@ private ArrayList<MusicSQLRow> quizList;
         answerTimer.cancel();
         gameTimer=null;
         answerTimer=null;
+        //changes the icon in actionBar from pause to play icon
+        togglePauseIcon();
     }
 
 
@@ -687,6 +707,7 @@ private ArrayList<MusicSQLRow> quizList;
     public void showEverythingBeginning(){
         correctAnswers=0;
         incorrectAnswers=0;
+        showItemMenu("pause");
         gameCountDown.setVisibility(View.VISIBLE);
         answerCountDown.setVisibility(View.VISIBLE);
         questionTextView.setVisibility(View.VISIBLE);
@@ -769,6 +790,34 @@ private ArrayList<MusicSQLRow> quizList;
         wrong_answer_number.setVisibility(View.VISIBLE);
     }
 
+//shows item on ActionBar
+
+    private void showItemMenu(String item){
+
+        if(item.equals("pause")){
+            MenuItem pauseMenuItem = activityMenu.findItem(R.id.pause_game);
+            pauseMenuItem.setVisible(true);
+        }else if(item.equals("play")){
+
+        }
+
+    }
+
+    //hides item on ActionBar
+
+    private void hideItemMenu(String item){
+
+        if(item.equals("pause")){
+           //escondo botón de pausa
+            MenuItem pauseMenuItem = activityMenu.findItem(R.id.pause_game);
+            pauseMenuItem.setVisible(false);
+        }else if(item.equals("play")){
+
+        }
+
+    }
+
+
 // manages all the sounds of the app
     private void loadSounds(){
 
@@ -794,6 +843,26 @@ private ArrayList<MusicSQLRow> quizList;
         }
 
 
+    }
+
+    private void togglePauseIcon(){
+        MenuItem pauseMenuItem = activityMenu.findItem(R.id.pause_game);
+
+        if(gameTimerIsRunning){
+
+            pauseMenuItem.setIcon(R.drawable.pause_icon);
+
+        }else
+        {
+            pauseMenuItem.setIcon(R.drawable.play_icon);
+
+        }
+
+    }
+
+    private void killMusic(){
+        if(gameSong!=null)
+            gameSong.release();
     }
 
     }
