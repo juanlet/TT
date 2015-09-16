@@ -3,8 +3,11 @@ package com.example.juan.traspositiontrainer;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -16,11 +19,12 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 //comment3
-
+private static SoundPool mySounds;
     MediaPlayer introSong;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     String music,sound;
+    int buttonClickSoundID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(music.equals("Yes")) {
-            setVolumeControlStream(AudioManager.STREAM_MUSIC);
-            introSong = MediaPlayer.create(MainActivity.this, R.raw.intromusic);
-            introSong.setLooping(true);
-            introSong.start();
+    playMusic();
+        }
+        if(sound.equals("Yes")){
+            loadSounds();
         }
     }
 
@@ -62,6 +66,15 @@ public class MainActivity extends AppCompatActivity {
 
         if(music.equals("No")){
             killMusic();
+        }
+
+        if(music.equals("Yes")){
+            {
+                if (introSong == null)//chequear si con chquear que sea null es suficiente o si agrego un boolean para chequear que la música esté corriendo
+                {
+                    playMusic();
+                }
+            }
         }
 
 
@@ -92,9 +105,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void killMusic(){
-        if (introSong != null) {
+        if (introSong != null) {//chequear si con chquear que sea null es suficiente o si agrego un boolean para chequear que la música esté corriendo
 
             introSong.release();
+        }
+    }
+
+    private void playMusic(){
+        if (introSong == null) {
+            setVolumeControlStream(AudioManager.STREAM_MUSIC);
+            introSong = MediaPlayer.create(MainActivity.this, R.raw.intromusic);
+            introSong.setLooping(true);
+            introSong.start();
         }
     }
 
@@ -147,6 +169,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToGame(View view) {
+
+        if(sound.equals("Yes")){
+            reproduceSound();
+        }
+
         // Do something in response to button
         Intent intent = new Intent(this, Game.class);
 
@@ -164,6 +191,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToFaq(View view) {
+
+        if(sound.equals("Yes")){
+            reproduceSound();
+        }
+
         // Do something in response to button
         Intent intent = new Intent(this, Faq.class);
 
@@ -173,6 +205,38 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
 
        // startActivity(intent);
+
+    }
+
+
+
+    private void loadSounds(){
+
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN).setUsage(AudioAttributes.USAGE_GAME).build();
+
+            mySounds = new SoundPool.Builder().
+                    setMaxStreams(10).
+                    setAudioAttributes(audioAttributes).
+                    build();
+
+            buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
+
+        }
+        else
+        {
+            mySounds= new SoundPool(1, AudioManager.STREAM_MUSIC,0);
+            buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
+        }
+
+
+    }
+
+    private void reproduceSound(){
+
+
+                 mySounds.play(buttonClickSoundID, 1, 1, 1, 0, 1);
 
     }
 
