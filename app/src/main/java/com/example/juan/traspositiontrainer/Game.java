@@ -46,7 +46,7 @@ private ArrayList<MusicSQLRow> quizList;
     NumberPicker rootPicker,alterationPicker, chordTypePicker;
     String currentAnswer, chordType, currentNote;
     String[] roots = {" ","A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"}, chordTypesWith7ths={"maj7", "m7", "7", "m7b5", "-maj7", "maj7+", "dim7"}, chordTypesWithout7ths={"Major", "Minor", "Diminished"};
-    static String[][]  enharmonicEquals={ {"B#","C","Dbb"},
+    String[][]  enharmonicEquals={ {"B#","C","Dbb"},
                                         {"B##","C#","Db"},
                                         {"C##","D","Ebb"},
                                         {"D#","Eb","Fbb"},
@@ -60,8 +60,8 @@ private ArrayList<MusicSQLRow> quizList;
                                         {"A##","B","Cb"}
         };
 
-     private static SoundPool mySounds;
-    private static MediaStore.Audio.Media player;
+     private SoundPool mySounds;
+    private MediaStore.Audio.Media player;
 
     //sound ids
 
@@ -103,6 +103,8 @@ private ArrayList<MusicSQLRow> quizList;
 
 
 
+       /* no es necesario, ya lo hice en el MainActivity.java
+
         if(gameDifficulty == null)
         {
             editor.putString("music", "Yes");
@@ -122,7 +124,7 @@ private ArrayList<MusicSQLRow> quizList;
             with7ths="Without 7ths";
             gameTimePref="5 minutes";
             answerTimePref="30 seconds";
-        }
+        }*/
 
         gameTime=this.getMinutesInMilliseconds(gameTimePref);
         answerTime=this.getSecondsInMilliseconds(answerTimePref);
@@ -187,6 +189,7 @@ private ArrayList<MusicSQLRow> quizList;
     protected void onDestroy() {
         super.onDestroy();
         killMusic();
+        releaseVariables();
 
     }
 
@@ -642,7 +645,7 @@ private ArrayList<MusicSQLRow> quizList;
             return true;
         }else if (id== R.id.exit_app){
             killMusic();
-
+            releaseVariables();
             finish();
             return true;
         }
@@ -860,7 +863,30 @@ private ArrayList<MusicSQLRow> quizList;
             gameSong.release();
     }
 
+
+    private void releaseVariables(){
+
+        //release soundpool
+        if (mySounds != null)
+            mySounds.release();
+
+        /*release arrays and collections
+        quizList.clear();
+        enharmonicEquals=null;
+        lastQuestionsSelected=null;
+        roots=null;
+        alterations=null;
+        chordTypesWith7ths=null;
+        chordTypesWithout7ths=null;
+
+        System.gc();*/
+
+
+
     }
+
+
+}
 
 
 

@@ -32,7 +32,6 @@ private static SoundPool mySounds;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.activity_main);
         //to make sure if the user turn downs volume is only multimedia volume and not call volume, only if music is set to yes
-
         introSong=null;
 
         pref= this.getSharedPreferences("Mypref", 0);
@@ -42,13 +41,38 @@ private static SoundPool mySounds;
         music=pref.getString("music", null);
         sound=pref.getString("sound", null);
 
-        if(music == null || sound == null)
+        String gameDifficulty = pref.getString("gameDifficulty", null);
+        String key=pref.getString("key", null);
+        String scale=pref.getString("scale", null);
+        String with7ths=pref.getString("with7ths", null);
+        String gameTimePref=pref.getString("gameTime",null);
+        String answerTimePref=pref.getString("answerTime",null);
+
+        music=pref.getString("music", null);
+        sound=pref.getString("sound", null);
+
+        if(gameDifficulty == null)
         {
             editor.putString("music", "Yes");
+            editor.putString("sound", "Yes");
+            editor.putString("gameTime", "5 minutes");
+            editor.putString("gameDifficulty", "Easy");
+            editor.putString("answerTime", "30 seconds");
+            editor.putString("with7ths","Without 7ths");
+            editor.putString("key", "Random");
+            editor.putString("scale", "C");
             editor.commit();
 
             music="Yes";
+            sound="Yes";
+            gameDifficulty="Easy";
+            key="Random";
+            with7ths="Without 7ths";
+            gameTimePref="5 minutes";
+            answerTimePref="30 seconds";
         }
+
+
 
         if(music.equals("Yes")) {
     playMusic();
@@ -56,28 +80,6 @@ private static SoundPool mySounds;
         if(sound.equals("Yes")){
             loadSounds();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        music=pref.getString("music", null);
-
-        if(music.equals("No")){
-            killMusic();
-        }
-
-        if(music.equals("Yes")){
-            {
-                if (introSong == null)//chequear si con chquear que sea null es suficiente o si agrego un boolean para chequear que la música esté corriendo
-                {
-                    playMusic();
-                }
-            }
-        }
-
-
     }
 
     @Override
@@ -91,17 +93,26 @@ private static SoundPool mySounds;
     protected void onRestart() {
         super.onRestart();
         //add this to be sure that resources of previous mediaplayers are released
-        killMusic();
-        if(music.equals("Yes")) {
-        introSong=MediaPlayer.create(MainActivity.this,R.raw.intromusic);
-        introSong.start();
+
+        music=pref.getString("music", null);
+
+        if(music.equals("Yes")){
+            {
+                if (introSong == null)//chequear si con chquear que sea null es suficiente o si agrego un boolean para chequear que la música esté corriendo
+                {
+                    playMusic();
+                }
+            }
         }
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         killMusic();
+        introSong=null;
+
     }
 
     private void killMusic(){
@@ -239,8 +250,6 @@ private static SoundPool mySounds;
                  mySounds.play(buttonClickSoundID, 1, 1, 1, 0, 1);
 
     }
-
-
 
 
 
