@@ -72,14 +72,9 @@ private static SoundPool mySounds;
             answerTimePref="30 seconds";
         }
 
-
-
-        if(music.equals("Yes")) {
     playMusic();
-        }
-        if(sound.equals("Yes")){
-            loadSounds();
-        }
+    loadSounds();
+
     }
 
     @Override
@@ -95,15 +90,8 @@ private static SoundPool mySounds;
         //add this to be sure that resources of previous mediaplayers are released
 
         music=pref.getString("music", null);
+        playMusic();
 
-        if(music.equals("Yes")){
-            {
-                if (introSong == null)//chequear si con chquear que sea null es suficiente o si agrego un boolean para chequear que la música esté corriendo
-                {
-                    playMusic();
-                }
-            }
-        }
 
     }
 
@@ -123,12 +111,15 @@ private static SoundPool mySounds;
     }
 
     private void playMusic(){
-        if (introSong == null) {
-            setVolumeControlStream(AudioManager.STREAM_MUSIC);
-            introSong = MediaPlayer.create(MainActivity.this, R.raw.intromusic);
-            introSong.setLooping(true);
-            introSong.start();
+        if(music.equals("Yes")) {
+            if (introSong == null) {
+                setVolumeControlStream(AudioManager.STREAM_MUSIC);
+                introSong = MediaPlayer.create(MainActivity.this, R.raw.intromusic);
+                introSong.setLooping(true);
+                introSong.start();
+            }
         }
+
     }
 
     @Override
@@ -181,9 +172,7 @@ private static SoundPool mySounds;
 
     public void goToGame(View view) {
 
-        if(sound.equals("Yes")){
             reproduceSound();
-        }
 
         // Do something in response to button
         Intent intent = new Intent(this, Game.class);
@@ -203,9 +192,9 @@ private static SoundPool mySounds;
 
     public void goToFaq(View view) {
 
-        if(sound.equals("Yes")){
+
             reproduceSound();
-        }
+
 
         // Do something in response to button
         Intent intent = new Intent(this, Faq.class);
@@ -222,23 +211,22 @@ private static SoundPool mySounds;
 
 
     private void loadSounds(){
+        if(sound.equals("Yes")) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
 
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
+                AudioAttributes audioAttributes = new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN).setUsage(AudioAttributes.USAGE_GAME).build();
 
-            AudioAttributes audioAttributes = new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN).setUsage(AudioAttributes.USAGE_GAME).build();
+                mySounds = new SoundPool.Builder().
+                        setMaxStreams(10).
+                        setAudioAttributes(audioAttributes).
+                        build();
 
-            mySounds = new SoundPool.Builder().
-                    setMaxStreams(10).
-                    setAudioAttributes(audioAttributes).
-                    build();
+                buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
 
-            buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
-
-        }
-        else
-        {
-            mySounds= new SoundPool(1, AudioManager.STREAM_MUSIC,0);
-            buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
+            } else {
+                mySounds = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+                buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
+            }
         }
 
 
@@ -246,10 +234,12 @@ private static SoundPool mySounds;
 
     private void reproduceSound(){
 
-
-                 mySounds.play(buttonClickSoundID, 1, 1, 1, 0, 1);
-
+        if(sound.equals("Yes")) {
+            mySounds.play(buttonClickSoundID, 1, 1, 1, 0, 1);
+        }
     }
+
+
 
 
 

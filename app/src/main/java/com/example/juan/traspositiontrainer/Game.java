@@ -15,8 +15,11 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +47,7 @@ private ArrayList<MusicSQLRow> quizList;
     SharedPreferences.Editor editor;
     KeyManager db;
     NumberPicker rootPicker,alterationPicker, chordTypePicker;
-    String currentAnswer, chordType, currentNote;
+    String currentAnswer, chordType, currentNote, answerTimePref;
     String[] roots = {" ","A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"}, chordTypesWith7ths={"maj7", "m7", "7", "m7b5", "-maj7", "maj7+", "dim7"}, chordTypesWithout7ths={"Major", "Minor", "Diminished"};
     String[][]  enharmonicEquals={ {"B#","C","Dbb"},
                                         {"B##","C#","Db"},
@@ -65,8 +68,9 @@ private ArrayList<MusicSQLRow> quizList;
 
     //sound ids
 
-    int correctAnswerID,incorrectAnswerID;
+    int correctAnswerID,incorrectAnswerID,buttonClickID;
     MediaPlayer gameSong;
+    ProgressBar barTimer;
 
 
 
@@ -99,7 +103,7 @@ private ArrayList<MusicSQLRow> quizList;
         scale=pref.getString("scale", null);
         with7ths=pref.getString("with7ths", null);
         String gameTimePref=pref.getString("gameTime",null);
-        String answerTimePref=pref.getString("answerTime",null);
+        answerTimePref=pref.getString("answerTime",null);
 
 
 
@@ -132,6 +136,7 @@ private ArrayList<MusicSQLRow> quizList;
 
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
+        barTimer=(ProgressBar) findViewById(R.id.barTimer);
         questionTextView= (TextView) findViewById(R.id.question_TextView);
         pauseTextView=(TextView) findViewById(R.id.game_paused_textview);
         right_answers_text=(TextView) findViewById(R.id.right_answers_text);
@@ -188,9 +193,22 @@ private ArrayList<MusicSQLRow> quizList;
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        gameTimerIsRunning=false;
+        //hago esto para que no sigan corriendo los timers si se cierra abruptamente la app
+        destroyTimers();
+
         killMusic();
         releaseVariables();
 
+    }
+
+    private void destroyTimers(){
+        if(gameTimer!=null){
+            gameTimer.cancel();
+        }
+        if(answerTimer!=null){
+            answerTimer.cancel();
+        }
     }
 
 
@@ -228,9 +246,7 @@ private ArrayList<MusicSQLRow> quizList;
             //sumar +1 a las respuestas correctas
             //cancelo el timer y después lo reseteo
             correctAnswers+=1;
-            if(sound.equals("Yes")) {
-                reproduceSound("Correct");
-            }
+            reproduceSound("Correct");
                if(!isEnharmonic)
                 showToast("Correct");
                else
@@ -242,9 +258,8 @@ private ArrayList<MusicSQLRow> quizList;
         else
         {
             incorrectAnswers+=1;
-            if(sound.equals("Yes")) {
-                reproduceSound("Incorrect");
-            }
+
+            reproduceSound("Incorrect");
             showToast("Incorrect...Right Answer: "+currentAnswer);
             answerTimer.cancel();
             startAnswerTimer(answerTime);
@@ -261,18 +276,33 @@ private ArrayList<MusicSQLRow> quizList;
 
     }
 
+    private void reproduceMusic(){
+        if(music.equals("Yes")) {
+            setVolumeControlStream(AudioManager.STREAM_MUSIC);
+            gameSong = MediaPlayer.create(Game.this, R.raw.gamemusic);
+            gameSong.setLooping(true);
+            gameSong.start();
+        }
+    }
+
     private void reproduceSound(String type){
+sound=sound;
+
+        if(sound.equals("Yes")) {
 
 
+            if (type.equals("Correct")) {
 
-        if(type.equals("Correct")){
-
-           mySounds.play(correctAnswerID,1,1,1,0,1);
+                mySounds.play(correctAnswerID, 1, 1, 1, 0, 1);
 
 
-        }else if(type.equals("Incorrect"))
-        {
-            mySounds.play(incorrectAnswerID,1,1,1,0,1);
+            } else if (type.equals("Incorrect")) {
+                mySounds.play(incorrectAnswerID, 1, 1, 1, 0, 1);
+
+            } else if (type.equals("ButtonClick")) {
+
+                mySounds.play(buttonClickID, 1, 1, 1, 0, 1);
+            }
 
         }
     }
@@ -347,18 +377,15 @@ private ArrayList<MusicSQLRow> quizList;
 
 //this is the method that triggers when the user pushes the Start Game Button
     public void startGame(View view){
+
+
+        reproduceSound("ButtonClick");
         showEverythingBeginning();
         startGameTimer(gameTime);
         startAnswerTimer(answerTime);
 
-        if(music.equals("Yes")) {
-            setVolumeControlStream(AudioManager.STREAM_MUSIC);
-            gameSong = MediaPlayer.create(Game.this, R.raw.gamemusic);
-            gameSong.setLooping(true);
-            gameSong.start();
-        }
+       reproduceMusic();
     }
-
 
 
     public void startGameTimer(long time){
@@ -367,7 +394,7 @@ private ArrayList<MusicSQLRow> quizList;
 
             @Override public void onTick(long millisUntilFinished) {
                 millisLeftGameBeforePause=millisUntilFinished;
-                gameCountDown.setText("Time Remaining: " + String.format("%d min, %d sec",
+                gameCountDown.setText( String.format("%d min, %d sec",
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
@@ -406,16 +433,32 @@ private ArrayList<MusicSQLRow> quizList;
 
 
 
-    public void startAnswerTimer(long time) {
+    public void startAnswerTimer(final long time) {
         //load the first question
         loadNewQuestion();
+        final int answerTimeInSeconds=getAnswerSecondsFromSharedPreferences();
 
+     /*  Animation an = new RotateAnimation(0.0f, 90.0f, 250f, 273f);
+        an.setFillAfter(true);
+        barTimer.setPivotX(1f);
+        barTimer.setPivotY(1f);
+
+        barTimer.startAnimation(an);*/
 
             answerTimer = new CountDownTimer(time, 100) {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    answerCountDown.setText("Next Question in: "+ TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
+
+                    long seconds = millisUntilFinished / 1000;
+                    int barVal=(int)(100-(int)TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)*100/answerTimeInSeconds);
+                    barTimer.setProgress(barVal);
+                    answerCountDown.setText(String.format(String.format("%02d", seconds%60)));
+                    // format the textview to show the easily readable format
+
+
+
+                    //answerCountDown.setText( TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
                 }
 
                 @Override
@@ -423,6 +466,11 @@ private ArrayList<MusicSQLRow> quizList;
                     answerTimerIsRunning = false;
 
                     if (gameTimerIsRunning) {
+                        //reproduce sound and show right answer
+                        incorrectAnswers+=1;
+                        reproduceSound("Incorrect");
+                        showToast("Incorrect...Right Answer: "+currentAnswer);
+
                              //load the next question
                              loadNewQuestion();
                              answerTimer.start();
@@ -566,6 +614,20 @@ private ArrayList<MusicSQLRow> quizList;
         return timeInMilliseconds;
     }
 
+    private int getAnswerSecondsFromSharedPreferences(){
+
+        String firstWord = null;
+
+        if(answerTimePref.contains(" ")){
+            firstWord= answerTimePref.substring(0, answerTimePref.indexOf(" "));
+        }
+
+        return Integer.parseInt(firstWord);
+
+
+    }
+
+
     private long getSecondsInMilliseconds(String time) {
         //the time is inicially in minutes
         String firstWord = null;
@@ -646,6 +708,7 @@ private ArrayList<MusicSQLRow> quizList;
         }else if (id== R.id.exit_app){
             killMusic();
             releaseVariables();
+            destroyTimers();
             finish();
             return true;
         }
@@ -675,6 +738,7 @@ private ArrayList<MusicSQLRow> quizList;
         answerTimer.cancel();
         gameTimer=null;
         answerTimer=null;
+
         //changes the icon in actionBar from pause to play icon
         togglePauseIcon();
     }
@@ -702,6 +766,7 @@ private ArrayList<MusicSQLRow> quizList;
         right_answers_number.setVisibility(View.GONE);
         wrong_answer_text.setVisibility(View.GONE);
         wrong_answer_number.setVisibility(View.GONE);
+        barTimer.setVisibility(View.GONE);
 
     }
 
@@ -721,6 +786,7 @@ private ArrayList<MusicSQLRow> quizList;
         startGameButton.setVisibility(View.GONE);
         rootPicker.setVisibility(View.VISIBLE);
         alterationPicker.setVisibility(View.VISIBLE);
+        barTimer.setVisibility(View.VISIBLE);
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.VISIBLE);
@@ -740,6 +806,7 @@ private ArrayList<MusicSQLRow> quizList;
         questionTextView.setVisibility(View.GONE);
         rootPicker.setVisibility(View.GONE);
         alterationPicker.setVisibility(View.GONE);
+        barTimer.setVisibility(View.GONE);
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.GONE);
@@ -761,6 +828,7 @@ private ArrayList<MusicSQLRow> quizList;
         pauseTextView.setVisibility(View.GONE);
         rootPicker.setVisibility(View.VISIBLE);
         alterationPicker.setVisibility(View.VISIBLE);
+        barTimer.setVisibility(View.VISIBLE);
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.VISIBLE);
@@ -786,6 +854,7 @@ private ArrayList<MusicSQLRow> quizList;
         backToMenuButton.setVisibility(View.VISIBLE);
         startGameButton.setVisibility(View.GONE);
         answerButton.setVisibility(View.GONE);
+        barTimer.setVisibility(View.GONE);
 
         right_answers_text.setVisibility(View.VISIBLE);
         right_answers_number.setVisibility(View.VISIBLE);
@@ -830,6 +899,7 @@ private ArrayList<MusicSQLRow> quizList;
 
             correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
             incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
+            buttonClickID = mySounds.load(this, R.raw.menubuttonsound, 1);
 
         }
         else
@@ -837,7 +907,7 @@ private ArrayList<MusicSQLRow> quizList;
             mySounds= new SoundPool(1, AudioManager.STREAM_MUSIC,0);
             correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
             incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
-
+            buttonClickID = mySounds.load(this, R.raw.menubuttonsound, 1);
         }
 
 
@@ -869,17 +939,7 @@ private ArrayList<MusicSQLRow> quizList;
         //release soundpool
         if (mySounds != null)
             mySounds.release();
-
-        /*release arrays and collections
-        quizList.clear();
-        enharmonicEquals=null;
-        lastQuestionsSelected=null;
-        roots=null;
-        alterations=null;
-        chordTypesWith7ths=null;
-        chordTypesWithout7ths=null;
-
-        System.gc();*/
+        gameTimerIsRunning=false;
 
 
 
