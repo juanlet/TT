@@ -438,12 +438,14 @@ sound=sound;
         loadNewQuestion();
         final int answerTimeInSeconds=getAnswerSecondsFromSharedPreferences();
 
-     /*  Animation an = new RotateAnimation(0.0f, 90.0f, 250f, 273f);
+        final RotateAnimation an = new RotateAnimation(0.0f, 90.0f,
+                RotateAnimation.RELATIVE_TO_SELF, .5f,
+                RotateAnimation.RELATIVE_TO_SELF, .5f);
+        an.setDuration(0);
         an.setFillAfter(true);
-        barTimer.setPivotX(1f);
-        barTimer.setPivotY(1f);
+        barTimer.setAnimation(an);
+        barTimer.startAnimation(an);
 
-        barTimer.startAnimation(an);*/
 
             answerTimer = new CountDownTimer(time, 100) {
 
