@@ -85,7 +85,7 @@ private ArrayList<MusicSQLRow> quizList;
 
 
        //if the random repeats the number of the 3 last questions it will generate another one until the number is not in the array
-        lastQuestionsSelected=new int[3];
+        lastQuestionsSelected=new int[4];
         //tracks the last element inserted
         int lastQuestionsIndex=0;
         currentAnswer=null;
@@ -508,7 +508,7 @@ sound=sound;
 
         //fill the last 5 picked numbers android, if it's already in the array pick another one
 
-        while(Arrays.asList(lastQuestionsSelected).contains(generatedQuestionNumber)) {
+        while(this.intArrayContainsInt(lastQuestionsSelected, generatedQuestionNumber)) {
 
             generatedQuestionNumber = this.generateRandomNumber();
 
@@ -519,11 +519,11 @@ sound=sound;
          //generate question
             question = quizList.get(generatedQuestionNumber);
          //check if the array is full, it it's not I use the last index, otherwise I use the first first position which is the oldest
-            if(lastQuestionsIndex<=2){
+            if(lastQuestionsIndex<=3){
 
                 lastQuestionsSelected[lastQuestionsIndex]=generatedQuestionNumber;
                 lastQuestionsIndex++;
-                if(lastQuestionsIndex==3)
+                if(lastQuestionsIndex==4)
                     lastQuestionsIndex=0;
 
             }
@@ -555,6 +555,16 @@ sound=sound;
 
 
     }
+
+    public boolean intArrayContainsInt(final int[] array, final int key) {
+        for (final int i : array) {
+            if (i == key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private int generateRandomNumber(){
 
