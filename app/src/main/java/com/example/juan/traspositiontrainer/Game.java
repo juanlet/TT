@@ -1,7 +1,9 @@
 package com.example.juan.traspositiontrainer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -12,6 +14,7 @@ import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -270,7 +273,26 @@ private ArrayList<MusicSQLRow> quizList;
 
     private void showToast(String message){
 
-        Toast toast= Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+       /* Toast toast= Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();*/
+
+        Toast toast = Toast.makeText(Game.this, message, Toast.LENGTH_SHORT);
+        View view = toast.getView();
+        view.setBackgroundColor(Color.BLACK);
+        TextView messageToast = (TextView) toast.getView().findViewById(android.R.id.message);
+        messageToast.setTextSize(24f);
+
+
+        if(message.equals("Correct") || message.equals("Enharmonically Correct")){
+
+            messageToast.setTextColor(Color.GREEN);
+        }
+        else if(message.contains("Incorrect"))
+        {
+            messageToast.setTextColor(Color.RED);
+        }
+
         toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
 
