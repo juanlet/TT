@@ -24,6 +24,7 @@ import android.widget.Toast;
 public class MyDialogFragment  extends DialogFragment {
 
  String music;
+    View divisoryLine7ths;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class MyDialogFragment  extends DialogFragment {
         final Spinner with_7ths_spinner=(Spinner)layout.findViewById(R.id.w_7th_spinner);
         final Spinner key_spinner=(Spinner)layout.findViewById(R.id.key_spinner);
         final Spinner scale_spinner=(Spinner)layout.findViewById(R.id.scale_spinner);
+
+        //divisory line to hide from style if hard mode get selected to avoid stacking of divisory lines on the design
+        divisoryLine7ths=(View) layout.findViewById(R.id.divisoryLine7ths);
 
         final TextView scaleText= (TextView) layout.findViewById(R.id.scale_text);
         final TextView w_7_text=(TextView) layout.findViewById(R.id.w_7_text);
@@ -140,13 +144,15 @@ public class MyDialogFragment  extends DialogFragment {
                 {
                     ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner_easy));
                     scale_spinner.setAdapter(scaleSpinnerAdapter);
-
+                    divisoryLine7ths.setVisibility(View.VISIBLE);
                 }else if(difficulty.equals("Normal")){
                     ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner_medium));
                     scale_spinner.setAdapter(scaleSpinnerAdapter);
+                    divisoryLine7ths.setVisibility(View.VISIBLE);
                 } else if(difficulty.equals("Hard")){
                     ArrayAdapter<String> scaleSpinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.scale_spinner));
                     scale_spinner.setAdapter(scaleSpinnerAdapter);
+                    divisoryLine7ths.setVisibility(View.GONE);
 
                 }
 

@@ -95,6 +95,8 @@ private static SoundPool mySounds;
 
     }
 
+
+
     @Override
     protected void onPause() {
         super.onPause();

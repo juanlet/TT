@@ -224,13 +224,13 @@ private ArrayList<MusicSQLRow> quizList;
         else
         {
             if(with7ths.equals("With 7ths") || gameDifficulty.equals("Hard")) {
-                selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]) + chordTypesWith7ths[chordTypePicker.getValue()];
-                enharmonicSubstring=roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]);
+                selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()])+" "+ chordTypesWith7ths[chordTypePicker.getValue()];
+                enharmonicSubstring=roots[rootPicker.getValue()]+ replaceBemolwithB(alterations[alterationPicker.getValue()]);
                 isEnharmonic = this.isEnharmonicChordEquivalent(enharmonicSubstring, currentNote, chordTypesWith7ths[chordTypePicker.getValue()]);
             }
             else
             {
-             selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()])+chordTypesWithout7ths[chordTypePicker.getValue()];
+             selectedAnswer = roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()])+" "+chordTypesWithout7ths[chordTypePicker.getValue()];
                 enharmonicSubstring=roots[rootPicker.getValue()] + replaceBemolwithB(alterations[alterationPicker.getValue()]);
              isEnharmonic=this.isEnharmonicChordEquivalent(enharmonicSubstring, currentNote,chordTypesWithout7ths[chordTypePicker.getValue()]);
             }
@@ -239,10 +239,10 @@ private ArrayList<MusicSQLRow> quizList;
 
        //le saco los espacios en blanco para que compare bien las cadenas
 
-        selectedAnswer= selectedAnswer.replaceAll("\\s+","");
+       // selectedAnswer= selectedAnswer.replaceAll("\\s+","");
 
 
-        if(selectedAnswer.equals(currentAnswer) || isEnharmonic ){
+        if(selectedAnswer.replaceAll("\\s+","").equals(currentAnswer.replaceAll("\\s+","")) || isEnharmonic ){
             //sumar +1 a las respuestas correctas
             //cancelo el timer y después lo reseteo
             correctAnswers+=1;
