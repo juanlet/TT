@@ -483,18 +483,15 @@ sound=sound;
 
 
                     //answerCountDown.setText( TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
-                }
+                } 
 
                 @Override
                 public void onFinish() {
                     answerTimerIsRunning = false;
 
                     if (gameTimerIsRunning) {
-                        //reproduce sound and show right answer
-                        incorrectAnswers+=1;
-                        reproduceSound("Incorrect");
-                        showToast("Incorrect...Right Answer: "+currentAnswer);
-
+                        //checkAnswer
+                      checkAnswer(answerButton);
                              //load the next question
                              loadNewQuestion();
                              answerTimer.start();
