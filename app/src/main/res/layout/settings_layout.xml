@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,47 +12,70 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/settings_title" />
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dip"
+        android:background="#FFFFFF" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
+        <TableRow android:layout_width="0dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Music:"
-        android:id="@+id/music"
-        android:layout_gravity="center_horizontal"/>
+        android:text="@string/musicTextSettings"
+        android:id="@+id/music" />
 
-    <Spinner
-        android:layout_width="match_parent"
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/music_spinner"
+            android:spinnerMode="dropdown"
+            android:entries="@array/music" />
+        </TableRow>
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#FFFFFF" />
+
+        <TableRow android:layout_width="0dp">
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/music_spinner"
-        android:spinnerMode="dropdown"
-        android:entries="@array/music"
-        android:layout_gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/soundTextSettings"
+        android:id="@+id/sounds"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Sounds:"
-        android:id="@+id/sounds"
-        android:layout_gravity="center_horizontal"/>
-
     <Spinner
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sounds_spinner"
         android:spinnerMode="dropdown"
         android:entries="@array/sounds"
-        android:layout_gravity="center_horizontal"
         />
+        </TableRow>
 
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#FFFFFF" />
+
+        <TableRow android:layout_width="0dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Game Time:"
+        android:text="@string/gameTimeTextSettings"
         android:id="@+id/game_time_text"
-        android:layout_gravity="center_horizontal"/>
+        />
 
     <Spinner
         android:layout_width="match_parent"
@@ -59,87 +83,123 @@
         android:id="@+id/game_time_spinner"
         android:spinnerMode="dropdown"
         android:entries="@array/game_time"
-        android:layout_gravity="center_horizontal"
         />
+        </TableRow>
 
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#FFFFFF" />
+
+        <TableRow android:layout_width="0dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Difficulty"
+        android:text="@string/difficultyTextSettings"
         android:id="@+id/game_difficulty_text"
-        android:layout_gravity="center_horizontal"/>
+        />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/game_difficulty_spinner"
-        android:layout_gravity="center_horizontal"
         android:spinnerMode="dropdown"
         android:entries="@array/game_difficulty"
         />
+        </TableRow>
 
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#FFFFFF" />
+
+        <TableRow android:layout_width="0dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Answer Time"
+        android:text="@string/answerTimeSettingsText"
         android:id="@+id/answer_time_text"
-        android:layout_gravity="center_horizontal"/>
+        />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/answer_time_spinner"
-        android:layout_gravity="center_horizontal"
         android:spinnerMode="dropdown"
         android:entries="@array/answer_time"/>
+        </TableRow>
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#FFFFFF" />
+
+        <TableRow>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/w7_text"
         android:id="@+id/w_7_text"
-        android:layout_gravity="center_horizontal"/>
+        />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:id="@+id/w_7th_spinner"
         android:entries="@array/w_7th"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dropdown" />
+        </TableRow>
 
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#FFFFFF"
+            android:id="@+id/divisoryLine7ths"/>
+
+        <TableRow android:layout_width="0dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Key"
+        android:text="@string/keySettingsText"
         android:id="@+id/key_text"
-        android:layout_gravity="center_horizontal"/>
+       />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/key_spinner"
-        android:layout_gravity="center_horizontal"
         android:spinnerMode="dialog"
         android:entries="@array/key_spinner" />
+        </TableRow>
 
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#FFFFFF" />
+
+        <TableRow android:layout_width="0dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Scale"
+        android:text="@string/scaleSettingsText"
         android:id="@+id/scale_text"
-        android:layout_gravity="center_horizontal"/>
+       />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scale_spinner"
-        android:layout_gravity="center_horizontal"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
         android:entries="@array/scale_spinner"/>
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

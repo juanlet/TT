@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TraspositionTrainer</string>
+    <string name="app_name">TranspositionTrainer</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_exit">Exit</string>
@@ -8,7 +8,7 @@
     <string name="chord_progression_button">CHORD PROGRESSIONS QUIZ</string>
     <string name="player_stats_button">Player Stats</string>
     <string name="faq_button">FAQ</string>
-    <string name="w7_text">With 7ths(Only for Chord Mode)</string>
+    <string name="w7_text">Chords:</string>
 
 
     <string-array name="music">
@@ -25,6 +25,9 @@
         <item>10 seconds</item>
         <item>20 seconds</item>
         <item>30 seconds</item>
+        <item>40 seconds</item>
+        <item>50 seconds</item>
+        <item>60 seconds</item>
     </string-array>
 
     <string-array name="game_time">
@@ -153,6 +156,16 @@ Harmonic Minor Scale and Melodic Minor Scale.</p>
 
 ]]>
 </string>
+    <string name="difficultyTextSettings">Difficulty:</string>
+    <string name="answerTimeSettingsText">Answer Time:</string>
+    <string name="keySettingsText">Key:</string>
+    <string name="scaleSettingsText">Scale:</string>
+    <string name="gameTimeTextSettings">Game Time:</string>
+    <string name="musicTextSettings">Music:</string>
+    <string name="soundTextSettings">Sounds:</string>
+    <string name="faqActivityTitle">FAQ</string>
+    <string name="studyNotesActivityTitle">Study Notes</string>
+    <string name="studyChordsActivityTitle">Study Chords</string>
 
 
 </resources>
