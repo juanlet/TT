@@ -74,6 +74,7 @@ private ArrayList<MusicSQLRow> quizList;
     int correctAnswerID,incorrectAnswerID,buttonClickID;
     MediaPlayer gameSong;
     ProgressBar barTimer;
+    Toast toast;
 
 
 
@@ -84,10 +85,12 @@ private ArrayList<MusicSQLRow> quizList;
         setContentView(R.layout.activity_game);
         //to make sure if the user turn downs volume is only multimedia volume and not call volume
         pref= this.getSharedPreferences("Mypref", 0);
+        toast = Toast.makeText(Game.this, "", Toast.LENGTH_LONG);
 
 
 
-       //if the random repeats the number of the 3 last questions it will generate another one until the number is not in the array
+
+        //if the random repeats the number of the 3 last questions it will generate another one until the number is not in the array
         lastQuestionsSelected=new int[4];
         //tracks the last element inserted
         int lastQuestionsIndex=0;
@@ -276,12 +279,11 @@ private ArrayList<MusicSQLRow> quizList;
        /* Toast toast= Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();*/
-
-        Toast toast = Toast.makeText(Game.this, message, Toast.LENGTH_SHORT);
+        toast.setText(message);
         View view = toast.getView();
-        view.setBackgroundColor(Color.BLACK);
+        view.setBackgroundColor(Color.argb(00,79,66,119));
         TextView messageToast = (TextView) toast.getView().findViewById(android.R.id.message);
-        messageToast.setTextSize(24f);
+        messageToast.setTextSize(20f);
 
 
         if(message.equals("Correct") || message.equals("Enharmonically Correct")){
@@ -290,7 +292,7 @@ private ArrayList<MusicSQLRow> quizList;
         }
         else if(message.contains("Incorrect"))
         {
-            messageToast.setTextColor(Color.RED);
+            messageToast.setTextColor(Color.argb(255,255,102,0));
         }
 
         toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -483,7 +485,7 @@ sound=sound;
 
 
                     //answerCountDown.setText( TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) );
-                } 
+                }
 
                 @Override
                 public void onFinish() {

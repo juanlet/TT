@@ -179,14 +179,11 @@ private static SoundPool mySounds;
         // Do something in response to button
         Intent intent = new Intent(this, Game.class);
 
-       this.setIntentExtra(view.getId(),intent);
 
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                // the context of the activity
-                MainActivity.this,null);
-        ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
+        this.setIntentExtra(view.getId(),intent);
 
-      //  startActivity(intent);
+        startActivity(intent);
+
 
     }
 
@@ -198,15 +195,37 @@ private static SoundPool mySounds;
             reproduceSound();
 
 
-        // Do something in response to button
         Intent intent = new Intent(this, Faq.class);
 
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                // the context of the activity
-                MainActivity.this,null);
-        ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
+        startActivity(intent);
 
-       // startActivity(intent);
+
+    }
+
+
+    public void goToStudyNotes(View view) {
+
+
+        reproduceSound();
+
+
+        // Do something in response to button
+        Intent intent = new Intent(this, StudyNotes.class);
+
+        startActivity(intent);
+
+    }
+
+    public void goToStudyChords(View view) {
+
+
+        reproduceSound();
+
+
+        // Do something in response to button
+        Intent intent = new Intent(this, StudyChords.class);
+
+        startActivity(intent);
 
     }
 

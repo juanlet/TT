@@ -3,35 +3,43 @@
     package="com.example.juan.traspositiontrainer" >
 
     <application
-        android:debuggable="true"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashScreen"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Game"
             android:label="@string/title_activity_game"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Faq"
-            android:label="@string/title_activity_faq"
-            android:screenOrientation="portrait">
+            android:label="@string/faqActivityTitle"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".StudyNotes"
+            android:label="@string/studyNotesActivityTitle"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".StudyChords"
+            android:label="@string/studyChordsActivityTitle" >
         </activity>
     </application>
 
