@@ -9,8 +9,6 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -242,11 +240,11 @@ private static SoundPool mySounds;
                         setAudioAttributes(audioAttributes).
                         build();
 
-                buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
+                buttonClickSoundID = mySounds.load(this, R.raw.menubtnsound, 1);
 
             } else {
                 mySounds = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-                buttonClickSoundID = mySounds.load(this, R.raw.menubuttonsound, 1);
+                buttonClickSoundID = mySounds.load(this, R.raw.menubtnsound, 1);
             }
         }
 

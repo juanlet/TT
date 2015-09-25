@@ -1,9 +1,11 @@
 package com.example.juan.traspositiontrainer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,21 +15,21 @@ import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +42,7 @@ private ArrayList<MusicSQLRow> quizList;
     Menu activityMenu;
     private TextView gameCountDown,answerCountDown,questionTextView, pauseTextView, right_answers_text,right_answers_number, wrong_answer_text,wrong_answer_number ;
    SharedPreferences pref;
-    String gameDifficulty, key, scale,with7ths, answer, sound, music;
+    String gameDifficulty, key, scale,with7ths, answer, sound, music, currentAnswerWithoutSpaces;
     long gameTime,answerTime, millisLeftGameBeforePause;
     CountDownTimer gameTimer, answerTimer;
     boolean gameTimerIsRunning, answerTimerIsRunning;
@@ -51,7 +53,7 @@ private ArrayList<MusicSQLRow> quizList;
     KeyManager db;
     NumberPicker rootPicker,alterationPicker, chordTypePicker;
     String currentAnswer, chordType, currentNote, answerTimePref;
-    String[] roots = {" ","A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"}, chordTypesWith7ths={"maj7", "m7", "7", "m7b5", "-maj7", "maj7+", "dim7"}, chordTypesWithout7ths={"Major", "Minor", "Diminished"};
+    String[] roots = {"A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"}, chordTypesWith7ths={"maj7", "m7", "7", "m7b5", "-maj7", "maj7+", "dim7"}, chordTypesWithout7ths={"Major", "Minor", "Diminished"};
     String[][]  enharmonicEquals={ {"B#","C","Dbb"},
                                         {"B##","C#","Db"},
                                         {"C##","D","Ebb"},
@@ -86,7 +88,7 @@ private ArrayList<MusicSQLRow> quizList;
         //to make sure if the user turn downs volume is only multimedia volume and not call volume
         pref= this.getSharedPreferences("Mypref", 0);
         toast = Toast.makeText(Game.this, "", Toast.LENGTH_LONG);
-
+        currentAnswerWithoutSpaces=null;
 
 
 
@@ -155,9 +157,10 @@ private ArrayList<MusicSQLRow> quizList;
         answerButton= (Button) findViewById(R.id.answerButton);
 
 
+
         rootPicker = (NumberPicker) findViewById(R.id.rootPicker);
         rootPicker.setMaxValue(0);
-        rootPicker.setMaxValue(7);
+        rootPicker.setMaxValue(6);
         rootPicker.setDisplayedValues(roots);
 
         alterationPicker = (NumberPicker) findViewById(R.id.alterationPicker);
@@ -178,7 +181,20 @@ private ArrayList<MusicSQLRow> quizList;
             chordTypePicker.setMaxValue(2);
             chordTypePicker.setDisplayedValues(chordTypesWithout7ths);
         }
+//set the divider line color of the numberpickers
+        setDividerColor(rootPicker, R.color.white);
+        setDividerColor(alterationPicker, R.color.white);
+        setDividerColor(chordTypePicker, R.color.white);
+        //set the text color of the numberpickers
+       /* setNumberPickerTextColor(rootPicker, R.color.light_green_A400);
+        setNumberPickerTextColor(alterationPicker, R.color.light_green_A400);
+        setNumberPickerTextColor(chordTypePicker, R.color.light_green_A400);*/
+        setNumberPickerTextColor(rootPicker, R.color.white);
+        setNumberPickerTextColor(alterationPicker, R.color.white);
+        setNumberPickerTextColor(chordTypePicker, R.color.white);
+        rootPicker.setWrapSelectorWheel(false);
 
+        chordTypePicker.setWrapSelectorWheel(false);
 
 
         //Me dice que botón presionó el usuario para poder definir que modo de juego corresponde
@@ -246,9 +262,9 @@ private ArrayList<MusicSQLRow> quizList;
        //le saco los espacios en blanco para que compare bien las cadenas
 
        // selectedAnswer= selectedAnswer.replaceAll("\\s+","");
+        currentAnswerWithoutSpaces=currentAnswer.replaceAll("\\s+","");
 
-
-        if(selectedAnswer.replaceAll("\\s+","").equals(currentAnswer.replaceAll("\\s+","")) || isEnharmonic ){
+        if(selectedAnswer.replaceAll("\\s+","").equals(currentAnswerWithoutSpaces) || isEnharmonic ){
             //sumar +1 a las respuestas correctas
             //cancelo el timer y después lo reseteo
             correctAnswers+=1;
@@ -266,7 +282,7 @@ private ArrayList<MusicSQLRow> quizList;
             incorrectAnswers+=1;
 
             reproduceSound("Incorrect");
-            showToast("Incorrect...Right Answer: "+currentAnswer);
+            showToast("Incorrect...Right Answer: "+ currentAnswerWithoutSpaces);
             answerTimer.cancel();
             startAnswerTimer(answerTime);
 
@@ -283,6 +299,9 @@ private ArrayList<MusicSQLRow> quizList;
         View view = toast.getView();
         view.setBackgroundColor(Color.argb(00,79,66,119));
         TextView messageToast = (TextView) toast.getView().findViewById(android.R.id.message);
+        if(intentExtras.equals("chord_quiz"))
+            messageToast.setTextSize(18f);
+        else
         messageToast.setTextSize(20f);
 
 
@@ -302,8 +321,8 @@ private ArrayList<MusicSQLRow> quizList;
 
     private void reproduceMusic(){
         if(music.equals("Yes")) {
-            setVolumeControlStream(AudioManager.STREAM_MUSIC);
             gameSong = MediaPlayer.create(Game.this, R.raw.gamemusic);
+            setVolumeControlStream(AudioManager.STREAM_MUSIC);
             gameSong.setLooping(true);
             gameSong.start();
         }
@@ -932,7 +951,7 @@ sound=sound;
 
             correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
             incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
-            buttonClickID = mySounds.load(this, R.raw.menubuttonsound, 1);
+            buttonClickID = mySounds.load(this, R.raw.menubtnsound, 1);
 
         }
         else
@@ -940,7 +959,7 @@ sound=sound;
             mySounds= new SoundPool(1, AudioManager.STREAM_MUSIC,0);
             correctAnswerID = mySounds.load(this, R.raw.correctanswer, 1);
             incorrectAnswerID = mySounds.load(this, R.raw.incorrectanswer, 1);
-            buttonClickID = mySounds.load(this, R.raw.menubuttonsound, 1);
+            buttonClickID = mySounds.load(this, R.raw.menubtnsound, 1);
         }
 
 
@@ -976,6 +995,57 @@ sound=sound;
 
 
 
+    }
+
+    private void setDividerColor(NumberPicker picker, int color) {
+
+        java.lang.reflect.Field[] pickerFields = NumberPicker.class.getDeclaredFields();
+        for (java.lang.reflect.Field pf : pickerFields) {
+            if (pf.getName().equals("mSelectionDivider")) {
+                pf.setAccessible(true);
+                try {
+                    ColorDrawable colorDrawable = new ColorDrawable(Game.this.getResources().getColor(color));
+                    pf.set(picker, colorDrawable);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    public  boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
+    {
+        final int count = numberPicker.getChildCount();
+        for(int i = 0; i < count; i++){
+            View child = numberPicker.getChildAt(i);
+            if(child instanceof EditText){
+                try{
+                    Field selectorWheelPaintField = numberPicker.getClass()
+                            .getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(Game.this.getResources().getColor(color));
+                    ((EditText)child).setTextColor(Game.this.getResources().getColor(color));
+                    numberPicker.invalidate();
+                    return true;
+                }
+                catch(NoSuchFieldException e){
+                    Log.w("setNumberPicker", e);
+                }
+                catch(IllegalAccessException e){
+                    Log.w("setNumberPicker", e);
+                }
+                catch(IllegalArgumentException e){
+                    Log.w("setNumberPickerr", e);
+                }
+            }
+        }
+        return false;
     }
 
 
