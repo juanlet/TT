@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -45,10 +47,11 @@ private ArrayList<MusicSQLRow> quizList;
     String gameDifficulty, key, scale,with7ths, answer, sound, music, currentAnswerWithoutSpaces;
     long gameTime,answerTime, millisLeftGameBeforePause;
     CountDownTimer gameTimer, answerTimer;
-    boolean gameTimerIsRunning, answerTimerIsRunning;
+    boolean gameTimerIsRunning, answerTimerIsRunning, isNoteQuiz=false;
     private int[] lastQuestionsSelected;
     int lastQuestionsIndex, correctAnswers, incorrectAnswers;
     Button startGameButton, restartGameButton, backToMenuButton, answerButton;
+    String primero,segundo,tercero,cuarto,quinto,sexto,septimo;
     SharedPreferences.Editor editor;
     KeyManager db;
     NumberPicker rootPicker,alterationPicker, chordTypePicker;
@@ -70,6 +73,7 @@ private ArrayList<MusicSQLRow> quizList;
 
      private SoundPool mySounds;
     private MediaStore.Audio.Media player;
+    ImageView bandImage;
 
     //sound ids
 
@@ -111,7 +115,7 @@ private ArrayList<MusicSQLRow> quizList;
         scale=pref.getString("scale", null);
         with7ths=pref.getString("with7ths", null);
         String gameTimePref=pref.getString("gameTime",null);
-        answerTimePref=pref.getString("answerTime",null);
+        answerTimePref=pref.getString("answerTime", null);
 
 
 
@@ -141,7 +145,7 @@ private ArrayList<MusicSQLRow> quizList;
         gameTime=this.getMinutesInMilliseconds(gameTimePref);
         answerTime=this.getSecondsInMilliseconds(answerTimePref);
 
-
+        bandImage=(ImageView) findViewById(R.id.band_image);
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
         barTimer=(ProgressBar) findViewById(R.id.barTimer);
@@ -621,6 +625,8 @@ sound=sound;
 //this is just for notes, change word note for chord in chord game
         String degreeNumber;
 
+       if(Locale.getDefault().getLanguage().equals("en"))
+       {
         switch (question.getDegreeNumber()) {
             case "1":  degreeNumber = "1st";
                 break;
@@ -638,16 +644,80 @@ sound=sound;
                 break;
             default: degreeNumber = "Invalid degree";
                 break;
+
         }
+           if(intentExtras.equals("notes_quiz"))
+               return  degreeNumber+" note of "+ question.getKeyName() + " "+ question.getScaleName();
+           else
+               return degreeNumber+" chord of "+ question.getKeyName() + " "+ question.getScaleName();
+       }
+        else{
+
+           isNoteQuiz=intentExtras.equals("notes_quiz");
+
+           if(isNoteQuiz){
+               primero="1era";
+               segundo="2da";
+               tercero="3era";
+               cuarto="4ta";
+               quinto="5ta";
+               sexto="6ta";
+               septimo="7ma";
+
+           } else
+           {
+               primero="1er";
+               segundo="2do";
+               tercero="3er";
+               cuarto="4to";
+               quinto="5to";
+               sexto="6to";
+               septimo="7mo";
+           }
+
+           switch (question.getDegreeNumber()) {
+               case "1":  degreeNumber = primero;
+                   break;
+               case "2":  degreeNumber = segundo;
+                   break;
+               case "3":  degreeNumber = tercero;
+                   break;
+               case "4":  degreeNumber = cuarto;
+                   break;
+               case "5":  degreeNumber = quinto;
+                   break;
+               case "6":  degreeNumber = sexto;
+                   break;
+               case "7":  degreeNumber = septimo;
+                   break;
+               default: degreeNumber = "Grado Inválido";
+                   break;
+           }
+
+           if(isNoteQuiz)
+               return  degreeNumber+" nota de "+ question.getKeyName() + " "+ scaleToSpanish(question.getScaleName());
+           else
+               return degreeNumber+" acorde de "+ question.getKeyName() + " "+ scaleToSpanish(question.getScaleName());
+       }
 
 
-
-        if(intentExtras.equals("notes_quiz"))
-        return  degreeNumber+" note of "+ question.getKeyName() + " "+ question.getScaleName();
-        else
-            return degreeNumber+" chord of "+ question.getKeyName() + " "+ question.getScaleName();
 
     }
+
+    private String scaleToSpanish(String scaleName) {
+
+        if (scaleName.equals("Major")) {
+            return "Mayor";
+        } else if (scaleName.equals("Natural Minor")) {
+            return "Menor Natural";
+        } else if (scaleName.equals("Harmonic Minor")) {
+            return "Menor Armónica";
+        } else if (scaleName.equals("Melodic Minor")) {
+            return "Menor Melódica";
+        }
+        return "";
+    }
+
 
 
     private long getMinutesInMilliseconds(String time) {
@@ -819,6 +889,7 @@ sound=sound;
         wrong_answer_text.setVisibility(View.GONE);
         wrong_answer_number.setVisibility(View.GONE);
         barTimer.setVisibility(View.GONE);
+        bandImage.setVisibility(View.VISIBLE);
 
     }
 
@@ -839,6 +910,7 @@ sound=sound;
         rootPicker.setVisibility(View.VISIBLE);
         alterationPicker.setVisibility(View.VISIBLE);
         barTimer.setVisibility(View.VISIBLE);
+        bandImage.setVisibility(View.GONE);
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.VISIBLE);
@@ -859,6 +931,7 @@ sound=sound;
         rootPicker.setVisibility(View.GONE);
         alterationPicker.setVisibility(View.GONE);
         barTimer.setVisibility(View.GONE);
+
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.GONE);
@@ -881,6 +954,7 @@ sound=sound;
         rootPicker.setVisibility(View.VISIBLE);
         alterationPicker.setVisibility(View.VISIBLE);
         barTimer.setVisibility(View.VISIBLE);
+        bandImage.setVisibility(View.GONE);
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.VISIBLE);
@@ -907,6 +981,7 @@ sound=sound;
         startGameButton.setVisibility(View.GONE);
         answerButton.setVisibility(View.GONE);
         barTimer.setVisibility(View.GONE);
+        bandImage.setVisibility(View.GONE);
 
         right_answers_text.setVisibility(View.VISIBLE);
         right_answers_number.setVisibility(View.VISIBLE);

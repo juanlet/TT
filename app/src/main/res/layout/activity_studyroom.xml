@@ -89,17 +89,26 @@
             android:background="@drawable/rounded_corners_textview"
            />
     </LinearLayout>
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="@drawable/roundedlayout"
+    android:layout_gravity="center_horizontal"
+    >
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/start_game_button"
+            android:id="@+id/search_button"
             android:onClick="searchNotesAndChords"
             android:layout_centerVertical="true"
-            android:layout_gravity="center_horizontal"
             android:background="@drawable/searchbutton"
-            android:paddingTop="15dp" />
-
+            android:layout_margin="10dp" />
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundedlayout">
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -116,29 +125,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="DEGREE º"
+                    android:text="@string/degreeHeader"
                     android:id="@+id/degree_header"
                     android:layout_weight="0.2"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="NOTE"
+                    android:text="@string/noteHeader"
                     android:id="@+id/note_header"
                     android:layout_weight="0.3"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="CHORD"
+                    android:text="@string/chordHeader"
                     android:id="@+id/chord_header"
                     android:layout_column="20"
                     android:layout_weight="0.5"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
             </TableRow>
 
@@ -155,7 +167,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="1"
                     android:layout_weight="0.2"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -205,7 +218,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="2"
                      android:layout_weight="0.2"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -255,7 +269,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="3"
                     android:layout_weight="0.2"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -305,7 +320,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="4"
                     android:layout_weight="0.2"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -354,7 +370,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="5"
                     android:layout_weight="0.2"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -404,7 +421,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="6"
                     android:layout_weight="0.2"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -453,7 +471,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="7"
                 android:layout_weight="0.2"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -490,6 +509,7 @@
 
         </TableRow>
         </TableLayout>
+</LinearLayout>
 
 
     </LinearLayout>

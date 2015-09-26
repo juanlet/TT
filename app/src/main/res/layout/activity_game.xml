@@ -135,15 +135,6 @@
     </LinearLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="GAME PAUSED"
-        android:id="@+id/game_paused_textview"
-        android:layout_gravity="center_horizontal"
-        android:background="#4F4277"
-        android:textSize="25dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -152,7 +143,14 @@
         android:onClick="startGame"
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/startgamebutton" />
+        android:background="@drawable/startgamebutton"
+        android:layout_marginTop="100dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sax"
+        android:id="@+id/band_image"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -210,13 +208,21 @@
             android:scaleX="1.1"
             android:scaleY="1.2"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/game_paused_textview"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/gamepaused"
+            android:gravity="bottom"
+            />
+
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        ></LinearLayout>
+
+
+
 
 </LinearLayout>
