@@ -188,5 +188,10 @@ Practica cada escala individualmente y luego usa el modo Random en la opción de
     </string-array>
 
     <string name="search7thstext">Acordes con 7ths?</string>
+    <string name="gamePausedText">JUEGO EN PAUSA</string>
+    <string name="degreeHeader">GRADO Nº</string>
+    <string name="noteHeader">NOTA</string>
+    <string name="chordHeader">ACORDE</string>
+
 
 </resources>

@@ -201,6 +201,10 @@ Harmonic Minor Scale and Melodic Minor Scale.</p>
     <string name="facebook"><a href="https://www.facebook.com/transpositiontrainer">https://www.facebook.com/transpositiontrainer</a></string>
     <string name="text_studyroom">Enter the key, scale and whether you want to search the chords with 7ths or not and study it\'s chords and notes</string>
     <string name="search7thstext">Chords with 7ths?</string>
+    <string name="gamePausedText">GAME PAUSED</string>
+    <string name="degreeHeader">DEGREE º</string>
+    <string name="noteHeader">NOTE</string>
+    <string name="chordHeader">CHORD</string>
 
     <string-array name="key_spinner_search_7ths">
         <item>7ths</item>
