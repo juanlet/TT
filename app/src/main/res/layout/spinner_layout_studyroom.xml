@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
     android:textSize="20sp"
-    android:background="#7D70A7"
-    android:textColor="@color/white"
+    android:background="@color/white"
+    android:textColor="#7D70A7"
     android:gravity="center_horizontal"
 />

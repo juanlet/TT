@@ -30,6 +30,7 @@ private static SoundPool mySounds;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.activity_main);
         //to make sure if the user turn downs volume is only multimedia volume and not call volume, only if music is set to yes
+
         introSong=null;
 
         pref= this.getSharedPreferences("Mypref", 0);

@@ -217,13 +217,13 @@ public class MyDialogFragment  extends DialogFragment {
 //prueba consultas base
 
 
-                Toast.makeText(getActivity(), "Settings Saved ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.settingsSavedMsg, Toast.LENGTH_SHORT).show();
 
             }
         });
 
         // Texto para el bot�n de cancelar
-        theDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        theDialog.setNegativeButton(R.string.cancelSettingsFragmText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //que hacer si el usuario toca cancel, no guardo nada, las preferencias quedan como estaban

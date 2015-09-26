@@ -9,17 +9,18 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <TextView android:text="Enter the Key you want to search and study it&apos;s chords and notes " android:layout_width="wrap_content"
+        <TextView android:text="@string/text_studyroom" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:textColor="#FFFFFF"
             android:textSize="18dp"
             android:gravity="center_horizontal"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:background="@color/deep_purple_500"
+            android:background="#4F4277"
             android:editable="false"
             android:elegantTextHeight="false"
             android:enabled="false"
-            android:focusable="false" />
+            android:focusable="false"
+            android:id="@+id/textStudyroom" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +35,11 @@
             android:entries="@array/key_spinner_search"
             android:layout_weight="0.5"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/rounded_corners_textview"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"/>
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,8 +48,47 @@
             android:entries="@array/scale_spinner"
             android:layout_weight="0.5"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_corners_textview"/>
+
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="@string/search7thstext"
+            android:password="false"
+            android:phoneNumber="false"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            />
+
+
+        <Spinner
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:id="@+id/find_chords_w_7ths"
+            android:spinnerMode="dialog"
+            android:entries="@array/key_spinner_search_7ths"
+            android:layout_weight="0.7"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_corners_textview"
+           />
+    </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
@@ -55,6 +99,397 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/searchbutton"
             android:paddingTop="15dp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="DEGREE º"
+                    android:id="@+id/degree_header"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="NOTE"
+                    android:id="@+id/note_header"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="CHORD"
+                    android:id="@+id/chord_header"
+                    android:layout_column="20"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="1"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/note1"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/chord1"
+                    android:layout_column="20"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="2"
+                     android:layout_weight="0.2"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/note2"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/chord2"
+                    android:layout_column="20"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="3"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/note3"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/chord3"
+                    android:layout_column="20"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="4"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/note4"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/chord4"
+                    android:layout_column="20"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="5"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/note5"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/chord5"
+                    android:layout_column="20"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="6"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/note6"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/chord6"
+                    android:layout_column="20"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners_table"
+                    android:editable="false"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#4F4277" />
+
+            </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:gravity="center_horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="7"
+                android:layout_weight="0.2"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=""
+                android:id="@+id/note7"
+                android:layout_weight="0.3"
+                android:gravity="center_horizontal"
+                android:background="@drawable/rounded_corners_table"
+                android:editable="false"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#4F4277" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=""
+                android:id="@+id/chord7"
+                android:layout_column="20"
+                android:layout_weight="0.5"
+                android:gravity="center_horizontal"
+                android:background="@drawable/rounded_corners_table"
+                android:editable="false"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#4F4277" />
+
+        </TableRow>
+        </TableLayout>
 
 
     </LinearLayout>

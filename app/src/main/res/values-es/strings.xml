@@ -1,0 +1,192 @@
+<resources>
+    <string name="app_name">TranspositionTrainer</string>
+    <string name="faq_button">FAQ</string>
+    <string name="w7_text">Acordes:</string>
+
+
+    <string-array name="music">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="sounds">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="answer_time">
+        <item>10 seconds</item>
+        <item>20 seconds</item>
+        <item>30 seconds</item>
+        <item>40 seconds</item>
+        <item>50 seconds</item>
+        <item>60 seconds</item>
+    </string-array>
+
+    <string-array name="game_time">
+        <item>2 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+    </string-array>
+
+    <string-array name="game_difficulty">
+        <item>Easy</item>
+        <item>Normal</item>
+        <item>Hard</item>
+    </string-array>
+
+    <string-array name="w_7th">
+        <item>Without 7ths</item>
+        <item>With 7ths</item>
+    </string-array>
+
+    <string-array name="scale_spinner">
+        <item>Major</item>
+        <item>Natural Minor</item>
+        <item>Harmonic Minor</item>
+        <item>Melodic Minor</item>
+    </string-array>
+
+
+    <string-array name="scale_spinner_easy">
+       <item>Major</item>
+    </string-array>
+
+    <string-array name="scale_spinner_medium">
+       <item>Major</item>
+       <item>Natural Minor</item>
+    </string-array>
+
+    <string-array name="key_spinner">
+        <item>Random</item>
+        <item>C</item>
+        <item>G</item>
+        <item>D</item>
+        <item>A</item>
+        <item>E</item>
+        <item>B</item>
+        <item>F#</item>
+        <item>C#</item>
+        <item>F</item>
+        <item>Bb</item>
+        <item>Eb</item>
+        <item>Ab</item>
+        <item>Db</item>
+        <item>Gb</item>
+        <item>Cb</item>
+     </string-array>
+
+    <string-array name="key_spinner_search">
+        <item>C</item>
+        <item>G</item>
+        <item>D</item>
+        <item>A</item>
+        <item>E</item>
+        <item>B</item>
+        <item>F#</item>
+        <item>C#</item>
+        <item>F</item>
+        <item>Bb</item>
+        <item>Eb</item>
+        <item>Ab</item>
+        <item>Db</item>
+        <item>Gb</item>
+        <item>Cb</item>
+    </string-array>
+
+    <string name="title_activity_game">Transposition Trainer</string>
+
+    <string name="title_activity_faq">Preguntas Frecuentes</string>
+
+    <string name="faqText">
+ <![CDATA[
+<h1>Preguntas Frecuentes(FAQ)</h1>
+<p> <h2><b>1-¿Cuál es el principal objetivo de Transposition Trainer?</b></h2>
+ <p>Mucho estudiantes de música, intérpretes e improvisadores tienen problemas trasponiendo en tiempo real y calculando el grado de cualquier escala y tónica.
+ Esta aplicación fue diseñada para mejorar esa habilidad.</p>
+ <p> Luego de usarla por un tiempo te sentirás mas cómodo tocando con otros músicos debido a la habilidad para pensar las progresiones y las notas en términos de grados.
+  Esa es la forma mas rápida y eficiente de trasponer en tiempo real.</p></p>
+
+<p><h2><b>2- ¿Qué ejercicios de transposición puedo practicar con esta aplicación?</b></h2>
+ Esta aplicación te va a permitir ponerte a prueba mediante un quiz de número de grados de acordes o notas(dependiendo si elegiste quiz de notas o de acordes) permitiendote seleccionar en la barra superior en el menú de preferencias en la pantalla del menú principal:
+ <p>a)Tonalidad: Una tonalidad en particular o jugar en modo aleatorio(Random) para un mayor desafío</p>
+ <p>b)Escala: Si elegiste una tonalidad en particular puedes elegir una escala en particular entre: escala mayor, escala menor natural, menor armónica o menor melódica</p>
+ <p>c)Acordes: Si las preguntas de acordes incluyen séptimas o si son sin séptimas(sólo para quiz de acordes)</p>
+ <p>d)Dificultad: Válida si se selecciona modo Random en la opción de tonalidad, el modo FÁCIL(easy) te interrogará acerca de acordes y notas(dependiendo de si el quiz es de acordes o de notas) de la escala mayor, el modo NORMAL lo hará incluyendo acordes y notas de la escala mayor y la escala menor natural, y el modo DIFICIL(hard) te interrogará acerca de acordes y notas de la escala mayor, la escala menor natural, la escala menor armónica y la escala menor melódica. </p>
+
+  <p>La combinación de todos estos parámetros te dará muchísimas posibilidades para que practiques con distintos niveles de dificultad e ir mejorando paso a paso. Para practicar notas, en el menú principal ingresar a  \'Quiz de Notas\'.
+
+ Si quieres practicar acordes ingresa al modo de juego \'Quiz de Acordes\'.</p>
+
+ </p>
+
+<p><h2><b>3-¿Cómo puedo empezar usando la aplicación de acuerdo a mi nivel de habilidad?</b></h2>
+
+La mejor forma es practicar por etapas:<br>
+
+<h6>a)Primera etapa:</h6> Si eres totalmente nuevo se recomienda la siguiente configuración:<br><br>
+
+
+-Modo fácil(easy)(la aplicación sólo te interrogará acerca de la escala mayor)<br><br>
+-Elige una escala en particular en la opción tonalidad, como por ejemplo C, G or D<br><br>
+-Setea el tiempo de respuesta a 60 segundos <br><br>
+-Si quieres jugar el Quiz de acordes en la opción de acordes selecciona sin 7mas(Without 7ths). <br><br>
+
+
+<h6>b)Segunda etapa:</h6> Una vez que te sientas cómodo en la primer etapa, utiliza la siguiente configuración:<br><br>
+
+
+-Modo fácil(easy)(la aplicación sólo te interrogará acerca de la escala mayor)<br><br>
+-Selecciona el modo Random en la opción tonalidad(la aplicación te interrogará acerca de acordes o notas en cualquier tonalidad) <br><br>
+-Setea el tiempo de respuesta a 60 segundos <br><br>
+-Si quieres jugar el Quiz de acordes en la opción de acordes selecciona sin 7mas(Without 7ths). <br><br>
+
+
+<h6>c)tercera etapa:</h6> Luego de pasar un tiempo prcaticando con la configuración de la segunda etapa, puedes probar bajando el tiempo de respuesta. Una configuración recomendada para esta etapa podría ser algo como:<br><br>
+
+
+-Modo fácil(easy)(la aplicación sólo te interrogará acerca de la escala mayor)<br><br>
+-Selecciona el modo Random en la opción tonalidad(la aplicación te interrogará acerca de acordes o notas en cualquier tonalidad) <br><br>
+-Setea el tiempo de respuesta de 20 a 30 segundos <br><br>
+-Si quieres jugar el Quiz de acordes en la opción de acordes selecciona con 7mas(si quieres utilizar esta opción considera volver a subir el tiempo de respuesta a 60 segundos para acostumbrarte a las 7mas en el quiz de acordes). <br><br>
+
+
+<h6>d)Cuarta etapa:</h6> Estás preparado para practicar con la escala menor natural. Sólo sigue los mismos pasos que seguiste con la escala mayor.<br>
+Empieza con una tonalidad específica. Luego elige modo Random en la opción tonalidad y configura el nivel de dificultad en Normal para ser interrogado acerca de acordes o notas de la escala mayor Y la escala menor natural.
+Experimenta con distintos tiempos de respuesta para mejorar más y más tu habilidad de trasposición .<br><br>
+
+<h6>e)Quinta etapa:</h6> Finalmente, practica con la escala menor armónica y la escala menor melódica. Procede de la misma forma que en la etapa cuatro.
+Practica cada escala individualmente y luego usa el modo Random en la opción de tonalidad y configura el nivel de dificultad a DIFICIL(hard) para ser interrogado acerca de notas o acordes aleatorios de ya sea la escala mayor, menor natural, menor armónica o menor melódica.</p>
+
+<p> <h2><b>4-¿Cuánto tiempo me llevará mejorar la habilidad de trasponer utilizando solo mi cabeza?</b></h2>
+
+ Si utilizas el programa progresivo que te proponemos notaras grandes mejoras el primer mes de uso. Luego de meses de uso te sentiras mucho mas cómodo en una situación real. Dominar la trasposición lleva mucha práctica pero sin duda gracias a esta aplicación podras llegar a tu objetivo mucho mas rápido que con otros métodos. </p>
+
+
+ <p><h2><b> 5-¿Necesitas mas ayuda?</b></h2>
+
+  Haznos saber cualquier sugerencia o duda adicional acerca de la aplicación a <b>j4ftech@gmail.com</b> o ingresa a nuestro facebook ingresando a <b>https://www.facebook.com/transpositiontrainer</b> o presionando en el link de abajo.</p>
+
+<p><small> **Agradecimientos por la música del juego a Ben Sound</small></p>
+
+]]>
+</string>
+    <string name="difficultyTextSettings">Dificultad:</string>
+    <string name="answerTimeSettingsText">Tiempo respuesta:</string>
+    <string name="keySettingsText">Tonalidad:</string>
+    <string name="scaleSettingsText">Escala:</string>
+    <string name="gameTimeTextSettings">Tiempo de juego:</string>
+    <string name="musicTextSettings">Música:</string>
+    <string name="soundTextSettings">Sonidos:</string>
+
+<string name="facebook"><a href="https://www.facebook.com/transpositiontrainer">https://www.facebook.com/transpositiontrainer</a></string>
+    <string name="text_studyroom">Ingresa la tonalidad,la escala y si quieres buscar los acordes con o sin 7mas y estudia sus notas y acordes</string>
+
+    <string-array name="key_spinner_search_7ths">
+        <item>7ths</item>
+        <item>No 7ths</item>
+    </string-array>
+
+    <string name="search7thstext">Acordes con 7ths?</string>
+
+</resources>

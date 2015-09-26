@@ -4,8 +4,10 @@ import android.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -19,6 +21,12 @@ public class Faq extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        TextView t2 = (TextView) findViewById(R.id.imageButton);
+        t2.setMovementMethod(LinkMovementMethod.getInstance());
+
+
 
         textFaq=(TextView) findViewById(R.id.faqtextTextView);
 
@@ -66,4 +74,6 @@ public class Faq extends ActionBarActivity {
         pauseMenuItem.setVisible(false);
 
     }
+
+
 }

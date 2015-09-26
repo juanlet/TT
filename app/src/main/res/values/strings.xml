@@ -34,6 +34,7 @@
         <item>2 minutes</item>
         <item>5 minutes</item>
         <item>10 minutes</item>
+        <item>20 minutes</item>
     </string-array>
 
     <string-array name="game_difficulty">
@@ -112,52 +113,61 @@
     <string name="faqText">
  <![CDATA[
 <h1>Frequently Asked Questions(FAQ)</h1>
-<p> <h2><b>1-¿What\'s the main goal of Trasposition Trainer?</b></h2>
+<p> <h2><b>1-¿What\'s the main goal of Transposition Trainer?</b></h2>
  <p>Most music students and performers struggle with trasposing in real time and calculating a specific degree of any scale and root.
  This app was design to accelerate your dexterity on calcultating degrees and notes from the different tonalities and scales.</p>
  <p> After doing it for a while you\'ll start to feel much more comfortable playing due to your capability of understanding progressions in terms of degrees.
   That is the fastest and most efficient way of trasposing.</p></p>
 
-<p><h2><b>2- ¿What can I practice with this app?</b></h2>
- You can practice either notes or chords of a particular or random key. To practice notes just enter \'Notes quiz\' on the main menu.
- If you want to practice chords pick \'Chord quiz\'.</p>
+<p><h2><b>2- ¿Which aspects of transposition can I practice with this app?</b></h2>
+ This app will interrogate you about notes and chord degrees(depending on whether you are playing the notes quiz or the chord quiz) letting you configure the following settings on the settings menu on the upper bar of the main menu:
+ <p>a)Key: You can choose a specific key to work with or play in Random mode for a greater challenge</p>
+ <p>b)Scale: If you picked a specific key you can pick a specific scale between: major scale, natural minor scale, harmonic minor or melodic minor</p>
+ <p>c)Chords: Whether if chord questions include 7ths or not(only for chord quiz)</p>
+ <p>d)Difficulty: Only will play a role if you pick Random in the key option,  easy will interrogate you on notes or chords of major scale(depending the type of quiz), Normal mode will include Major AND Natural Minor Scale,and HARD mode will interrogate you on notes or chords of the Major Scale, Natural Minor Scale, Harmonic Minor Scale or Melodic Minor Scale. </p>
+
+  <p>Para practicar notas, en el menú principal ingresar a  \'Quiz de Notas\'.
+
+ Si quieres practicar acordes ingresa al modo de juego \'Quiz de Acordes\'.</p>
+
+ </p>
 
 <p><h2><b>3-¿How do I start using the app according to my level?</b></h2>
 
 The idea is to practice by stages:<br>
 
-<h6>a)First stage:</h6> If you are totally new to trasposition you could start with the following set up:<br>
+<h6>a)First stage:</h6> If you are totally new to trasposition you could start with the following set up:<br><br>
 
 
--Easy mode(the app will quiz you just about major scale)<br>
--Pick a specific key in the key dropdown list, like C, G or D for example<br>
--Set the answer time to 1 minute <br>
--If you are on chord mode pick the option with no 7ths. <br>
+-Easy mode(the app will quiz you just about major scale)<br><br>
+-Pick a specific key in the key dropdown list, like C, G or D for example<br><br>
+-Set the answer time to 1 minute <br><br>
+-If you are on chord mode pick the option with no 7ths. <br><br>
 
 
-<h6>b)Second stage:</h6> Once you feel comfortable on the first stage, use the following set up:<br>
+<h6>b)Second stage:</h6> Once you feel comfortable on the first stage, use the following set up:<br><br>
 
 
--Easy mode(the app will quiz you just about major scale) <br>
--Use the random option in the key dropdown list(the app will quiz you about any root) <br>
--Set the answer time to 1 minute <br>
--If you are on chord mode pick the option with no 7ths. <br>
+-Easy mode(the app will quiz you just about major scale) <br><br>
+-Use the random option in the key dropdown list(the app will quiz you about any root) <br><br>
+-Set the answer time to 1 minute <br><br>
+-If you are on chord mode pick the option with no 7ths. <br><br>
 
 
-<h6>c)Third stage:</h6> After spending some time with stage two is recommended to try to reduce the answer time. A set up according to this stage could be like this:<br>
+<h6>c)Third stage:</h6> After spending some time with stage two is recommended to try to reduce the answer time. A set up according to this stage could be like this:<br><br>
 
 
--Easy mode(the app will quiz you just about major scale)<br>
--Use the random option in the key dropdown list(the app will quiz you about any root)<br>
--Set the answer time to 20 or 30 seconds.<br>
--If you are on chord mode pick the option with 7ths(if you use this option consider increasing answering time to 1 minute to get used to 7ths).<br>
+-Easy mode(the app will quiz you just about major scale)<br><br>
+-Use the random option in the key dropdown list(the app will quiz you about any root)<br><br>
+-Set the answer time to 20 or 30 seconds.<br><br>
+-If you are on chord mode pick the option with 7ths(if you use this option consider increasing answering time to 1 minute to get used to 7ths).<br><br>
 
 
-<h6>d)Fourth stage:</h6> You are ready to practice with Natural Minor scale. Just follow the same steps of difficulty that you did with major scale.
+<h6>d)Fourth stage:</h6> You are ready to practice with Natural Minor scale. Just follow the same steps of difficulty that you did with major scale.<br>
 Start with a specific key. Then pick random mode and set the difficulty level to medium to be quizzed  about major AND natural minor scale chords and notes.
 Play with different answer times to improve more and more your dexterity on trasposition.<br>
 
-<h6>e)Fifth stage:</h6> Finally, practice with the Harmonic Minor and Melodic Minor scale. Do the same as in stage four.
+<h6>e)Fifth stage:</h6> Finally, practice with the Harmonic Minor and Melodic Minor scale. Do the same as in stage four.<br>
 Practice each scale individually and then use Random mode and Hard mode to be quizzed about notes/chords on random roots on either Major Scale, Natural Minor Scale,
 Harmonic Minor Scale and Melodic Minor Scale.</p>
 
@@ -169,7 +179,7 @@ Harmonic Minor Scale and Melodic Minor Scale.</p>
 
  <p><h2><b> 5-¿Need further assistance?</b></h2>
 
-  Let us know about any additional question or suggestion to <b>j4ftech@gmail.com</b>.</p>
+  Let us know about any additional question or suggestion to <b>j4ftech@gmail.com</b> or enter our facebook through <b>https://www.facebook.com/transpositiontrainer</b> or by pressing the link below.</p>
 
 <p><small> **Special thanks for the game soundtrack to Ben Sound</small></p>
 
@@ -185,6 +195,17 @@ Harmonic Minor Scale and Melodic Minor Scale.</p>
     <string name="faqActivityTitle">FAQ</string>
     <string name="studyNotesActivityTitle">Study Notes</string>
     <string name="studyChordsActivityTitle">Study Chords</string>
+    <string name="settingsSavedMsg">"Settings Saved "</string>
+    <string name="cancelSettingsFragmText">CANCEL</string>
+
+    <string name="facebook"><a href="https://www.facebook.com/transpositiontrainer">https://www.facebook.com/transpositiontrainer</a></string>
+    <string name="text_studyroom">Enter the key, scale and whether you want to search the chords with 7ths or not and study it\'s chords and notes</string>
+    <string name="search7thstext">Chords with 7ths?</string>
+
+    <string-array name="key_spinner_search_7ths">
+        <item>7ths</item>
+        <item>No 7ths</item>
+    </string-array>
 
 
 </resources>
