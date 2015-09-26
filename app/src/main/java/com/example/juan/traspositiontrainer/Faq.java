@@ -18,6 +18,8 @@ public class Faq extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         textFaq=(TextView) findViewById(R.id.faqtextTextView);
 
         textFaq.setText(Html.fromHtml(getString(R.string.faqText)));

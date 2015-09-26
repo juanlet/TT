@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/gameCountDown"
-        android:textSize="15dp"
+        android:textSize="23dp"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
@@ -27,13 +27,14 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="20dp"/>
 
     <ProgressBar
         android:id="@+id/barTimer"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="120dp"
-        android:layout_height="131dp"
+        android:layout_width="163dp"
+        android:layout_height="180dp"
         android:indeterminate="false"
         android:indeterminateOnly="false"
         android:max="100"
@@ -56,7 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/answerCountdown"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="75dp"
         android:layout_below="@+id/gameCountDown"
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
@@ -65,7 +66,8 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="21dp"/>
 
     <TextView
         android:layout_below="@+id/answerCountdown"
@@ -74,10 +76,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/question_TextView"
-        android:layout_marginTop="72dp"
         android:layout_gravity="center_horizontal"
-        android:textSize="20dp"
-        android:layout_marginBottom="22dp"
+        android:textSize="35dp"
+
+       android:paddingTop="100dp"
+      android:paddingBottom="50dp"
 
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
@@ -143,36 +146,37 @@
         android:id="@+id/game_paused_textview"
         android:layout_gravity="center_horizontal"
         android:background="#4F4277"
-        android:textSize="25dp"/>
+        android:textSize="40dp"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="70dp"
         android:id="@+id/start_game_button"
         android:onClick="startGame"
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/startgamebutton" />
+        android:background="@drawable/startgamebutton"
+        />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="70dp"
         android:id="@+id/restart_game_button"
         android:layout_gravity="center_horizontal"
         android:onClick="restartGame"
         android:background="@drawable/restartgamebuttonselector"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="70dp"
         android:id="@+id/back_to_menu_button"
         android:layout_gravity="center_horizontal"
         android:onClick="backtoMenu"
         android:background="@drawable/backtomenuselector"/>
 
     <Button
-        android:layout_width="132dp"
-        android:layout_height="44dp"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
         android:id="@+id/answerButton"
         android:onClick="checkAnswer"
         android:background="@drawable/answerbuttonselector"
@@ -183,7 +187,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:paddingTop="40px"
+        android:paddingTop="140px"
         >
 
         <NumberPicker
@@ -191,24 +195,23 @@
             android:layout_height="wrap_content"
             android:id="@+id/rootPicker"
             android:layout_gravity="center_horizontal"
-            android:scaleX="1.1"
-            android:scaleY="1.2"
+            android:scaleX="1.4"
+            android:scaleY="1.6"
             />
 
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/alterationPicker"
-            android:layout_gravity="center_horizontal|right"
-            android:scaleX="1.1"
-            android:scaleY="1.2"/>
+            android:scaleX="1.4"
+            android:scaleY="1.6"/>
 
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chordTypePicker"
-            android:scaleX="1.1"
-            android:scaleY="1.2"/>
+            android:scaleX="1.4"
+            android:scaleY="1.6"/>
 
     </LinearLayout>
 

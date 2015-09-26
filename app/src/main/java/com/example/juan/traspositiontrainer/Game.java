@@ -53,7 +53,7 @@ private ArrayList<MusicSQLRow> quizList;
     KeyManager db;
     NumberPicker rootPicker,alterationPicker, chordTypePicker;
     String currentAnswer, chordType, currentNote, answerTimePref;
-    String[] roots = {"A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"}, chordTypesWith7ths={"maj7", "m7", "7", "m7b5", "-maj7", "maj7+", "dim7"}, chordTypesWithout7ths={"Major", "Minor", "Diminished"};
+    String[] roots = {"A","B","C","D","E","F","G"} ,alterations = {" ","#","♭","##","♭♭"}, chordTypesWith7ths={"maj7", "m7", "7", "m7b5", "-maj7", "maj7+", "dim7"}, chordTypesWithout7ths={"Major", "Minor", "dim"};
     String[][]  enharmonicEquals={ {"B#","C","Dbb"},
                                         {"B##","C#","Db"},
                                         {"C##","D","Ebb"},

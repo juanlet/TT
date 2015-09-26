@@ -201,27 +201,14 @@ private static SoundPool mySounds;
     }
 
 
-    public void goToStudyNotes(View view) {
+    public void goToStudyRoom(View view) {
 
 
         reproduceSound();
 
 
         // Do something in response to button
-        Intent intent = new Intent(this, StudyNotes.class);
-
-        startActivity(intent);
-
-    }
-
-    public void goToStudyChords(View view) {
-
-
-        reproduceSound();
-
-
-        // Do something in response to button
-        Intent intent = new Intent(this, StudyChords.class);
+        Intent intent = new Intent(this, StudyRoom.class);
 
         startActivity(intent);
 

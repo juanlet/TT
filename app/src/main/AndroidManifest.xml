@@ -33,13 +33,9 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".StudyNotes"
+            android:name=".StudyRoom"
             android:label="@string/studyNotesActivityTitle"
             android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".StudyChords"
-            android:label="@string/studyChordsActivityTitle" >
         </activity>
     </application>
 

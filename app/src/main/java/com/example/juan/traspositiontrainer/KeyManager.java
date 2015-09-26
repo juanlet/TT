@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class KeyManager extends SQLiteAssetHelper {
 
-    private static final String DATABASE_NAME = "Transp";
+    private static final String DATABASE_NAME = "Tran";
     private static final int DATABASE_VERSION = 1;
     SQLiteDatabase db = getWritableDatabase();
     SharedPreferences pref;
@@ -55,6 +55,7 @@ public class KeyManager extends SQLiteAssetHelper {
 
 
 //returns notes
+//getNotes for the game
 public ArrayList<MusicSQLRow> getNotes(){
 
     Cursor notes=null;
@@ -83,6 +84,25 @@ public ArrayList<MusicSQLRow> getNotes(){
     notes.close();
     return result;
 }
+
+    //getNotes for the Study Room
+
+    public ArrayList<MusicSQLRow> getNotes(String keySearch, String scaleSearch){
+
+        Cursor notes=null;
+        ArrayList<MusicSQLRow> result;
+
+
+            notes = db.rawQuery("Select sd.description scale_description,k.degree degree,kd.description key_description,nd.description note_description" +
+                    " from keys k, keys_description kd, note_description nd, scales_description sd" +
+                    " where k.id_key=kd.id_key and k.id_note=nd.id_note and k.id_scale=sd.id_scale and sd.description='"+scaleSearch+"'" +
+                    " and kd.description='"+keySearch+"'", null);
+
+            result=this.buildArrayListQuizNotes(notes);
+
+        notes.close();
+        return result;
+    }
 
     //build the ArrayList to return to the client Class Game
     private ArrayList<MusicSQLRow> buildArrayListQuizNotes(Cursor notes) {
@@ -150,6 +170,30 @@ public ArrayList<MusicSQLRow> getNotes(){
 
             result=this.buildArrayListQuizChords(chords);
         }
+
+        chords.close();
+        return result;
+    }
+
+    public ArrayList<MusicSQLRow> getChords(String keySearch, String scaleSearch ){
+        Cursor chords=null;
+        ArrayList<MusicSQLRow> result;
+
+
+            chords = db.rawQuery("Select sd.description scale_description,k.degree degree,kd.description key_description,nd.description note_description,  " +
+                    "ctwo7.description chordTypeWithout7, ctw7.symbol chordSymbol "+
+                    "from keys k "+
+                    "left join keys_description kd on  k.id_key=kd.id_key "+
+                    "left join note_description nd on  k.id_note=nd.id_note "+
+                    "left join scales_description sd on  k.id_scale=sd.id_scale "+
+                    "left join  scale_degree_chord_types sdct on k.id_scale=sdct.id_scale and k.degree=sdct.degree "+
+                    "left join  chord_types_with_7th ctw7 on sdct.id_chord_type_with_7=ctw7.id_chord_type "+
+                    "left join  chord_types_without_7th ctwo7 on sdct.id_chord_type_without_7=ctwo7.id_chord_type "+
+                    " where " +
+                    " sd.description='"+scaleSearch+"' " +
+                    " and kd.description='"+keySearch+"'", null);
+
+            result=this.buildArrayListQuizChords(chords);
 
         chords.close();
         return result;

@@ -82,6 +82,25 @@
         <item>Gb</item>
         <item>Cb</item>
      </string-array>
+
+    <string-array name="key_spinner_search">
+        <item>C</item>
+        <item>G</item>
+        <item>D</item>
+        <item>A</item>
+        <item>E</item>
+        <item>B</item>
+        <item>F#</item>
+        <item>C#</item>
+        <item>F</item>
+        <item>Bb</item>
+        <item>Eb</item>
+        <item>Ab</item>
+        <item>Db</item>
+        <item>Gb</item>
+        <item>Cb</item>
+    </string-array>
+
     <string name="title_activity_game">Transposition Trainer</string>
 
     <string name="hello_world">Hello world!</string>
@@ -150,7 +169,7 @@ Harmonic Minor Scale and Melodic Minor Scale.</p>
 
  <p><h2><b> 5-¿Need further assistance?</b></h2>
 
-  Let us know about any additional question or suggestion to <b>webcodingx@gmail.com</b>.</p>
+  Let us know about any additional question or suggestion to <b>j4ftech@gmail.com</b>.</p>
 
 <p><small> **Special thanks for the game soundtrack to Ben Sound</small></p>
 
