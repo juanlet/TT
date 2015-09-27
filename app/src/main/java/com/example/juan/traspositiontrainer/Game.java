@@ -2,6 +2,7 @@ package com.example.juan.traspositiontrainer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -79,7 +80,7 @@ private ArrayList<MusicSQLRow> quizList;
     MediaPlayer gameSong;
     ProgressBar barTimer;
     Toast toast;
-    String appLanguage;
+    String appLanguage, screenSize;
 
 
 
@@ -93,6 +94,7 @@ private ArrayList<MusicSQLRow> quizList;
         toast = Toast.makeText(Game.this, "", Toast.LENGTH_LONG);
         currentAnswerWithoutSpaces=null;
         appLanguage=Locale.getDefault().getLanguage();
+        screenSize=null;
 
 
         //if the random repeats the number of the 3 last questions it will generate another one until the number is not in the array
@@ -315,11 +317,38 @@ private ArrayList<MusicSQLRow> quizList;
         View view = toast.getView();
         view.setBackgroundColor(Color.argb(00,79,66,119));
         TextView messageToast = (TextView) toast.getView().findViewById(android.R.id.message);
-        if(intentExtras.equals("chord_quiz"))
-            messageToast.setTextSize(18f);
-        else
-        messageToast.setTextSize(20f);
+        if(intentExtras.equals("chord_quiz")) {
+            switch (screenSize) {
+                case "Normal sized screen":  messageToast.setTextSize(20f);
+                    break;
+                case "Large screen":  messageToast.setTextSize(30f);
+                    break;
+                case "XLarge sized screen":  messageToast.setTextSize(45f);
+                    break;
+                case "Small sized screen":  messageToast.setTextSize(17f);
+                    break;
+                default: messageToast.setTextSize(20f);
+                    break;
 
+            }
+
+        }else {
+
+            switch (screenSize) {
+                case "Normal sized screen":  messageToast.setTextSize(20f);
+                    break;
+                case "Large screen":  messageToast.setTextSize(30f);
+                    break;
+                case "XLarge sized screen":  messageToast.setTextSize(45f);
+                    break;
+                case "Small sized screen":  messageToast.setTextSize(17f);
+                    break;
+                default: messageToast.setTextSize(20f);
+                    break;
+
+            }
+
+        }
 
         if(message.equals("Correct") || message.equals("Enharmonically Correct") || message.equals("Respuesta Correcta") || message.equals("Enarmónicamente correcta") ){
 
@@ -437,13 +466,27 @@ sound=sound;
 //this is the method that triggers when the user pushes the Start Game Button
     public void startGame(View view){
 
-
+        getScreenSize();
         reproduceSound("ButtonClick");
         showEverythingBeginning();
         startGameTimer(gameTime);
         startAnswerTimer(answerTime);
 
        reproduceMusic();
+    }
+
+    private void getScreenSize(){
+        if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            screenSize="Large screen";
+        } else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+           screenSize="Normal sized screen";
+        } else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+            screenSize="Small sized screen";
+        } else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+           screenSize="XLarge sized screen";
+        } else {
+           screenSize="Screen size is neither large, normal or small";
+        }
     }
 
 
