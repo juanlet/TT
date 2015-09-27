@@ -102,52 +102,61 @@
         android:layout_gravity="center_horizontal">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Right answers:"
                 android:id="@+id/right_answers_text"
-                android:layout_gravity="center_horizontal" />
+                android:gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:textSize="45dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/right_answers_number" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Wrong answers:"
-                android:id="@+id/wrong_answers_text"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/wrong_answers_number" />
+                android:id="@+id/right_answers_number"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:textSize="45dp" />
         </LinearLayout>
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:gravity="center_horizontal">
 
-    <Button
-        android:layout_width="321dp"
-        android:layout_height="100dp"
-        android:id="@+id/start_game_button"
-        android:onClick="startGame"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/startgamebutton"
-        android:layout_marginTop="450dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Wrong answers:"
+            android:id="@+id/wrong_answers_text"
+            android:gravity="center_horizontal"
+            android:layout_weight="0.5"
+            android:textSize="45dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center_horizontal"
+            android:id="@+id/wrong_answers_number"
+            android:layout_weight="0.5"
+            android:textSize="45dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
 
     <Button
         android:layout_width="321dp"
@@ -172,6 +181,17 @@
         android:onClick="checkAnswer"
         android:background="@drawable/answerbuttonselector"
         android:layout_gravity="center_horizontal|top" />
+        </LinearLayout>
+
+    <Button
+        android:layout_width="321dp"
+        android:layout_height="100dp"
+        android:id="@+id/start_game_button"
+        android:onClick="startGame"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/startgamebutton"
+        android:layout_marginTop="450dp"/>
 
     <LinearLayout
         android:orientation="horizontal"

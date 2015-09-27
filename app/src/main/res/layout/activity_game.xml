@@ -13,6 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,32 +92,43 @@
 </RelativeLayout>
 
 
+    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                                        <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:weightSum="1">
+
+                                        <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="?android:attr/textAppearanceLarge"
+                                        android:text="Right answers:"
+                                        android:id="@+id/right_answers_text"
+                                        android:gravity="center_horizontal"
+                                        android:layout_weight="0.5"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="?android:attr/textAppearanceLarge"
+                                            android:id="@+id/right_answers_number"
+                                            android:gravity="center_horizontal"
+                                            android:layout_weight="0.5" />
+                        </LinearLayout>
+
+
+    </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Right answers:"
-            android:id="@+id/right_answers_text"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/right_answers_number" />
-</LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,51 +136,59 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Wrong answers:"
             android:id="@+id/wrong_answers_text"
-            android:layout_gravity="center_horizontal" />
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/wrong_answers_number" />
-            </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/wrong_answers_number"
+        android:layout_weight="0.5"
+        android:gravity="center_horizontal"/>
     </LinearLayout>
 
 
-
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/start_game_button"
-        android:onClick="startGame"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/startgamebutton"
-        android:layout_marginTop="180dp"/>
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/restart_game_button"
+            android:layout_gravity="center_horizontal"
+            android:onClick="restartGame"
+            android:background="@drawable/restartgamebuttonselector"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_to_menu_button"
+            android:layout_gravity="center_horizontal"
+            android:onClick="backtoMenu"
+            android:background="@drawable/backtomenuselector"/>
+
+        <Button
+            android:layout_width="132dp"
+            android:layout_height="44dp"
+            android:id="@+id/answerButton"
+            android:onClick="checkAnswer"
+            android:background="@drawable/answerbuttonselector"
+            android:layout_gravity="center_horizontal|top" />
+    </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/restart_game_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="restartGame"
-        android:background="@drawable/restartgamebuttonselector"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/back_to_menu_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="backtoMenu"
-        android:background="@drawable/backtomenuselector"/>
-
-    <Button
-        android:layout_width="132dp"
-        android:layout_height="44dp"
-        android:id="@+id/answerButton"
-        android:onClick="checkAnswer"
-        android:background="@drawable/answerbuttonselector"
-        android:layout_gravity="center_horizontal|top" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/start_game_button"
+                    android:onClick="startGame"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/startgamebutton"
+                    android:layout_marginTop="180dp"/>
 
     <LinearLayout
         android:orientation="horizontal"
