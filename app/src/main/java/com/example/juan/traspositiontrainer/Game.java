@@ -73,14 +73,13 @@ private ArrayList<MusicSQLRow> quizList;
 
      private SoundPool mySounds;
     private MediaStore.Audio.Media player;
-    ImageView bandImage;
-
     //sound ids
 
     int correctAnswerID,incorrectAnswerID,buttonClickID;
     MediaPlayer gameSong;
     ProgressBar barTimer;
     Toast toast;
+    String appLanguage;
 
 
 
@@ -93,7 +92,7 @@ private ArrayList<MusicSQLRow> quizList;
         pref= this.getSharedPreferences("Mypref", 0);
         toast = Toast.makeText(Game.this, "", Toast.LENGTH_LONG);
         currentAnswerWithoutSpaces=null;
-
+        appLanguage=Locale.getDefault().getLanguage();
 
 
         //if the random repeats the number of the 3 last questions it will generate another one until the number is not in the array
@@ -145,7 +144,7 @@ private ArrayList<MusicSQLRow> quizList;
         gameTime=this.getMinutesInMilliseconds(gameTimePref);
         answerTime=this.getSecondsInMilliseconds(answerTimePref);
 
-        bandImage=(ImageView) findViewById(R.id.band_image);
+
         gameCountDown=(TextView) findViewById(R.id.gameCountDown);
         answerCountDown= (TextView) findViewById(R.id.answerCountdown);
         barTimer=(ProgressBar) findViewById(R.id.barTimer);
@@ -286,7 +285,7 @@ private ArrayList<MusicSQLRow> quizList;
             incorrectAnswers+=1;
 
             reproduceSound("Incorrect");
-            showToast("Incorrect...Right Answer: "+ currentAnswerWithoutSpaces);
+            showToast("Incorrect...Answer: "+ currentAnswerWithoutSpaces);
             answerTimer.cancel();
             startAnswerTimer(answerTime);
 
@@ -299,6 +298,19 @@ private ArrayList<MusicSQLRow> quizList;
        /* Toast toast= Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();*/
+
+        if(!appLanguage.equals("en")) {
+            if (message.contains("Incorrect")){
+
+                message=message.replace("Incorrect...Answer: ","Incorrecto...Respuesta: ");
+
+            }else if(message.equals("Correct")){
+                message="Respuesta Correcta";
+            }else if(message.equals("Enharmonically Correct")){
+                message="Enarmónicamente correcta";
+            }
+        }
+
         toast.setText(message);
         View view = toast.getView();
         view.setBackgroundColor(Color.argb(00,79,66,119));
@@ -309,7 +321,7 @@ private ArrayList<MusicSQLRow> quizList;
         messageToast.setTextSize(20f);
 
 
-        if(message.equals("Correct") || message.equals("Enharmonically Correct")){
+        if(message.equals("Correct") || message.equals("Enharmonically Correct") || message.equals("Respuesta Correcta") || message.equals("Enarmónicamente correcta") ){
 
             messageToast.setTextColor(Color.GREEN);
         }
@@ -625,7 +637,7 @@ sound=sound;
 //this is just for notes, change word note for chord in chord game
         String degreeNumber;
 
-       if(Locale.getDefault().getLanguage().equals("en"))
+       if(appLanguage.equals("en"))
        {
         switch (question.getDegreeNumber()) {
             case "1":  degreeNumber = "1st";
@@ -889,7 +901,6 @@ sound=sound;
         wrong_answer_text.setVisibility(View.GONE);
         wrong_answer_number.setVisibility(View.GONE);
         barTimer.setVisibility(View.GONE);
-        bandImage.setVisibility(View.VISIBLE);
 
     }
 
@@ -910,7 +921,6 @@ sound=sound;
         rootPicker.setVisibility(View.VISIBLE);
         alterationPicker.setVisibility(View.VISIBLE);
         barTimer.setVisibility(View.VISIBLE);
-        bandImage.setVisibility(View.GONE);
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.VISIBLE);
@@ -954,7 +964,6 @@ sound=sound;
         rootPicker.setVisibility(View.VISIBLE);
         alterationPicker.setVisibility(View.VISIBLE);
         barTimer.setVisibility(View.VISIBLE);
-        bandImage.setVisibility(View.GONE);
 
         if(intentExtras.equals("chord_quiz"))
             chordTypePicker.setVisibility(View.VISIBLE);
@@ -981,7 +990,6 @@ sound=sound;
         startGameButton.setVisibility(View.GONE);
         answerButton.setVisibility(View.GONE);
         barTimer.setVisibility(View.GONE);
-        bandImage.setVisibility(View.GONE);
 
         right_answers_text.setVisibility(View.VISIBLE);
         right_answers_number.setVisibility(View.VISIBLE);

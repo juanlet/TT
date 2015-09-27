@@ -138,15 +138,6 @@
     </LinearLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="GAME PAUSED"
-        android:id="@+id/game_paused_textview"
-        android:layout_gravity="center_horizontal"
-        android:background="#4F4277"
-        android:textSize="55dp"/>
 
     <Button
         android:layout_width="321dp"
@@ -156,7 +147,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/startgamebutton"
-        />
+        android:layout_marginTop="450dp"/>
 
     <Button
         android:layout_width="321dp"
@@ -216,13 +207,18 @@
             android:scaleX="1.5"
             android:scaleY="1.8" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/game_paused_textview"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/gamepaused"
+            android:gravity="center_vertical|center_horizontal|bottom"
+            />
+
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        ></LinearLayout>
 
 </LinearLayout>

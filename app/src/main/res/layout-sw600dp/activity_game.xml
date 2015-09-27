@@ -10,89 +10,91 @@
     >
 
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal">
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/gameCountDown"
-        android:textSize="23dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="20dp"/>
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/gameCountDown"
+            android:textSize="23dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="20dp"/>
 
-    <ProgressBar
-        android:id="@+id/barTimer"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="163dp"
-        android:layout_height="180dp"
-        android:indeterminate="false"
-        android:indeterminateOnly="false"
-        android:max="100"
-        android:progressDrawable="@drawable/circular_progress_bar"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/gameCountDown"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        />
+        <ProgressBar
+            android:id="@+id/barTimer"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="163dp"
+            android:layout_height="180dp"
+            android:indeterminate="false"
+            android:indeterminateOnly="false"
+            android:max="100"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/gameCountDown"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/answerCountdown"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="75dp"
-        android:layout_below="@+id/gameCountDown"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        android:textSize="21dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/answerCountdown"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="75dp"
+            android:layout_below="@+id/gameCountDown"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:textSize="21dp"/>
 
-    <TextView
-        android:layout_below="@+id/answerCountdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/question_TextView"
-        android:layout_gravity="center_horizontal"
-        android:textSize="35dp"
+        <TextView
+            android:layout_below="@+id/answerCountdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/question_TextView"
+            android:layout_gravity="center_horizontal"
+            android:textSize="35dp"
 
-       android:paddingTop="100dp"
-      android:paddingBottom="50dp"
+            android:paddingTop="100dp"
+            android:paddingBottom="50dp"
 
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true" />
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+
 
 
 
@@ -101,53 +103,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Right answers:"
-            android:id="@+id/right_answers_text"
-            android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Right answers:"
+                android:id="@+id/right_answers_text"
+                android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/right_answers_number" />
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/right_answers_number" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Wrong answers:"
-            android:id="@+id/wrong_answers_text"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Wrong answers:"
+                android:id="@+id/wrong_answers_text"
+                android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/wrong_answers_number" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/wrong_answers_number" />
+        </LinearLayout>
     </LinearLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="GAME PAUSED"
-        android:id="@+id/game_paused_textview"
-        android:layout_gravity="center_horizontal"
-        android:background="#4F4277"
-        android:textSize="40dp"/>
+
 
     <Button
         android:layout_width="225dp"
@@ -157,6 +152,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/startgamebutton"
+        android:layout_marginTop="325dp"
         />
 
     <Button
@@ -183,12 +179,13 @@
         android:background="@drawable/answerbuttonselector"
         android:layout_gravity="center_horizontal|top" />
 
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:paddingTop="140px"
+        android:paddingTop="150px"
         >
 
         <NumberPicker
@@ -196,31 +193,38 @@
             android:layout_height="wrap_content"
             android:id="@+id/rootPicker"
             android:layout_gravity="center_horizontal"
-            android:scaleX="1.4"
-            android:scaleY="1.6"
+            android:scaleX="1.5"
+            android:scaleY="1.8"
             />
 
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/alterationPicker"
-            android:scaleX="1.4"
-            android:scaleY="1.6"/>
+            android:layout_gravity="center_horizontal|right"
+            android:scaleX="1.5"
+            android:scaleY="1.8"/>
 
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chordTypePicker"
-            android:scaleX="1.4"
-            android:scaleY="1.6"/>
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:scaleX="1.5"
+            android:scaleY="1.8" />
 
+        <TextView
+            android:layout_width="475dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/game_paused_textview"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/gamepaused"
+            android:gravity="center_vertical|center_horizontal|bottom"
+            />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        ></LinearLayout>
 
 </LinearLayout>
