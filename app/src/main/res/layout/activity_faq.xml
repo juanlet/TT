@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.juan.traspositiontrainer.Faq"
+    tools:context="com.j4ftech.music.transpositiontrainer.Faq"
     android:background="#4F4277">
 
     <ScrollView

@@ -1,4 +1,4 @@
-package com.example.juan.traspositiontrainer;
+package com.j4ftech.music.transpositiontrainer;
 
 import android.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
@@ -7,7 +7,6 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 

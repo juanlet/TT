@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.example.juan.traspositiontrainer"
+        applicationId "com.j4ftech.music.transpositiontrainer"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1

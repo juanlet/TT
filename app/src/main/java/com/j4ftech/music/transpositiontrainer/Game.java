@@ -1,4 +1,4 @@
-package com.example.juan.traspositiontrainer;
+package com.j4ftech.music.transpositiontrainer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;

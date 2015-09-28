@@ -38,32 +38,32 @@
         android:layout_alignParentEnd="true">
 
         <Button
-            android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_width="192dp"
+            android:layout_height="60dp"
             android:background="@drawable/notesbuttonselect"
             android:id="@+id/notes_quiz"
             android:layout_gravity="center_horizontal"
             android:onClick="goToGame" />
 
         <Button
-            android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_width="192dp"
+            android:layout_height="60dp"
             android:id="@+id/chords_quiz"
             android:background="@drawable/chordsbuttonselect"
             android:layout_gravity="center_horizontal"
             android:onClick="goToGame"/>
 
         <Button
-            android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_width="192dp"
+            android:layout_height="60dp"
             android:id="@+id/studyNotes"
             android:background="@drawable/studyroombutton"
             android:layout_gravity="center_horizontal"
             android:onClick="goToStudyRoom"/>
 
         <Button
-            android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_width="192dp"
+            android:layout_height="60dp"
             android:id="@+id/faq"
             android:background="@drawable/faqbuttonselector"
             android:layout_gravity="center_horizontal"

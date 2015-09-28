@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TranspositionTrainer</string>
-    <string name="faq_button">FAQ</string>
     <string name="w7_text">Acordes:</string>
 
 
@@ -96,8 +95,6 @@
 
     <string name="title_activity_game">Transposition Trainer</string>
 
-    <string name="title_activity_faq">Preguntas Frecuentes</string>
-
     <string name="faqText">
  <![CDATA[
 <h1>Preguntas Frecuentes(FAQ)</h1>
@@ -192,6 +189,14 @@ Practica cada escala individualmente y luego usa el modo Random en la opción de
     <string name="degreeHeader">GRADO Nº</string>
     <string name="noteHeader">NOTA</string>
     <string name="chordHeader">ACORDE</string>
+
+    <string name="settingsSavedMsg">"Settings Saved "</string>
+    <string name="cancelSettingsFragmText">CANCEL</string>
+    <string name="faqActivityTitle">FAQ</string>
+    <string name="studyNotesActivityTitle">Study Room</string>
+    <string name="action_exit">actionExit</string>
+    <string name="action_settings">actionSettings</string>
+    <string name="pause_game_text">gamePaused</string>
 
 
 </resources>

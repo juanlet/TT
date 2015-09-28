@@ -1,4 +1,4 @@
-package com.example.juan.traspositiontrainer;
+package com.j4ftech.music.transpositiontrainer;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -23,6 +23,7 @@ private static SoundPool mySounds;
     SharedPreferences.Editor editor;
     String music,sound;
     int buttonClickSoundID;
+    boolean gameIsStarting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ private static SoundPool mySounds;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.activity_main);
         //to make sure if the user turn downs volume is only multimedia volume and not call volume, only if music is set to yes
-
+       gameIsStarting=true;
         introSong=null;
 
         pref= this.getSharedPreferences("Mypref", 0);
@@ -99,15 +100,13 @@ private static SoundPool mySounds;
     @Override
     protected void onPause() {
         super.onPause();
-        killMusic();
-        introSong=null;
-
+            killMusic();
     }
 
     private void killMusic(){
-        if (introSong != null) {//chequear si con chquear que sea null es suficiente o si agrego un boolean para chequear que la música esté corriendo
-
+        if (introSong != null && !gameIsStarting) {//chequear si con chquear que sea null es suficiente o si agrego un boolean para chequear que la música esté corriendo
             introSong.release();
+            introSong=null;
         }
     }
 
@@ -146,6 +145,7 @@ private static SoundPool mySounds;
 
             return true;
         }else if (id== R.id.exit_app){
+           gameIsStarting=false;
             killMusic();
             finish();
             return true;
@@ -174,7 +174,7 @@ private static SoundPool mySounds;
     public void goToGame(View view) {
 
             reproduceSound();
-
+            gameIsStarting=false;
         // Do something in response to button
         Intent intent = new Intent(this, Game.class);
 
@@ -192,7 +192,7 @@ private static SoundPool mySounds;
 
 
             reproduceSound();
-
+        gameIsStarting=false;
 
         Intent intent = new Intent(this, Faq.class);
 
@@ -207,7 +207,7 @@ private static SoundPool mySounds;
 
         reproduceSound();
 
-
+        gameIsStarting=false;
         // Do something in response to button
         Intent intent = new Intent(this, StudyRoom.class);
 

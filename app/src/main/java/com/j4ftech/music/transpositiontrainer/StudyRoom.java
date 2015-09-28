@@ -1,4 +1,4 @@
-package com.example.juan.traspositiontrainer;
+package com.j4ftech.music.transpositiontrainer;
 
 import android.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;

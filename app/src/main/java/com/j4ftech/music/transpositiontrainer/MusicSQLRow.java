@@ -1,4 +1,4 @@
-package com.example.juan.traspositiontrainer;
+package com.j4ftech.music.transpositiontrainer;
 
 /**
  * Created by Juan on 24/07/2015.

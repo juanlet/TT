@@ -59,7 +59,7 @@
             android:layout_width="290dp"
             android:layout_height="90dp"
             android:id="@+id/studyNotes"
-            android:background="@drawable/studyroombutton"
+            android:background="@drawable/studyroomselector"
             android:layout_gravity="center_horizontal"
             android:onClick="goToStudyRoom"/>
 
