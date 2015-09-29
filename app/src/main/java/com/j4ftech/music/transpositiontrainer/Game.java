@@ -491,7 +491,7 @@ sound=sound;
 
     public void startGameTimer(long time){
 
-        gameTimer = new CountDownTimer(time, 500){
+        gameTimer = new CountDownTimer(1500, 500){
 
             @Override public void onTick(long millisUntilFinished) {
                 millisLeftGameBeforePause=millisUntilFinished;
@@ -525,10 +525,15 @@ sound=sound;
 
     public void restartGame(View view){
 
+        killMusic();
+
         this.startGame(view);
     }
 
     public void backtoMenu(View view){
+        killMusic();
+        releaseVariables();
+        destroyTimers();
         finish();
      }
 
