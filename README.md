@@ -24,4 +24,8 @@ Transposition Trainer include:
 
 -Multilanguage app, supports English and Spanish languages depending on your location.
 
-For more information visit our facebook https://www.facebook.com/transpositiontrainer
+Facebook https://www.facebook.com/transpositiontrainer
+
+Download 
+
+https://apk-dl.com/transposition-trainer/com.j4ftech.music.transpositiontrainer
